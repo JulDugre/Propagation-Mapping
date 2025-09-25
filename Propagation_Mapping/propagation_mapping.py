@@ -61,7 +61,7 @@ st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:1
 # --- Display the framework image here ---
 BASE_DIR = Path(__file__).parent
 framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
-st.image(framework_img_path, caption="Propagation Mapping is a new precision framework aiming at reconstructing the neural circuitry that explains the spatial organization of human brain maps.This method assume that regional measures can be best understood as a dot product between activity and functional connectivity.Uploading your NIfTI file will predict the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map,2) the predicted map, and 3) a propagation map, which reflects the circuitry predicting your statistical map, prior to summation", width='stretch')
+st.image(framework_img_path, caption="Propagation Mapping is a new precision framework aiming at reconstructing the neural circuitry that explains the spatial organization of human brain maps.This method assume that regional measures can be best understood as a dot product between activity and functional connectivity.Uploading your NIfTI file will predict the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map, 2) the predicted map, 3) the propagation map, and 4) a residual map", width='stretch')
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
