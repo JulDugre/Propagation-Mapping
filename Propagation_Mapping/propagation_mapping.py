@@ -345,10 +345,13 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
 # ----------------- COL1: HEATMAP -----------------
 col1, col2 = st.columns(2)
 
-def render_heatmap(subject_idx=0):
-    # Use filename from session_state column names
+def render_heatmap(subject_idx=0, labels_info=None):
+    # Check if data exists
+    if not st.session_state.propagation_maps or labels_info is None:
+        st.warning("No propagation maps found or labels missing. Click 'LAUNCH THE ROCKET 🚀' first.")
+        return
+
     filename = st.session_state.masked_df.columns[subject_idx]
-    
     propagation_maps = st.session_state.propagation_maps
     roi_labels = labels_info['Label'].tolist()
 
