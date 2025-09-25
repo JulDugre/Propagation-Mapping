@@ -297,7 +297,7 @@ if st.session_state.get("launch_btn", False):
             st.pyplot(fig)
 
 # ------------------ PLOTTING ------------------
-if st.session_state.get("plot_prop_btn", False) and masked_df is not None and not masked_df.empty and st.session_state.propagation_maps:
+if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df is not None and not st.session_state.masked_df.empty and st.session_state.propagation_maps:
 
     # Create a container for the atlas image
     one, two, three, four, five = st.columns(5)
