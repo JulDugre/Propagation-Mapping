@@ -38,6 +38,12 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
+if "func_df" not in st.session_state:
+    st.session_state.func_df = None
+
+if "struct_df" not in st.session_state:
+    st.session_state.struct_df = None
+
 nii_files = []
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
@@ -138,14 +144,14 @@ if loaded_imgs:
         func_file = func_dir / f"ATLAS_{atlas_choice}_resting_Fz.csv"
         struct_file = struct_dir / f"ATLAS_{atlas_choice}_structural_Fz.csv"
 
-        if os.path.exists(str(func_file)) and os.path.exists(str(struct_file)):
-            func_df = pd.read_csv(func_file, index_col=[0])
+        if os.path.exists(str(func_file)):
+            st.session_state.func_df = pd.read_csv(func_file, index_col=[0])
             st.write(f"Functional connectome shape: {func_df.shape}")
         else:
             st.warning(f"No functional connectome found for {atlas_choice}")
 
-        if os.path.exists(struct_file):
-            struct_df = pd.read_csv(struct_file, index_col=[0])
+        if os.path.exists(str(struct_file)):
+            st.session_state.struct_df = pd.read_csv(struct_file, index_col=[0])
             st.write(f"Structural connectome shape: {struct_df.shape}")
         else:
             st.warning(f"No structural connectome found for {atlas_choice}")
