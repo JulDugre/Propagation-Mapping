@@ -192,7 +192,7 @@ with col3_btn:
 
 if st.session_state.get("launch_btn", False):
     if st.session_state.masked_df is None or st.session_state.masked_df.empty:
-		st.warning("No parcellated data available. Upload a NIfTI first!")
+
 	else:
 	    masked_df = st.session_state.masked_df
 		func_connectome = st.session_state.func_df.values.copy()
