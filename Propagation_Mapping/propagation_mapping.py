@@ -19,9 +19,17 @@ from sklearn.preprocessing import RobustScaler, StandardScaler
 import tempfile
 from sklearn.linear_model import LinearRegression
 from pathlib import Path
+import shutil
 
 if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
+
+tmp_dir = Path(st.session_state.tmp_dir)
+# Create subfolders
+results_dir = tmp_dir / "results"
+plots_dir = tmp_dir / "plots"
+results_dir.mkdir(parents=True, exist_ok=True)
+plots_dir.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
 st.title("Propagation Mapping Tool")
@@ -131,7 +139,6 @@ if loaded_imgs:
             masked_data.append(roi_values)
 
         # --- Convert to DataFrame with generic column names ---
-
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=col_names)
 		
         # --- Display results ---
@@ -260,10 +267,10 @@ if st.session_state.get("launch_btn", False):
             residuals = feature_vector - y_hat
 
             # --- Save CSVs ---
-            pd.DataFrame(pred_regional_scaled).to_csv(output_folder / f"{filename}_pred_map.csv")
-            pd.DataFrame(feature_vector).to_csv(output_folder / f"{filename}_obs_map.csv")
-            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(output_folder / f"{filename}_propagationmap.csv")
-            pd.DataFrame(residuals).to_csv(output_folder / f"{filename}_residualmap.csv")
+			pd.DataFrame(pred_regional_scaled).to_csv(results_dir / f"{filename}_pred_map.csv")
+			pd.DataFrame(feature_vector).to_csv(results_dir / f"{filename}_obs_map.csv")
+			pd.DataFrame(avg_BOTH_sym_scaled).to_csv(results_dir / f"{filename}_propagationmap.csv")
+			pd.DataFrame(residuals).to_csv(results_dir / f"{filename}_residualmap.csv")
 
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
@@ -582,12 +589,18 @@ if st.session_state.get("plot_pred_btn", False):
         g.ax_joint.legend_.remove()
         
 		# Save figure
-        plots_folder = BASE_DIR / "plots"
-        plots_folder.mkdir(parents=True, exist_ok=True)
-        plot_file = plots_folder / f"{st.session_state.masked_df.columns[0]}_accuracy_jointplot.png"
+		plot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
         g.fig.tight_layout()
         g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
 
         # Display in Streamlit
         st.image(plot_file, width=670)  # width in pixels
         plt.close(g.fig)
+
+zip_path = tmp_dir / "Propagation_Results.zip"
+shutil.make_archive(zip_path.with_suffix(''), 'zip', tmp_dir)
+st.download_button(
+    "Download all results",
+    data=open(zip_path, "rb"),
+    file_name="Propagation_Results.zip"
+)
