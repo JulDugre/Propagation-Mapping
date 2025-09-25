@@ -59,6 +59,7 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
+
 nii_files = []
 col_names = []
 
@@ -70,7 +71,6 @@ uploaded_file = st.sidebar.file_uploader(
     "Upload a SINGLE NIFTI file",
     type=['nii', 'nii.gz']
 )
-
 if uploaded_file is not None:
     tmp_path = tmp_dir / uploaded_file.name
     with open(tmp_path, "wb") as f:
@@ -85,7 +85,6 @@ uploaded_files = st.sidebar.file_uploader(
     type=['nii', 'nii.gz'],
     accept_multiple_files=True
 )
-
 if uploaded_files:
     for uploaded_file in uploaded_files:
         tmp_path = tmp_dir / uploaded_file.name
@@ -95,6 +94,20 @@ if uploaded_files:
         col_names.append(clean_name(uploaded_file.name))
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
+# --- Folder path input (works only if accessible by server) ---
+folder_path = st.sidebar.text_input("Enter folder path for multiple NIFTIs:")
+if folder_path:
+    if os.path.exists(folder_path):
+        folder_files = natsorted(glob(os.path.join(folder_path, '*.nii')) +
+                                 glob(os.path.join(folder_path, '*.nii.gz')))
+        if folder_files:
+            nii_files.extend(folder_files)
+            col_names.extend([clean_name(os.path.basename(f)) for f in folder_files])
+            st.success(f"{len(folder_files)} file(s) found in folder: {folder_path}")
+        else:
+            st.warning(f"No NIfTI files found in folder: {folder_path}")
+    else:
+        st.error(f"Folder path does not exist: {folder_path}")
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
 st.write(f"{len(loaded_imgs)} image(s) loaded successfully.")
