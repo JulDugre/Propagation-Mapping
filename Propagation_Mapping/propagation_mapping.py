@@ -43,7 +43,9 @@ if "func_df" not in st.session_state:
     st.session_state.func_df = None
 if "struct_df" not in st.session_state:
     st.session_state.struct_df = None
-
+if "masked_df" not in st.session_state:
+    st.session_state.masked_df = None
+	
 nii_files = []
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
@@ -131,8 +133,9 @@ if loaded_imgs:
 
         # --- Convert to DataFrame with generic column names ---
 
-        masked_df = pd.DataFrame(np.array(masked_data).T, columns=col_names)
-
+        st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=col_names)
+		st.write(st.session_state.masked_df.shape)
+		
         # --- Display results ---
         st.header("Parcellated Data")
         st.write("Shape of parcellated data (ROIs × Subjects):", masked_df.shape)
@@ -196,12 +199,12 @@ if st.session_state.get("launch_btn", False):
     st.session_state.predicted_regional_scaled = []
 
 
-    if masked_df is not None and not masked_df.empty:
+    if st.session_state.masked_df is not None and not st.session_state.masked_df.empty:
 
         # Create results folder if it does not exist
         output_folder = BASE_DIR / "results"
         output_folder.mkdir(parents=True, exist_ok=True)
-
+		masked_df = st.session_state.masked_df
         # Loop over each subject/column in masked_df
         for subject_index in range(masked_df.shape[1]):
             feature_vector = masked_df.iloc[:, subject_index].values  # (n_rois,)
