@@ -18,6 +18,7 @@ import re
 from sklearn.preprocessing import RobustScaler, StandardScaler
 import tempfile
 from sklearn.linear_model import LinearRegression
+from pathlib import Path
 
 if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
@@ -30,7 +31,8 @@ st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:1
 
 
 # --- Display the framework image here ---
-framework_img_path = "./miscellaneous/Framework.png"
+BASE_DIR = Path(__file__).parent
+framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
 st.image(framework_img_path, caption="Propagation Mapping is a new precision framework aiming at reconstructing the neural circuitry that explains the spatial organization of human brain maps.This method assume that regional measures can be best understood as a dot product between activity and functional connectivity.Uploading your NIfTI file will predict the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map,2) the predicted map, and 3) a propagation map, which reflects the circuitry predicting your statistical map, prior to summation", width='stretch')
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
@@ -285,9 +287,9 @@ if st.session_state.get("plot_prop_btn", False) and masked_df is not None and no
     # Create a container for the atlas image
     one, two, three, four, five = st.columns(5)
     with two:
-        atlas_img_path = "./miscellaneous/schaefer_net.png"
+        atlas_img_path = BASE_DIR / "miscellaneous" / "schaefer_net.png"
         st.image(
-            atlas_img_path,
+            str(atlas_img_path),
             width=400,
             caption="Schaefer-400 7 Networks with 14 Subcortical, and 7 Cerebellar Regions"
         )
