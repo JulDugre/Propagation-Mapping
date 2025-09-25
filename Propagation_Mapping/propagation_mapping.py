@@ -78,6 +78,7 @@ if uploaded_file is not None:
     nii_files.append(str(tmp_path))
     col_names.append(clean_name(uploaded_file.name))
     st.success(f"Uploaded file: {uploaded_file.name}")
+    st.write(f"File saved at temporary path: {tmp_path}")  # <<< DEBUG
 
 # --- Folder path input (works only if accessible by server) ---
 folder_path = st.sidebar.text_input("Enter folder path for multiple NIFTIs:")
