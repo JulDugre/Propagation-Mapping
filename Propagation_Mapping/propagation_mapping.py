@@ -423,8 +423,15 @@ def render_heatmap(subject_idx=0):
     # Save file path to session_state
     st.session_state.saved_files.append(heatmap_file)
 
-with col1:
-    render_heatmap(subject_idx=0)
+if st.session_state.get("plot_prop_btn", False):
+    if st.session_state.masked_df is not None and st.session_state.propagation_maps:
+        # Load labels_info safely here
+        atlas_csv = BASE_DIR / "atlases" / "listnames_ATLAS_Schaefer7.csv"
+        labels_info = pd.read_csv(atlas_csv)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            render_heatmap(subject_idx=0, labels_info=labels_info)
 
 # ----------------- COL2: 3D CONNECTOME -----------------
     @st.fragment
