@@ -535,7 +535,7 @@ if st.session_state.get("plot_pred_btn", False):
 	# Create two columns for side-by-side display
         col1, col2, col3 = st.columns(3)
 
-        atlas_csv = "./atlases/listnames_ATLAS_Schaefer7.csv"
+        atlas_csv = BASE_DIR / "atlases" / "listnames_ATLAS_Schaefer7.csv"
         labels_info = pd.read_csv(atlas_csv)
         scaler = RobustScaler()
         df_obs_scaled = scaler.fit_transform(df_obs['value'].values.reshape(-1, 1))
