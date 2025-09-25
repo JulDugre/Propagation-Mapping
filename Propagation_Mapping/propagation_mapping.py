@@ -144,13 +144,13 @@ if loaded_imgs:
             st.write(f"Functional connectome shape: {func_df.shape}")
 			st.write(f"Structural connectome shape: {struct_df.shape}")
 
-		    # --- Clean connectomes ---
-		    func_connectome = func_df.values.copy()
-		    struct_connectome = struct_df.values.copy()
-		    np.fill_diagonal(func_connectome, 0)
-		    np.fill_diagonal(struct_connectome, 0)
-		    func_connectome[np.isinf(func_connectome)] = 0
-		    struct_connectome[np.isinf(struct_connectome)] = 0
+	# --- Clean connectomes ---
+	func_connectome = func_df.values.copy()
+	struct_connectome = struct_df.values.copy()
+	np.fill_diagonal(func_connectome, 0)
+	np.fill_diagonal(struct_connectome, 0)
+	func_connectome[np.isinf(func_connectome)] = 0
+	struct_connectome[np.isinf(struct_connectome)] = 0
 
 # Reset buttons when a new file/folder is selected
 if uploaded_file or folder_path:
