@@ -79,35 +79,21 @@ if uploaded_file is not None:
     col_names.append(clean_name(uploaded_file.name))
     st.success(f"Uploaded file: {uploaded_file.name}")
 
-# --- Multiple NIfTI uploader ---
-uploaded_files = st.sidebar.file_uploader(
-    "Upload MULTIPLE NIFTI files",
-    type=['nii', 'nii.gz'],
-    accept_multiple_files=True
-)
-if uploaded_files:
-    for uploaded_file in uploaded_files:
-        tmp_path = tmp_dir / uploaded_file.name
-        with open(tmp_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        nii_files.append(str(tmp_path))
-        col_names.append(clean_name(uploaded_file.name))
-    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-
 # --- Folder path input (works only if accessible by server) ---
 folder_path = st.sidebar.text_input("Enter folder path for multiple NIFTIs:")
 if folder_path:
-    if os.path.exists(folder_path):
-        folder_files = natsorted(glob(os.path.join(folder_path, '*.nii')) +
-                                 glob(os.path.join(folder_path, '*.nii.gz')))
+    folder_path_obj = Path(folder_path)
+    if folder_path_obj.exists() and folder_path_obj.is_dir():
+        folder_files = natsorted(list(folder_path_obj.glob('*.nii')) +
+                                 list(folder_path_obj.glob('*.nii.gz')))
         if folder_files:
-            nii_files.extend(folder_files)
-            col_names.extend([clean_name(os.path.basename(f)) for f in folder_files])
+            nii_files.extend([str(f) for f in folder_files])
+            col_names.extend([clean_name(f.name) for f in folder_files])
             st.success(f"{len(folder_files)} file(s) found in folder: {folder_path}")
         else:
             st.warning(f"No NIfTI files found in folder: {folder_path}")
     else:
-        st.error(f"Folder path does not exist: {folder_path}")
+        st.error(f"Folder path does not exist or is not a directory: {folder_path}")
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
 st.write(f"{len(loaded_imgs)} image(s) loaded successfully.")
