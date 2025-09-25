@@ -144,21 +144,28 @@ if loaded_imgs:
         func_file = func_dir / f"ATLAS_{atlas_choice}_resting_Fz.csv"
         struct_file = struct_dir / f"ATLAS_{atlas_choice}_structural_Fz.csv"
 
+		# --- Load into session state ---
+		if "func_df" not in st.session_state:
+		    st.session_state.func_df = None
+		if "struct_df" not in st.session_state:
+		    st.session_state.struct_df = None
+	
         if func_file.exists():
-            func_df = pd.read_csv(func_file, index_col=[0])
+            st.session_state.func_df = pd.read_csv(func_file, index_col=[0])
             st.write(f"Functional connectome shape: {func_df.shape}")
         else:
             st.warning(f"No functional connectome found for {atlas_choice}")
 
         if struct_file.exists():
-            struct_df = pd.read_csv(struct_file, index_col=[0])
+            st.session_state.struct_df = pd.read_csv(struct_file, index_col=[0])
             st.write(f"Structural connectome shape: {struct_df.shape}")
         else:
             st.warning(f"No structural connectome found for {atlas_choice}")
 
     # --- Clean connectomes ---
-    func_connectome = func_df.values.copy()
-    struct_connectome = struct_df.values.copy()
+if st.session_state.func_df is not None and st.session_state.struct_df is not None:
+    func_connectome = st.session_state.func_df.values.copy()
+    struct_connectome = st.session_state.struct_df.values.copy()
     np.fill_diagonal(func_connectome, 0)
     np.fill_diagonal(struct_connectome, 0)
     func_connectome[np.isinf(func_connectome)] = 0
@@ -169,7 +176,6 @@ if uploaded_file or folder_path:
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
-
 
 # Create three columns
 col1_btn, col2_btn, col3_btn = st.columns(3)
