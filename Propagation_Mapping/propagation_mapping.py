@@ -78,23 +78,23 @@ if uploaded_file is not None:
     nii_files.append(str(tmp_path))
     col_names.append(clean_name(uploaded_file.name))
     st.success(f"Uploaded file: {uploaded_file.name}")
-    st.write(f"File saved at temporary path: {tmp_path}")  # <<< DEBUG
 
-# --- Folder path input (works only if accessible by server) ---
-folder_path = st.sidebar.text_input("Enter folder path relative to repo root (e.g., data/niftis):")
-if folder_path:
-    folder_path_obj = Path(folder_path)
-    st.write(f"Checking folder: {folder_path_obj}")
-    if folder_path_obj.exists() and folder_path_obj.is_dir():
-        folder_files = natsorted(list(folder_path_obj.glob('*.nii')) +
-                                 list(folder_path_obj.glob('*.nii.gz')))
-        if folder_files:
-            st.success(f"{len(folder_files)} file(s) found in folder: {folder_path}")
-        else:
-            st.warning(f"No NIfTI files found in folder: {folder_path}")
-    else:
-        st.error(f"Folder does not exist inside repo: {folder_path}")
-
+# --- Multiple NIfTI uploader ---
+uploaded_files = st.sidebar.file_uploader(
+    "Upload MULTIPLE NIFTI files",
+    type=['nii', 'nii.gz'],
+    accept_multiple_files=True
+)
+if uploaded_files:
+    for uf in uploaded_files:
+        tmp_path = tmp_dir / uf.name
+        with open(tmp_path, "wb") as f:
+            f.write(uf.getbuffer())
+        nii_files.append(str(tmp_path))
+        col_names.append(clean_name(uf.name))
+    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+    st.write("Multiple file paths:")
+    st.write([str(tmp_dir / uf.name) for uf in uploaded_files])
 
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
