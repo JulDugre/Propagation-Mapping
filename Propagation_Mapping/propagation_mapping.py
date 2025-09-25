@@ -22,6 +22,17 @@ from pathlib import Path
 import shutil
 from zipfile import ZipFile
 
+# --- Load into session state ---
+if "func_df" not in st.session_state:
+    st.session_state.func_df = None
+if "struct_df" not in st.session_state:
+    st.session_state.struct_df = None
+if "masked_df" not in st.session_state:
+    st.session_state.masked_df = None
+if "propagation_maps" not in st.session_state:
+    st.session_state.propagation_maps = []
+if "predicted_regional_scaled" not in st.session_state:
+    st.session_state.predicted_regional_scaled = []
 if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
 if "saved_files" not in st.session_state:
@@ -48,14 +59,6 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
-
-# --- Load into session state ---
-if "func_df" not in st.session_state:
-    st.session_state.func_df = None
-if "struct_df" not in st.session_state:
-    st.session_state.struct_df = None
-if "masked_df" not in st.session_state:
-    st.session_state.masked_df = None
 	
 nii_files = []
 def clean_name(name):
