@@ -261,12 +261,12 @@ if st.session_state.get("launch_btn", False):
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
             
-            # --- Compute residuals (Observed - Predicted) ---
-            model = LinearRegression().fit(pred_regional.reshape(-1, 1), feature_vector)
-            y_hat = model.predict(pred_regional.reshape(-1, 1))
-            residuals = feature_vector - y_hat
-
-            # --- Save CSVs ---
+			# --- Compute residuals (Observed - Predicted) ---
+			model = LinearRegression().fit(pred_regional.reshape(-1, 1), feature_vector)
+			y_hat = model.predict(pred_regional.reshape(-1, 1))
+			residuals = feature_vector - y_hat
+			
+			# --- Save CSVs ---
 			pd.DataFrame(pred_regional_scaled).to_csv(results_dir / f"{filename}_pred_map.csv")
 			pd.DataFrame(feature_vector).to_csv(results_dir / f"{filename}_obs_map.csv")
 			pd.DataFrame(avg_BOTH_sym_scaled).to_csv(results_dir / f"{filename}_propagationmap.csv")
