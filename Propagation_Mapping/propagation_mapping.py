@@ -281,7 +281,7 @@ if st.session_state.get("launch_btn", False):
             pd.DataFrame(residuals).to_csv(resid_file)
 
             for f in [pred_file, obs_file, prop_file, resid_file]:
-				st.session_state.saved_files.append(f)
+	             st.session_state.saved_files.append(f)
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
