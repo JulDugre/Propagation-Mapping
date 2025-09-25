@@ -165,7 +165,7 @@ if st.session_state.func_df is not None and st.session_state.struct_df is not No
     struct_connectome[np.isinf(struct_connectome)] = 0
 	
 # Reset buttons when a new file/folder is selected
-if uploaded_file or folder_path:
+if uploaded_files:
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
