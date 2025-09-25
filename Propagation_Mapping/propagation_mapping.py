@@ -631,15 +631,9 @@ if st.session_state.get("plot_pred_btn", False):
 zip_path = tmp_dir / "Propagation_Results.zip"
 with ZipFile(zip_path, 'w') as zipf:
     for file_path in st.session_state.saved_files:
-        # Determine subfolder based on parent directory
-        if "results" in str(file_path.parent):
-            arcname = f"results/{file_path.name}"
-        elif "plots" in str(file_path.parent):
-            arcname = f"plots/{file_path.name}"
-        else:
-            arcname = file_path.name  # fallback to root
-
-        zipf.write(file_path, arcname=arcname)
+        # Make the archive name relative to tmp_dir
+        arcname = file_path.relative_to(tmp_dir)
+        zipf.write(file_path, arcname=str(arcname))
 
 # Streamlit download button
 with open(zip_path, "rb") as f:
