@@ -44,6 +44,13 @@ results_dir = tmp_dir / "results"
 plots_dir = tmp_dir / "plots"
 results_dir.mkdir(parents=True, exist_ok=True)
 plots_dir.mkdir(parents=True, exist_ok=True)
+obs_dir = results_dir / "observed_maps"
+pred_dir = results_dir / "predicted_maps"
+prop_dir = results_dir / "propagation_maps"
+resid_dir = results_dir / "residual_maps"
+
+for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
+    folder.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
 st.title("Propagation Mapping Tool")
@@ -263,13 +270,17 @@ if st.session_state.get("launch_btn", False):
             prop_file = output_folder / f"{filename}_propagationmap.csv"
             resid_file = output_folder / f"{filename}_residualmap.csv"
 			
-            pd.DataFrame(pred_regional_scaled).to_csv(pred_file)
-            pd.DataFrame(feature_vector).to_csv(obs_file)
-            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_file)
-            pd.DataFrame(residuals).to_csv(resid_file)
+            pd.DataFrame(feature_vector).to_csv(obs_dir / f"{filename}_obs_map.csv")
+            pd.DataFrame(pred_regional_scaled).to_csv(pred_dir / f"{filename}_pred_map.csv")
+            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_dir / f"{filename}_propagationmap.csv")
+            pd.DataFrame(residuals).to_csv(resid_dir / f"{filename}_residualmap.csv")
 
-            for f in [pred_file, obs_file, prop_file, resid_file]:
-	             st.session_state.saved_files.append(f)
+            st.session_state.saved_files.extend([
+				obs_dir / f"{filename}_obs_map.csv",
+				pred_dir / f"{filename}_pred_map.csv",
+				prop_dir / f"{filename}_propagationmap.csv",
+				resid_dir / f"{filename}_residualmap.csv"])
+				
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
