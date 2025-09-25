@@ -53,7 +53,7 @@ for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
     folder.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
-st.title("Propagation Mapping Tool")
+st.title("Propagation Mapping Toolbox")
 st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
 st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:10.1038/nn.4406")
