@@ -345,7 +345,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
         network_counts = labels_info.groupby('Network').size()
         network_names = network_counts.index.tolist()
         network_colors = {n: labels_info[labels_info['Network']==n]['colors'].unique()[0] for n in network_names}
-
+        heatmap_file = plots_dir / f"{filename}_heatmap.png"
         plt.figure(figsize=(16, 10))
         cmap = plt.get_cmap('Blues')
         cmap.set_under('white')
@@ -396,6 +396,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
             spine.set_linewidth(1)
 
         plt.tight_layout()
+		plt.savefig(heatmap_file, dpi=300)
         st.pyplot(plt)
         plt.close()
 
@@ -456,7 +457,6 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
 
         else:
             st.warning("No connections survived at this threshold.")
-
 
     # Render inside column
     with col2:
@@ -536,7 +536,6 @@ if st.session_state.get("plot_pred_btn", False):
             st.components.v1.html(view_pred._repr_html_(), height=300)
 
          # ---------------- JOINT PLOT ----------------------
-
         st.header(f"Accuracy Joint Plot of: {st.session_state.masked_df.columns[0]}")
 
 	# Create two columns for side-by-side display
@@ -598,11 +597,17 @@ if st.session_state.get("plot_pred_btn", False):
         plt.close(g.fig)
 
 # --- Create ZIP of results for download ---
+# --- Zip everything ---
 zip_path = tmp_dir / "Propagation_Results.zip"
-shutil.make_archive(zip_path.with_suffix(''), 'zip', tmp_dir)
+with ZipFile(zip_path, 'w') as zipf:
+    for folder in [results_dir, plots_dir]:
+        for file in folder.glob("*"):
+            zipf.write(file, arcname=file.relative_to(tmp_dir))
 
-st.download_button(
-    "Download all results",
-    data=open(zip_path, "rb"),
-    file_name="Propagation_Results.zip"
-)
+# --- Download button ---
+with open(zip_path, "rb") as f:
+    st.download_button(
+        "Download all results",
+        data=f,
+        file_name="Propagation_Results.zip"
+    )
