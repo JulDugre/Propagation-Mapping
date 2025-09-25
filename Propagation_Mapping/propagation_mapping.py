@@ -449,9 +449,10 @@ if st.session_state.get("plot_prop_btn", False) and masked_df is not None and no
 
 # ----------------- PLOT COMPARISONS BETWEEN OBSERVED AND PREDICTED -----------
 if st.session_state.get("plot_pred_btn", False):
-  if masked_df is not None and not masked_df.empty and st.session_state.predicted_regional_scaled:
-    st.header(f"Compare Maps of: {masked_df.columns[0]}")
+  if st.session_state.masked_df is not None and not masked_df.empty and st.session_state.predicted_regional_scaled:
+    st.header(f"Compare Maps of: {st.session_state.masked_df.columns[0]}")
     # ----------------- OBSERVED MAP -----------------
+	masked_df = st.session_state.masked_df
     df_obs = masked_df.iloc[:, 0:1].reset_index()
     df_obs.columns = ["num", "value"]
 
