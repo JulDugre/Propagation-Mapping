@@ -138,25 +138,19 @@ if loaded_imgs:
         func_file = func_dir / f"ATLAS_{atlas_choice}_resting_Fz.csv"
         struct_file = struct_dir / f"ATLAS_{atlas_choice}_structural_Fz.csv"
 
-        if os.path.exists(func_file):
+        if os.path.exists(str(func_file)) and os.path.exists(str(struct_file)):
             func_df = pd.read_csv(func_file, index_col=[0])
+			struct_df = pd.read_csv(struct_file, index_col=[0])
             st.write(f"Functional connectome shape: {func_df.shape}")
-        else:
-            st.warning(f"No functional connectome found for {atlas_choice}")
+			st.write(f"Structural connectome shape: {struct_df.shape}")
 
-        if os.path.exists(struct_file):
-            struct_df = pd.read_csv(struct_file, index_col=[0])
-            st.write(f"Structural connectome shape: {struct_df.shape}")
-        else:
-            st.warning(f"No structural connectome found for {atlas_choice}")
-
-    # --- Clean connectomes ---
-    func_connectome = func_df.values.copy()
-    struct_connectome = struct_df.values.copy()
-    np.fill_diagonal(func_connectome, 0)
-    np.fill_diagonal(struct_connectome, 0)
-    func_connectome[np.isinf(func_connectome)] = 0
-    struct_connectome[np.isinf(struct_connectome)] = 0
+		    # --- Clean connectomes ---
+		    func_connectome = func_df.values.copy()
+		    struct_connectome = struct_df.values.copy()
+		    np.fill_diagonal(func_connectome, 0)
+		    np.fill_diagonal(struct_connectome, 0)
+		    func_connectome[np.isinf(func_connectome)] = 0
+		    struct_connectome[np.isinf(struct_connectome)] = 0
 
 # Reset buttons when a new file/folder is selected
 if uploaded_file or folder_path:
