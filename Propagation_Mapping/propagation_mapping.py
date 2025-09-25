@@ -59,44 +59,41 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
-	
 nii_files = []
+col_names = []
+
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Single NIfTI uploader (click and select) ---
+# --- Single NIfTI uploader ---
 uploaded_file = st.sidebar.file_uploader(
     "Upload a SINGLE NIFTI file",
     type=['nii', 'nii.gz']
 )
 
-# --- Folder input for multiple NIfTIs ---
-folder_path = st.sidebar.text_input("Enter folder path for multiple NIFTIs:")
-
 if uploaded_file is not None:
-    suffix = '.nii.gz' if uploaded_file.name.endswith('.gz') else '.nii'
-    col_names = [clean_name(uploaded_file.name)]
-    
-    tmp_path = os.path.join(st.session_state.tmp_dir, uploaded_file.name)
+    tmp_path = tmp_dir / uploaded_file.name
     with open(tmp_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-
-    nii_files.append(tmp_path)
+    nii_files.append(str(tmp_path))
+    col_names.append(clean_name(uploaded_file.name))
     st.success(f"Uploaded file: {uploaded_file.name}")
 
+# --- Multiple NIfTI uploader ---
+uploaded_files = st.sidebar.file_uploader(
+    "Upload MULTIPLE NIFTI files",
+    type=['nii', 'nii.gz'],
+    accept_multiple_files=True
+)
 
-# --- Handle folder path ---
-elif folder_path:
-    if os.path.exists(folder_path):
-        nii_files = natsorted(glob(os.path.join(folder_path, '*.nii')) +
-                              glob(os.path.join(folder_path, '*.nii.gz')))
-        col_names = [clean_name(os.path.basename(f)) for f in nii_files]
-        if nii_files:
-            st.success(f"{len(nii_files)} NIfTI file(s) detected in folder: {folder_path}")
-        else:
-            st.warning(f"No NIfTI files found in folder: {folder_path}")
-    else:
-        st.error("Folder path does not exist.")
+if uploaded_files:
+    for uploaded_file in uploaded_files:
+        tmp_path = tmp_dir / uploaded_file.name
+        with open(tmp_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        nii_files.append(str(tmp_path))
+        col_names.append(clean_name(uploaded_file.name))
+    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
