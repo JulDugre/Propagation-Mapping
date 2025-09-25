@@ -81,8 +81,7 @@ if uploaded_files:
         col_names.append(clean_name(uf.name))
     
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-    st.write("Uploaded file paths:")
-    st.write([str(os.path.join(st.session_state.tmp_dir, uf.name)) for uf in uploaded_files])
+
 
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
