@@ -396,7 +396,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
             spine.set_linewidth(1)
 
         plt.tight_layout()
-		plt.savefig(heatmap_file, dpi=300)
+        plt.savefig(heatmap_file, dpi=300)
         st.pyplot(plt)
         plt.close()
 
