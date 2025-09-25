@@ -257,9 +257,10 @@ if st.session_state.get("launch_btn", False):
             corr_pos, _ = spearmanr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
 
-            # --- Store results ---
-            predicted_regional.append(pred_regional_scaled)
-            true_regional.append(feature_vector)
+			# --- Store results ---
+			predicted_regional.append(pred_regional_scaled)
+			true_regional.append(feature_vector)
+			
 			# --- Compute residuals (Observed - Predicted) ---
 			model = LinearRegression().fit(pred_regional.reshape(-1, 1), feature_vector)
 			y_hat = model.predict(pred_regional.reshape(-1, 1))
