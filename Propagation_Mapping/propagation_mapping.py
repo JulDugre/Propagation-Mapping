@@ -81,20 +81,21 @@ if uploaded_file is not None:
     st.write(f"File saved at temporary path: {tmp_path}")  # <<< DEBUG
 
 # --- Folder path input (works only if accessible by server) ---
-folder_path = st.sidebar.text_input("Enter folder path for multiple NIFTIs:")
+folder_path = st.sidebar.text_input("Enter folder path relative to repo root (e.g., data/niftis):")
 if folder_path:
     folder_path_obj = Path(folder_path)
+    st.write(f"Checking folder: {folder_path_obj}")
     if folder_path_obj.exists() and folder_path_obj.is_dir():
         folder_files = natsorted(list(folder_path_obj.glob('*.nii')) +
                                  list(folder_path_obj.glob('*.nii.gz')))
         if folder_files:
-            nii_files.extend([str(f) for f in folder_files])
-            col_names.extend([clean_name(f.name) for f in folder_files])
             st.success(f"{len(folder_files)} file(s) found in folder: {folder_path}")
         else:
             st.warning(f"No NIfTI files found in folder: {folder_path}")
     else:
-        st.error(f"Folder path does not exist or is not a directory: {folder_path}")
+        st.error(f"Folder does not exist inside repo: {folder_path}")
+
+
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
 st.write(f"{len(loaded_imgs)} image(s) loaded successfully.")
