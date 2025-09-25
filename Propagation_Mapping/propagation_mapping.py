@@ -24,7 +24,9 @@ from zipfile import ZipFile
 
 if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
-
+if "saved_files" not in st.session_state:
+    st.session_state.saved_files = []
+	
 tmp_dir = Path(st.session_state.tmp_dir)
 # Create subfolders
 results_dir = tmp_dir / "results"
@@ -268,11 +270,18 @@ if st.session_state.get("launch_btn", False):
             residuals = feature_vector - y_hat
             
             # --- Save CSVs ---
-            pd.DataFrame(pred_regional_scaled).to_csv(output_folder / f"{filename}_pred_map.csv")
-            pd.DataFrame(feature_vector).to_csv(output_folder / f"{filename}_obs_map.csv")
-            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(output_folder / f"{filename}_propagationmap.csv")
-            pd.DataFrame(residuals).to_csv(output_folder / f"{filename}_residualmap.csv")
+            pred_file = output_folder / f"{filename}_pred_map.csv"
+			obs_file = output_folder / f"{filename}_obs_map.csv"
+			prop_file = output_folder / f"{filename}_propagationmap.csv"
+			resid_file = output_folder / f"{filename}_residualmap.csv"
 			
+            pd.DataFrame(pred_regional_scaled).to_csv(pred_file)
+			pd.DataFrame(feature_vector).to_csv(obs_file)
+			pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_file)
+			pd.DataFrame(residuals).to_csv(resid_file)
+
+	       for f in [pred_file, obs_file, prop_file, resid_file]:
+			   st.session_state.saved_files.append(f)
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
@@ -598,14 +607,12 @@ if st.session_state.get("plot_pred_btn", False):
         plt.close(g.fig)
 
 # --- Create ZIP of results for download ---
-# --- Zip everything ---
 zip_path = tmp_dir / "Propagation_Results.zip"
 with ZipFile(zip_path, 'w') as zipf:
-    for folder in [results_dir, plots_dir]:
-        for file in folder.glob("*"):
-            zipf.write(file, arcname=file.relative_to(tmp_dir))
+    for file_path in st.session_state.saved_files:
+        zipf.write(file_path, arcname=file_path.name)
 
-# --- Download button ---
+# Streamlit download button
 with open(zip_path, "rb") as f:
     st.download_button(
         "Download all results",
