@@ -271,9 +271,9 @@ if st.session_state.get("launch_btn", False):
             
             # --- Save CSVs ---
             pred_file = output_folder / f"{filename}_pred_map.csv"
-			obs_file = output_folder / f"{filename}_obs_map.csv"
-			prop_file = output_folder / f"{filename}_propagationmap.csv"
-			resid_file = output_folder / f"{filename}_residualmap.csv"
+            obs_file = output_folder / f"{filename}_obs_map.csv"
+            prop_file = output_folder / f"{filename}_propagationmap.csv"
+            resid_file = output_folder / f"{filename}_residualmap.csv"
 			
             pd.DataFrame(pred_regional_scaled).to_csv(pred_file)
 			pd.DataFrame(feature_vector).to_csv(obs_file)
