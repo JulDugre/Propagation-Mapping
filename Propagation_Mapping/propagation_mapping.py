@@ -20,6 +20,7 @@ import tempfile
 from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
+from zipfile import ZipFile
 
 if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
