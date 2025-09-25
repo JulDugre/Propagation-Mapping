@@ -135,8 +135,8 @@ if loaded_imgs:
         func_dir = BASE_DIR / "normative_connectomes" / "func"
         struct_dir = BASE_DIR / "normative_connectomes" / "struct"
 
-        func_file = os.path.join(func_dir, f"ATLAS_{atlas_choice}_resting_Fz.csv")
-        struct_file = os.path.join(struct_dir, f"ATLAS_{atlas_choice}_structural_Fz.csv")
+        func_file = func_dir / f"ATLAS_{atlas_choice}_resting_Fz.csv"
+        struct_file = struct_dir / f"ATLAS_{atlas_choice}_structural_Fz.csv"
 
         if os.path.exists(func_file):
             func_df = pd.read_csv(func_file, index_col=[0])
@@ -150,7 +150,6 @@ if loaded_imgs:
         else:
             st.warning(f"No structural connectome found for {atlas_choice}")
 
-	
     # --- Clean connectomes ---
     func_connectome = func_df.values.copy()
     struct_connectome = struct_df.values.copy()
@@ -194,8 +193,8 @@ if st.session_state.get("launch_btn", False):
     if masked_df is not None and not masked_df.empty:
 
         # Create results folder if it does not exist
-        output_folder = "./results/"
-        os.makedirs(output_folder, exist_ok=True)
+        output_folder = BASE_DIR / "results"
+        output_folder.mkdir(parents=True, exist_ok=True)
 
         # Loop over each subject/column in masked_df
         for subject_index in range(masked_df.shape[1]):
@@ -245,10 +244,10 @@ if st.session_state.get("launch_btn", False):
             residuals = feature_vector - y_hat
 
             # --- Save CSVs ---
-            pd.DataFrame(pred_regional_scaled).to_csv(os.path.join(output_folder, f'{filename}_pred_map.csv'))
-            pd.DataFrame(feature_vector).to_csv(os.path.join(output_folder, f'{filename}_obs_map.csv'))
-            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(os.path.join(output_folder, f'{filename}_propagationmap.csv'))
-            pd.DataFrame(residuals).to_csv(os.path.join(output_folder, f'{filename}_residualmap.csv'))
+            pd.DataFrame(pred_regional_scaled).to_csv(output_folder / f"{filename}_pred_map.csv")
+            pd.DataFrame(feature_vector).to_csv(output_folder / f"{filename}_obs_map.csv")
+            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(output_folder / f"{filename}_propagationmap.csv")
+            pd.DataFrame(residuals).to_csv(output_folder / f"{filename}_residualmap.csv")
 
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
@@ -296,11 +295,11 @@ if st.session_state.get("plot_prop_btn", False) and masked_df is not None and no
 
     st.header(f"Plot Propagation Map of: {masked_df.columns[0]}")
     propagation_maps = st.session_state.propagation_maps  
-    plots_folder = "./plots/"
-    os.makedirs(plots_folder, exist_ok=True)
+    plots_folder = BASE_DIR / "plots"
+    plots_folder.mkdir(parents=True, exist_ok=True)
 
     # ----------------- PREP DATA -----------------
-    atlas_csv = "./atlases/listnames_ATLAS_Schaefer7.csv"
+    atlas_csv = BASE_DIR / "atlases" / "listnames_ATLAS_Schaefer7.csv"
     labels_info = pd.read_csv(atlas_csv)
     roi_labels = labels_info['Label'].tolist()
     connectome = pd.DataFrame(propagation_maps[0], index=roi_labels, columns=roi_labels)
@@ -449,7 +448,7 @@ if st.session_state.get("plot_pred_btn", False):
     df_obs.columns = ["num", "value"]
 
     # Construct surface CSV path dynamically
-    surface_path = f"atlases/surfaces/ATLAS_{atlas_choice}_fsa5.csv"
+    surface_path = BASE_DIR / "atlases" / "surfaces" / f"ATLAS_{atlas_choice}_fsa5.csv"
 
     if os.path.exists(surface_path):
         target_lab = pd.read_csv(surface_path, index_col=None, header=None).values.flatten().tolist()
@@ -564,10 +563,11 @@ if st.session_state.get("plot_pred_btn", False):
         g.ax_joint.set_xlim((combined.obs.max()+1)*-1, combined.obs.max()+1)
         g.ax_joint.set_ylim((combined.obs.max()+1)*-1, combined.pred.max()+1)
         g.ax_joint.legend_.remove()
-        # Save figure
-        plots_folder = "./plots/"
-        os.makedirs(plots_folder, exist_ok=True)
-        plot_file = os.path.join(plots_folder, f"{masked_df.columns[0]}_accuracy_jointplot.png")
+        
+		# Save figure
+        plots_folder = BASE_DIR / "plots"
+        plots_folder.mkdir(parents=True, exist_ok=True)
+        plot_file = plots_folder / f"{masked_df.columns[0]}_accuracy_jointplot.png"
         g.fig.tight_layout()
         g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
 
