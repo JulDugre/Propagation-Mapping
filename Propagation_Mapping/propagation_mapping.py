@@ -579,8 +579,9 @@ if st.session_state.get("plot_pred_btn", False):
         scaler = RobustScaler()
         df_obs_scaled = scaler.fit_transform(df_obs['value'].values.reshape(-1, 1))
         df_obs_scaled = pd.DataFrame(df_obs_scaled)
-
-        combined = pd.concat([df_obs_scaled, pred_regional_scaled['value']], axis=1)
+        
+		df_pred_scaled = pd.DataFrame(pred_scaled, columns=['value'])
+        combined = pd.concat([df_obs_scaled, df_pred_scaled], axis=1)
         combined.columns = ['obs','pred']
         combined.index = labels_info['Label'].tolist()
         combined['ColorGroup'] = combined['ColorGroup'] = pd.Categorical(
