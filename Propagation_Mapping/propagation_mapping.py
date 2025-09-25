@@ -590,15 +590,17 @@ if st.session_state.get("plot_pred_btn", False):
         
 		# Save figure
 		plot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
-        g.fig.tight_layout()
-        g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
+		g.fig.tight_layout()
+		g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
+		
+		# Display in Streamlit
+		st.image(plot_file, width=670)  # width in pixels
+		plt.close(g.fig)
 
-        # Display in Streamlit
-        st.image(plot_file, width=670)  # width in pixels
-        plt.close(g.fig)
-
+# --- Create ZIP of results for download ---
 zip_path = tmp_dir / "Propagation_Results.zip"
 shutil.make_archive(zip_path.with_suffix(''), 'zip', tmp_dir)
+
 st.download_button(
     "Download all results",
     data=open(zip_path, "rb"),
