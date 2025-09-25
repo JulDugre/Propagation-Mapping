@@ -276,12 +276,12 @@ if st.session_state.get("launch_btn", False):
             resid_file = output_folder / f"{filename}_residualmap.csv"
 			
             pd.DataFrame(pred_regional_scaled).to_csv(pred_file)
-			pd.DataFrame(feature_vector).to_csv(obs_file)
-			pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_file)
-			pd.DataFrame(residuals).to_csv(resid_file)
+            pd.DataFrame(feature_vector).to_csv(obs_file)
+            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_file)
+            pd.DataFrame(residuals).to_csv(resid_file)
 
-	       for f in [pred_file, obs_file, prop_file, resid_file]:
-			   st.session_state.saved_files.append(f)
+            for f in [pred_file, obs_file, prop_file, resid_file]:
+				st.session_state.saved_files.append(f)
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
