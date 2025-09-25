@@ -203,10 +203,10 @@ if st.session_state.get("launch_btn", False):
         # Create results folder if it does not exist
         output_folder = BASE_DIR / "results"
         output_folder.mkdir(parents=True, exist_ok=True)
-		masked_df = st.session_state.masked_df
+		
         # Loop over each subject/column in masked_df
-        for subject_index in range(masked_df.shape[1]):
-            feature_vector = masked_df.iloc[:, subject_index].values  # (n_rois,)
+        for subject_index in range(st.session_state.masked_df.shape[1]):
+            feature_vector = st.session_state.masked_df.iloc[:, subject_index].values  # (n_rois,)
             filename = masked_df.columns[subject_index]  # use uploaded filename
 
             # --- Functional connectome ---
