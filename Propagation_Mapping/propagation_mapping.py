@@ -106,15 +106,14 @@ if loaded_imgs:
 
     # Map atlas names to file paths
     atlas_files = {
-	"Schaefer7": "atlases/ATLAS_Schaefer7.nii.gz",
-        "Desikan": "atlases/ATLAS_Desikan.nii.gz",
-        "Gordon": "atlases/ATLAS_Gordon.nii.gz",
-        "Glasser": "atlases/ATLAS_Glasser.nii.gz",
-    }
+    "Schaefer7": BASE_DIR / "atlases" / "ATLAS_Schaefer7.nii.gz",
+    "Desikan": BASE_DIR / "atlases" / "ATLAS_Desikan.nii.gz",
+    "Gordon": BASE_DIR / "atlases" / "ATLAS_Gordon.nii.gz",
+    "Glasser": BASE_DIR / "atlases" / "ATLAS_Glasser.nii.gz"}
 
     atlas_path = atlas_files[atlas_choice]
 
-    if os.path.exists(atlas_path):
+    if atlas_path.exists():
         atlas_img = nib.load(atlas_path)
         st.success(f"✅ You selected the **{atlas_choice}** atlas.")
 
@@ -137,8 +136,8 @@ if loaded_imgs:
 		
         # --- Display results ---
         st.header("Parcellated Data")
-        st.write("Shape of parcellated data (ROIs × Subjects):", masked_df.shape)
-        st.dataframe(masked_df)
+        st.write("Shape of parcellated data (ROIs × Subjects):", st.session_state.masked_df.shape)
+        st.dataframe(st.session_state.masked_df)
 
         func_dir = BASE_DIR / "normative_connectomes" / "func"
         struct_dir = BASE_DIR / "normative_connectomes" / "struct"
