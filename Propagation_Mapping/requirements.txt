@@ -1,0 +1,11 @@
+matplotlib
+natsort
+neuromaps
+nibabel
+nilearn
+numpy
+pandas
+scikit_learn
+scipy
+seaborn
+streamlit

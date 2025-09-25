@@ -1,0 +1,422 @@
+﻿,ID,Label,Network,x,y,z,colors
+0,1,LH_Vis_1,Visual,-32,-42,-20,#A76CD4
+1,2,LH_Vis_2,Visual,-30,-32,-18,#A76CD4
+2,3,LH_Vis_3,Visual,-36,-62,-16,#A76CD4
+3,4,LH_Vis_4,Visual,-24,-54,-8,#A76CD4
+4,5,LH_Vis_5,Visual,-24,-72,-10,#A76CD4
+5,6,LH_Vis_6,Visual,-36,-82,-16,#A76CD4
+6,7,LH_Vis_7,Visual,-18,-38,-12,#A76CD4
+7,8,LH_Vis_8,Visual,-46,-70,-8,#A76CD4
+8,9,LH_Vis_9,Visual,-16,-86,-16,#A76CD4
+9,10,LH_Vis_10,Visual,-12,-62,-4,#A76CD4
+10,11,LH_Vis_11,Visual,-6,-76,-6,#A76CD4
+11,12,LH_Vis_12,Visual,-24,-96,-12,#A76CD4
+12,13,LH_Vis_13,Visual,-14,-44,-6,#A76CD4
+13,14,LH_Vis_14,Visual,-42,-86,-4,#A76CD4
+14,15,LH_Vis_15,Visual,-8,-98,-8,#A76CD4
+15,16,LH_Vis_16,Visual,-14,-56,2,#A76CD4
+16,17,LH_Vis_17,Visual,-46,-74,6,#A76CD4
+17,18,LH_Vis_18,Visual,-4,-88,2,#A76CD4
+18,19,LH_Vis_19,Visual,-24,-96,6,#A76CD4
+19,20,LH_Vis_20,Visual,-14,-48,4,#A76CD4
+20,21,LH_Vis_21,Visual,-8,-74,10,#A76CD4
+21,22,LH_Vis_22,Visual,-18,-64,6,#A76CD4
+22,23,LH_Vis_23,Visual,-40,-84,14,#A76CD4
+23,24,LH_Vis_24,Visual,-10,-96,18,#A76CD4
+24,25,LH_Vis_25,Visual,-2,-84,24,#A76CD4
+25,26,LH_Vis_26,Visual,-12,-72,20,#A76CD4
+26,27,LH_Vis_27,Visual,-26,-84,22,#A76CD4
+27,28,LH_Vis_28,Visual,-32,-84,26,#A76CD4
+28,29,LH_Vis_29,Visual,-16,-88,34,#A76CD4
+29,30,LH_Vis_30,Visual,-12,-82,36,#A76CD4
+30,31,LH_Vis_31,Visual,-22,-78,44,#A76CD4
+31,32,LH_SomMot_1,SomMot,-50,-10,0,#6C92D4
+32,33,LH_SomMot_2,SomMot,-56,-22,8,#6C92D4
+33,34,LH_SomMot_3,SomMot,-36,-24,10,#6C92D4
+34,35,LH_SomMot_4,SomMot,-38,-8,12,#6C92D4
+35,36,LH_SomMot_5,SomMot,-36,-26,18,#6C92D4
+36,37,LH_SomMot_6,SomMot,-58,-36,16,#6C92D4
+37,38,LH_SomMot_7,SomMot,-40,-36,14,#6C92D4
+38,39,LH_SomMot_8,SomMot,-48,-12,14,#6C92D4
+39,40,LH_SomMot_9,SomMot,-60,-2,10,#6C92D4
+40,41,LH_SomMot_10,SomMot,-48,-24,18,#6C92D4
+41,42,LH_SomMot_11,SomMot,-62,-18,20,#6C92D4
+42,43,LH_SomMot_12,SomMot,-60,-2,24,#6C92D4
+43,44,LH_SomMot_13,SomMot,-62,-10,32,#6C92D4
+44,45,LH_SomMot_14,SomMot,-54,-8,30,#6C92D4
+45,46,LH_SomMot_15,SomMot,-54,-20,40,#6C92D4
+46,47,LH_SomMot_16,SomMot,-52,-6,44,#6C92D4
+47,48,LH_SomMot_17,SomMot,-48,-16,40,#6C92D4
+48,49,LH_SomMot_18,SomMot,-8,-16,48,#6C92D4
+49,50,LH_SomMot_19,SomMot,-40,-14,48,#6C92D4
+50,51,LH_SomMot_20,SomMot,-48,-18,54,#6C92D4
+51,52,LH_SomMot_21,SomMot,-48,-30,58,#6C92D4
+52,53,LH_SomMot_22,SomMot,-38,-24,52,#6C92D4
+53,54,LH_SomMot_23,SomMot,-8,-38,54,#6C92D4
+54,55,LH_SomMot_24,SomMot,-4,-24,56,#6C92D4
+55,56,LH_SomMot_25,SomMot,-4,-8,60,#6C92D4
+56,57,LH_SomMot_26,SomMot,-36,-20,64,#6C92D4
+57,58,LH_SomMot_27,SomMot,-30,-46,62,#6C92D4
+58,59,LH_SomMot_28,SomMot,-32,-30,62,#6C92D4
+59,60,LH_SomMot_29,SomMot,-30,-38,66,#6C92D4
+60,61,LH_SomMot_30,SomMot,-24,-10,64,#6C92D4
+61,62,LH_SomMot_31,SomMot,-20,-24,66,#6C92D4
+62,63,LH_SomMot_32,SomMot,-8,-42,70,#6C92D4
+63,64,LH_SomMot_33,SomMot,-4,-26,68,#6C92D4
+64,65,LH_SomMot_34,SomMot,-14,-12,72,#6C92D4
+65,66,LH_SomMot_35,SomMot,-18,-32,68,#6C92D4
+66,67,LH_SomMot_36,SomMot,-18,-40,72,#6C92D4
+67,68,LH_SomMot_37,SomMot,-12,-26,74,#6C92D4
+68,69,LH_DorsAttn_Post_1,DorsAttn,-44,-42,-22,#3C9F4D
+69,70,LH_DorsAttn_Post_2,DorsAttn,-48,-56,-16,#3C9F4D
+70,71,LH_DorsAttn_Post_3,DorsAttn,-56,-62,0,#3C9F4D
+71,72,LH_DorsAttn_Post_4,DorsAttn,-48,-66,16,#3C9F4D
+72,73,LH_DorsAttn_Post_5,DorsAttn,-26,-70,30,#3C9F4D
+73,74,LH_DorsAttn_Post_6,DorsAttn,-54,-32,44,#3C9F4D
+74,75,LH_DorsAttn_Post_7,DorsAttn,-22,-66,46,#3C9F4D
+75,76,LH_DorsAttn_Post_8,DorsAttn,-46,-30,44,#3C9F4D
+76,77,LH_DorsAttn_Post_9,DorsAttn,-34,-46,40,#3C9F4D
+77,78,LH_DorsAttn_Post_10,DorsAttn,-28,-58,50,#3C9F4D
+78,79,LH_DorsAttn_Post_11,DorsAttn,-38,-38,50,#3C9F4D
+79,80,LH_DorsAttn_Post_12,DorsAttn,-36,-52,56,#3C9F4D
+80,81,LH_DorsAttn_Post_13,DorsAttn,-14,-70,58,#3C9F4D
+81,82,LH_DorsAttn_Post_14,DorsAttn,-28,-62,62,#3C9F4D
+82,83,LH_DorsAttn_Post_15,DorsAttn,-8,-58,64,#3C9F4D
+83,84,LH_DorsAttn_Post_16,DorsAttn,-20,-56,66,#3C9F4D
+84,85,LH_DorsAttn_Post_17,DorsAttn,-14,-50,72,#3C9F4D
+85,86,LH_DorsAttn_FEF_1,DorsAttn,-40,-2,52,#3C9F4D
+86,87,LH_DorsAttn_FEF_2,DorsAttn,-26,0,56,#3C9F4D
+87,88,LH_DorsAttn_FEF_3,DorsAttn,-30,-8,52,#3C9F4D
+88,89,LH_DorsAttn_FEF_4,DorsAttn,-22,6,64,#3C9F4D
+89,90,LH_DorsAttn_PrCv_1,DorsAttn,-50,6,26,#3C9F4D
+90,91,LH_DorsAttn_PrCv_2,DorsAttn,-50,2,38,#3C9F4D
+91,92,LH_SalVentAttn_ParOper_1,VentAttn,-54,-32,22,#E586E5
+92,93,LH_SalVentAttn_ParOper_2,VentAttn,-58,-44,28,#E586E5
+93,94,LH_SalVentAttn_ParOper_3,VentAttn,-62,-24,32,#E586E5
+94,95,LH_SalVentAttn_ParOper_4,VentAttn,-62,-36,34,#E586E5
+95,96,LH_SalVentAttn_TempOcc_1,VentAttn,-58,-54,10,#E586E5
+96,97,LH_SalVentAttn_FrOperIns_1,VentAttn,-44,6,-16,#E586E5
+97,98,LH_SalVentAttn_FrOperIns_2,VentAttn,-38,2,-4,#E586E5
+98,99,LH_SalVentAttn_FrOperIns_3,VentAttn,-32,24,0,#E586E5
+99,100,LH_SalVentAttn_FrOperIns_4,VentAttn,-40,-14,-2,#E586E5
+100,101,LH_SalVentAttn_FrOperIns_5,VentAttn,-32,18,8,#E586E5
+101,102,LH_SalVentAttn_FrOperIns_6,VentAttn,-36,4,10,#E586E5
+102,103,LH_SalVentAttn_FrOperIns_7,VentAttn,-44,12,2,#E586E5
+103,104,LH_SalVentAttn_FrOperIns_8,VentAttn,-50,2,4,#E586E5
+104,105,LH_SalVentAttn_FrOperIns_9,VentAttn,-52,8,14,#E586E5
+105,106,LH_SalVentAttn_PFCl_1,VentAttn,-28,44,30,#E586E5
+106,107,LH_SalVentAttn_Med_1,VentAttn,-6,22,32,#E586E5
+107,108,LH_SalVentAttn_Med_2,VentAttn,-6,0,40,#E586E5
+108,109,LH_SalVentAttn_Med_3,VentAttn,-12,-28,42,#E586E5
+109,110,LH_SalVentAttn_Med_4,VentAttn,-6,10,48,#E586E5
+110,111,LH_SalVentAttn_Med_5,VentAttn,-12,-42,48,#E586E5
+111,112,LH_SalVentAttn_Med_6,VentAttn,-6,-48,56,#E586E5
+112,113,LH_SalVentAttn_Med_7,VentAttn,-8,-2,70,#E586E5
+113,114,LH_Limbic_OFC_1,Limbic,-12,24,-20,#F6EFD1
+114,115,LH_Limbic_OFC_2,Limbic,-24,22,-20,#F6EFD1
+115,116,LH_Limbic_OFC_3,Limbic,-10,48,-22,#F6EFD1
+116,117,LH_Limbic_OFC_4,Limbic,-4,24,-20,#F6EFD1
+117,118,LH_Limbic_OFC_5,Limbic,-16,64,-8,#F6EFD1
+118,119,LH_Limbic_TempPole_1,Limbic,-38,-6,-42,#F6EFD1
+119,120,LH_Limbic_TempPole_2,Limbic,-24,6,-40,#F6EFD1
+120,121,LH_Limbic_TempPole_3,Limbic,-26,-10,-32,#F6EFD1
+121,122,LH_Limbic_TempPole_4,Limbic,-54,-22,-30,#F6EFD1
+122,123,LH_Limbic_TempPole_5,Limbic,-40,-22,-26,#F6EFD1
+123,124,LH_Limbic_TempPole_6,Limbic,-44,12,-34,#F6EFD1
+124,125,LH_Limbic_TempPole_7,Limbic,-32,12,-30,#F6EFD1
+125,126,LH_Limbic_TempPole_8,Limbic,-20,-20,-26,#F6EFD1
+126,127,LH_Cont_Par_1,Control,-28,-74,42,#FDB841
+127,128,LH_Cont_Par_2,Control,-58,-42,46,#FDB841
+128,129,LH_Cont_Par_3,Control,-54,-50,44,#FDB841
+129,130,LH_Cont_Par_4,Control,-34,-62,48,#FDB841
+130,131,LH_Cont_Par_5,Control,-42,-52,48,#FDB841
+131,132,LH_Cont_Par_6,Control,-44,-42,46,#FDB841
+132,133,LH_Cont_Temp_1,Control,-60,-48,-10,#FDB841
+133,134,LH_Cont_OFC_1,Control,-26,50,-14,#FDB841
+134,135,LH_Cont_PFCl_1,Control,-42,48,-6,#FDB841
+135,136,LH_Cont_PFCl_2,Control,-48,36,10,#FDB841
+136,137,LH_Cont_PFCl_3,Control,-38,50,10,#FDB841
+137,138,LH_Cont_PFCl_4,Control,-28,56,12,#FDB841
+138,139,LH_Cont_PFCl_5,Control,-42,38,22,#FDB841
+139,140,LH_Cont_PFCl_6,Control,-44,20,26,#FDB841
+140,141,LH_Cont_PFCl_7,Control,-40,8,34,#FDB841
+141,142,LH_Cont_PFCl_8,Control,-36,32,38,#FDB841
+142,143,LH_Cont_PFCv_1,Control,-34,16,-8,#FDB841
+143,144,LH_Cont_pCun_1,Control,-10,-78,46,#FDB841
+144,145,LH_Cont_pCun_2,Control,-4,-64,52,#FDB841
+145,146,LH_Cont_Cing_1,Control,-4,6,28,#FDB841
+146,147,LH_Cont_Cing_2,Control,-4,-22,30,#FDB841
+147,148,LH_Cont_PFCmp_1,Control,-4,28,48,#FDB841
+148,149,LH_Default_Temp_1,Default Mode,-54,-2,-30,#D77C7C
+149,150,LH_Default_Temp_2,Default Mode,-62,-18,-20,#D77C7C
+150,151,LH_Default_Temp_3,Default Mode,-60,-36,-18,#D77C7C
+151,152,LH_Default_Temp_4,Default Mode,-56,-8,-14,#D77C7C
+152,153,LH_Default_Temp_5,Default Mode,-52,6,-12,#D77C7C
+153,154,LH_Default_Temp_6,Default Mode,-60,-34,-4,#D77C7C
+154,155,LH_Default_Temp_7,Default Mode,-52,-22,-6,#D77C7C
+155,156,LH_Default_Temp_8,Default Mode,-60,-12,-2,#D77C7C
+156,157,LH_Default_Temp_9,Default Mode,-62,-32,6,#D77C7C
+157,158,LH_Default_Temp_10,Default Mode,-52,-44,4,#D77C7C
+158,159,LH_Default_Par_1,Default Mode,-58,-48,16,#D77C7C
+159,160,LH_Default_Par_2,Default Mode,-46,-58,20,#D77C7C
+160,161,LH_Default_Par_3,Default Mode,-40,-78,30,#D77C7C
+161,162,LH_Default_Par_4,Default Mode,-48,-64,32,#D77C7C
+162,163,LH_Default_Par_5,Default Mode,-56,-54,30,#D77C7C
+163,164,LH_Default_Par_6,Default Mode,-42,-72,44,#D77C7C
+164,165,LH_Default_Par_7,Default Mode,-48,-60,46,#D77C7C
+165,166,LH_Default_PFC_1,Default Mode,-36,22,-16,#D77C7C
+166,167,LH_Default_PFC_2,Default Mode,-36,36,-12,#D77C7C
+167,168,LH_Default_PFC_3,Default Mode,-4,56,-10,#D77C7C
+168,169,LH_Default_PFC_4,Default Mode,-6,36,-8,#D77C7C
+169,170,LH_Default_PFC_5,Default Mode,-46,32,-10,#D77C7C
+170,171,LH_Default_PFC_6,Default Mode,-28,58,0,#D77C7C
+171,172,LH_Default_PFC_7,Default Mode,-48,28,0,#D77C7C
+172,173,LH_Default_PFC_8,Default Mode,-6,60,6,#D77C7C
+173,174,LH_Default_PFC_9,Default Mode,-6,44,6,#D77C7C
+174,175,LH_Default_PFC_10,Default Mode,-54,20,12,#D77C7C
+175,176,LH_Default_PFC_11,Default Mode,-16,68,8,#D77C7C
+176,177,LH_Default_PFC_12,Default Mode,-6,34,20,#D77C7C
+177,178,LH_Default_PFC_13,Default Mode,-4,52,28,#D77C7C
+178,179,LH_Default_PFC_14,Default Mode,-14,58,30,#D77C7C
+179,180,LH_Default_PFC_15,Default Mode,-22,50,32,#D77C7C
+180,181,LH_Default_PFC_16,Default Mode,-24,28,44,#D77C7C
+181,182,LH_Default_PFC_17,Default Mode,-40,20,48,#D77C7C
+182,183,LH_Default_PFC_18,Default Mode,-8,42,52,#D77C7C
+183,184,LH_Default_PFC_19,Default Mode,-18,36,48,#D77C7C
+184,185,LH_Default_PFC_20,Default Mode,-42,8,48,#D77C7C
+185,186,LH_Default_PFC_21,Default Mode,-30,14,58,#D77C7C
+186,187,LH_Default_PFC_22,Default Mode,-22,20,52,#D77C7C
+187,188,LH_Default_PFC_23,Default Mode,-12,24,60,#D77C7C
+188,189,LH_Default_PFC_24,Default Mode,-6,10,64,#D77C7C
+189,190,LH_Default_pCunPCC_1,Default Mode,-8,-52,10,#D77C7C
+190,191,LH_Default_pCunPCC_2,Default Mode,-14,-60,18,#D77C7C
+191,192,LH_Default_pCunPCC_3,Default Mode,-4,-54,20,#D77C7C
+192,193,LH_Default_pCunPCC_4,Default Mode,-6,-40,24,#D77C7C
+193,194,LH_Default_pCunPCC_5,Default Mode,-10,-70,32,#D77C7C
+194,195,LH_Default_pCunPCC_6,Default Mode,-6,-60,30,#D77C7C
+195,196,LH_Default_pCunPCC_7,Default Mode,-8,-44,32,#D77C7C
+196,197,LH_Default_pCunPCC_8,Default Mode,-4,-34,38,#D77C7C
+197,198,LH_Default_pCunPCC_9,Default Mode,-2,-16,38,#D77C7C
+198,199,LH_Default_pCunPCC_10,Default Mode,-2,-68,42,#D77C7C
+199,200,LH_Default_pCunPCC_11,Default Mode,-6,-50,42,#D77C7C
+200,201,RH_Vis_1,Visual,34,-36,-24,#A76CD4
+201,202,RH_Vis_2,Visual,30,-30,-18,#A76CD4
+202,203,RH_Vis_3,Visual,36,-54,-18,#A76CD4
+203,204,RH_Vis_4,Visual,38,-74,-16,#A76CD4
+204,205,RH_Vis_5,Visual,26,-52,-8,#A76CD4
+205,206,RH_Vis_6,Visual,24,-74,-10,#A76CD4
+206,207,RH_Vis_7,Visual,18,-36,-12,#A76CD4
+207,208,RH_Vis_8,Visual,20,-88,-12,#A76CD4
+208,209,RH_Vis_9,Visual,50,-64,-10,#A76CD4
+209,210,RH_Vis_10,Visual,42,-84,-12,#A76CD4
+210,211,RH_Vis_11,Visual,10,-72,-6,#A76CD4
+211,212,RH_Vis_12,Visual,14,-58,-4,#A76CD4
+212,213,RH_Vis_13,Visual,26,-96,-10,#A76CD4
+213,214,RH_Vis_14,Visual,18,-44,-2,#A76CD4
+214,215,RH_Vis_15,Visual,8,-92,-2,#A76CD4
+215,216,RH_Vis_16,Visual,48,-66,4,#A76CD4
+216,217,RH_Vis_17,Visual,14,-46,4,#A76CD4
+217,218,RH_Vis_18,Visual,36,-88,2,#A76CD4
+218,219,RH_Vis_19,Visual,10,-74,8,#A76CD4
+219,220,RH_Vis_20,Visual,22,-60,6,#A76CD4
+220,221,RH_Vis_21,Visual,24,-98,8,#A76CD4
+221,222,RH_Vis_22,Visual,44,-78,10,#A76CD4
+222,223,RH_Vis_23,Visual,12,-94,18,#A76CD4
+223,224,RH_Vis_24,Visual,16,-66,18,#A76CD4
+224,225,RH_Vis_25,Visual,4,-80,24,#A76CD4
+225,226,RH_Vis_26,Visual,28,-88,20,#A76CD4
+226,227,RH_Vis_27,Visual,36,-78,24,#A76CD4
+227,228,RH_Vis_28,Visual,14,-78,34,#A76CD4
+228,229,RH_Vis_29,Visual,16,-86,36,#A76CD4
+229,230,RH_Vis_30,Visual,30,-78,36,#A76CD4
+230,231,RH_SomMot_1,SomMot,52,4,-6,#6C92D4
+231,232,RH_SomMot_2,SomMot,62,-18,0,#6C92D4
+232,233,RH_SomMot_3,SomMot,54,-14,6,#6C92D4
+233,234,RH_SomMot_4,SomMot,40,-20,4,#6C92D4
+234,235,RH_SomMot_5,SomMot,38,-8,14,#6C92D4
+235,236,RH_SomMot_6,SomMot,34,-22,14,#6C92D4
+236,237,RH_SomMot_7,SomMot,60,-24,10,#6C92D4
+237,238,RH_SomMot_8,SomMot,64,-34,10,#6C92D4
+238,239,RH_SomMot_9,SomMot,42,-14,18,#6C92D4
+239,240,RH_SomMot_10,SomMot,42,-30,18,#6C92D4
+240,241,RH_SomMot_11,SomMot,50,-10,14,#6C92D4
+241,242,RH_SomMot_12,SomMot,60,0,10,#6C92D4
+242,243,RH_SomMot_13,SomMot,48,-22,18,#6C92D4
+243,244,RH_SomMot_14,SomMot,62,-12,16,#6C92D4
+244,245,RH_SomMot_15,SomMot,60,6,30,#6C92D4
+245,246,RH_SomMot_16,SomMot,60,-6,26,#6C92D4
+246,247,RH_SomMot_17,SomMot,62,-14,30,#6C92D4
+247,248,RH_SomMot_18,SomMot,52,-6,38,#6C92D4
+248,249,RH_SomMot_19,SomMot,54,-16,40,#6C92D4
+249,250,RH_SomMot_20,SomMot,12,-18,42,#6C92D4
+250,251,RH_SomMot_21,SomMot,52,-12,50,#6C92D4
+251,252,RH_SomMot_22,SomMot,44,-10,48,#6C92D4
+252,253,RH_SomMot_23,SomMot,50,-26,56,#6C92D4
+253,254,RH_SomMot_24,SomMot,6,-10,52,#6C92D4
+254,255,RH_SomMot_25,SomMot,44,-22,54,#6C92D4
+255,256,RH_SomMot_26,SomMot,38,-20,64,#6C92D4
+256,257,RH_SomMot_27,SomMot,32,-34,64,#6C92D4
+257,258,RH_SomMot_28,SomMot,30,-40,64,#6C92D4
+258,259,RH_SomMot_29,SomMot,34,-28,62,#6C92D4
+259,260,RH_SomMot_30,SomMot,4,-24,58,#6C92D4
+260,261,RH_SomMot_31,SomMot,28,-10,64,#6C92D4
+261,262,RH_SomMot_32,SomMot,10,-40,68,#6C92D4
+262,263,RH_SomMot_33,SomMot,22,-24,66,#6C92D4
+263,264,RH_SomMot_34,SomMot,22,-28,68,#6C92D4
+264,265,RH_SomMot_35,SomMot,22,-34,70,#6C92D4
+265,266,RH_SomMot_36,SomMot,16,-6,70,#6C92D4
+266,267,RH_SomMot_37,SomMot,16,-46,74,#6C92D4
+267,268,RH_SomMot_38,SomMot,6,-22,72,#6C92D4
+268,269,RH_SomMot_39,SomMot,16,-18,74,#6C92D4
+269,270,RH_SomMot_40,SomMot,12,-32,76,#6C92D4
+270,271,RH_DorsAttn_Post_1,DorsAttn,50,-50,-18,#3C9F4D
+271,272,RH_DorsAttn_Post_2,DorsAttn,60,-54,-2,#3C9F4D
+272,273,RH_DorsAttn_Post_3,DorsAttn,54,-56,12,#3C9F4D
+273,274,RH_DorsAttn_Post_4,DorsAttn,46,-76,30,#3C9F4D
+274,275,RH_DorsAttn_Post_5,DorsAttn,32,-66,36,#3C9F4D
+275,276,RH_DorsAttn_Post_6,DorsAttn,58,-22,44,#3C9F4D
+276,277,RH_DorsAttn_Post_7,DorsAttn,18,-78,50,#3C9F4D
+277,278,RH_DorsAttn_Post_8,DorsAttn,44,-38,50,#3C9F4D
+278,279,RH_DorsAttn_Post_9,DorsAttn,46,-28,42,#3C9F4D
+279,280,RH_DorsAttn_Post_10,DorsAttn,30,-64,52,#3C9F4D
+280,281,RH_DorsAttn_Post_11,DorsAttn,36,-44,44,#3C9F4D
+281,282,RH_DorsAttn_Post_12,DorsAttn,20,-68,52,#3C9F4D
+282,283,RH_DorsAttn_Post_13,DorsAttn,36,-36,52,#3C9F4D
+283,284,RH_DorsAttn_Post_14,DorsAttn,34,-50,54,#3C9F4D
+284,285,RH_DorsAttn_Post_15,DorsAttn,8,-72,52,#3C9F4D
+285,286,RH_DorsAttn_Post_16,DorsAttn,26,-58,60,#3C9F4D
+286,287,RH_DorsAttn_Post_17,DorsAttn,8,-54,60,#3C9F4D
+287,288,RH_DorsAttn_Post_18,DorsAttn,14,-64,64,#3C9F4D
+288,289,RH_DorsAttn_Post_19,DorsAttn,24,-50,68,#3C9F4D
+289,290,RH_DorsAttn_FEF_1,DorsAttn,40,-4,52,#3C9F4D
+290,291,RH_DorsAttn_FEF_2,DorsAttn,28,-4,52,#3C9F4D
+291,292,RH_DorsAttn_FEF_3,DorsAttn,24,-2,64,#3C9F4D
+292,293,RH_DorsAttn_PrCv_1,DorsAttn,48,8,24,#3C9F4D
+293,294,RH_SalVentAttn_TempOccPar_1,VentAttn,60,-46,6,#E586E5
+294,295,RH_SalVentAttn_TempOccPar_2,VentAttn,52,-40,12,#E586E5
+295,296,RH_SalVentAttn_TempOccPar_3,VentAttn,62,-40,22,#E586E5
+296,297,RH_SalVentAttn_TempOccPar_4,VentAttn,58,-32,24,#E586E5
+297,298,RH_SalVentAttn_TempOccPar_5,VentAttn,60,-22,22,#E586E5
+298,299,RH_SalVentAttn_TempOccPar_6,VentAttn,62,-26,38,#E586E5
+299,300,RH_SalVentAttn_TempOccPar_7,VentAttn,62,-38,36,#E586E5
+300,301,RH_SalVentAttn_PrC_1,VentAttn,52,4,40,#E586E5
+301,302,RH_SalVentAttn_FrOperIns_1,VentAttn,40,6,-16,#E586E5
+302,303,RH_SalVentAttn_FrOperIns_2,VentAttn,40,8,-2,#E586E5
+303,304,RH_SalVentAttn_FrOperIns_3,VentAttn,40,-10,-4,#E586E5
+304,305,RH_SalVentAttn_FrOperIns_4,VentAttn,40,-2,6,#E586E5
+305,306,RH_SalVentAttn_FrOperIns_5,VentAttn,36,22,4,#E586E5
+306,307,RH_SalVentAttn_FrOperIns_6,VentAttn,38,8,10,#E586E5
+307,308,RH_SalVentAttn_FrOperIns_7,VentAttn,48,4,4,#E586E5
+308,309,RH_SalVentAttn_FrOperIns_8,VentAttn,54,12,12,#E586E5
+309,310,RH_SalVentAttn_PFCl_1,VentAttn,32,44,28,#E586E5
+310,311,RH_SalVentAttn_Med_1,VentAttn,8,18,36,#E586E5
+311,312,RH_SalVentAttn_Med_2,VentAttn,8,2,42,#E586E5
+312,313,RH_SalVentAttn_Med_3,VentAttn,12,-34,42,#E586E5
+313,314,RH_SalVentAttn_Med_4,VentAttn,6,10,58,#E586E5
+314,315,RH_SalVentAttn_Med_5,VentAttn,10,-44,54,#E586E5
+315,316,RH_SalVentAttn_Med_6,VentAttn,10,-32,50,#E586E5
+316,317,RH_SalVentAttn_Med_7,VentAttn,6,-2,66,#E586E5
+317,318,RH_SalVentAttn_Med_8,VentAttn,16,6,70,#E586E5
+318,319,RH_Limbic_OFC_1,Limbic,14,24,-20,#F6EFD1
+319,320,RH_Limbic_OFC_2,Limbic,22,22,-20,#F6EFD1
+320,321,RH_Limbic_OFC_3,Limbic,8,46,-24,#F6EFD1
+321,322,RH_Limbic_OFC_4,Limbic,20,42,-18,#F6EFD1
+322,323,RH_Limbic_OFC_5,Limbic,4,22,-20,#F6EFD1
+323,324,RH_Limbic_OFC_6,Limbic,10,62,-14,#F6EFD1
+324,325,RH_Limbic_TempPole_1,Limbic,28,-2,-40,#F6EFD1
+325,326,RH_Limbic_TempPole_2,Limbic,48,-6,-40,#F6EFD1
+326,327,RH_Limbic_TempPole_3,Limbic,36,18,-38,#F6EFD1
+327,328,RH_Limbic_TempPole_4,Limbic,40,-14,-32,#F6EFD1
+328,329,RH_Limbic_TempPole_5,Limbic,28,12,-30,#F6EFD1
+329,330,RH_Limbic_TempPole_6,Limbic,50,-28,-26,#F6EFD1
+330,331,RH_Limbic_TempPole_7,Limbic,22,-18,-28,#F6EFD1
+331,332,RH_Cont_Par_1,Control,54,-52,44,#FDB841
+332,333,RH_Cont_Par_2,Control,56,-40,48,#FDB841
+333,334,RH_Cont_Par_3,Control,36,-70,46,#FDB841
+334,335,RH_Cont_Par_4,Control,54,-32,52,#FDB841
+335,336,RH_Cont_Par_5,Control,46,-44,46,#FDB841
+336,337,RH_Cont_Par_6,Control,42,-56,48,#FDB841
+337,338,RH_Cont_Temp_1,Control,62,-28,-20,#FDB841
+338,339,RH_Cont_Temp_2,Control,64,-42,-10,#FDB841
+339,340,RH_Cont_PFCv_1,Control,34,22,-8,#FDB841
+340,341,RH_Cont_PFCl_1,Control,28,54,-14,#FDB841
+341,342,RH_Cont_PFCl_2,Control,42,50,-6,#FDB841
+342,343,RH_Cont_PFCl_3,Control,28,60,2,#FDB841
+343,344,RH_Cont_PFCl_4,Control,50,40,6,#FDB841
+344,345,RH_Cont_PFCl_5,Control,42,46,14,#FDB841
+345,346,RH_Cont_PFCl_6,Control,50,30,18,#FDB841
+346,347,RH_Cont_PFCl_7,Control,48,18,24,#FDB841
+347,348,RH_Cont_PFCl_8,Control,26,54,24,#FDB841
+348,349,RH_Cont_PFCl_9,Control,48,28,28,#FDB841
+349,350,RH_Cont_PFCl_10,Control,38,10,34,#FDB841
+350,351,RH_Cont_PFCl_11,Control,38,34,38,#FDB841
+351,352,RH_Cont_PFCl_12,Control,44,18,44,#FDB841
+352,353,RH_Cont_PFCl_13,Control,42,6,50,#FDB841
+353,354,RH_Cont_PFCl_14,Control,34,16,56,#FDB841
+354,355,RH_Cont_PFCl_15,Control,24,10,58,#FDB841
+355,356,RH_Cont_pCun_1,Control,14,-72,40,#FDB841
+356,357,RH_Cont_pCun_2,Control,6,-64,44,#FDB841
+357,358,RH_Cont_Cing_1,Control,6,-28,28,#FDB841
+358,359,RH_Cont_Cing_2,Control,4,2,30,#FDB841
+359,360,RH_Cont_PFCmp_1,Control,8,34,24,#FDB841
+360,361,RH_Cont_PFCmp_2,Control,4,28,48,#FDB841
+361,362,RH_Default_Par_1,Default Mode,54,-46,20,#D77C7C
+362,363,RH_Default_Par_2,Default Mode,48,-64,22,#D77C7C
+363,364,RH_Default_Par_3,Default Mode,54,-54,26,#D77C7C
+364,365,RH_Default_Par_4,Default Mode,56,-46,32,#D77C7C
+365,366,RH_Default_Par_5,Default Mode,48,-64,42,#D77C7C
+366,367,RH_Default_Temp_1,Default Mode,50,8,-32,#D77C7C
+367,368,RH_Default_Temp_2,Default Mode,60,-8,-24,#D77C7C
+368,369,RH_Default_Temp_3,Default Mode,48,16,-20,#D77C7C
+369,370,RH_Default_Temp_4,Default Mode,54,-4,-14,#D77C7C
+370,371,RH_Default_Temp_5,Default Mode,64,-24,-8,#D77C7C
+371,372,RH_Default_Temp_6,Default Mode,48,-20,-8,#D77C7C
+372,373,RH_Default_Temp_7,Default Mode,64,-38,0,#D77C7C
+373,374,RH_Default_Temp_8,Default Mode,50,-34,2,#D77C7C
+374,375,RH_Default_PFCv_1,Default Mode,34,22,-18,#D77C7C
+375,376,RH_Default_PFCv_2,Default Mode,36,38,-14,#D77C7C
+376,377,RH_Default_PFCv_3,Default Mode,48,32,-8,#D77C7C
+377,378,RH_Default_PFCv_4,Default Mode,54,24,6,#D77C7C
+378,379,RH_Default_PFCdPFCm_1,Default Mode,6,42,-10,#D77C7C
+379,380,RH_Default_PFCdPFCm_2,Default Mode,10,66,0,#D77C7C
+380,381,RH_Default_PFCdPFCm_3,Default Mode,8,42,4,#D77C7C
+381,382,RH_Default_PFCdPFCm_4,Default Mode,8,54,12,#D77C7C
+382,383,RH_Default_PFCdPFCm_5,Default Mode,18,64,16,#D77C7C
+383,384,RH_Default_PFCdPFCm_6,Default Mode,6,26,18,#D77C7C
+384,385,RH_Default_PFCdPFCm_7,Default Mode,6,58,30,#D77C7C
+385,386,RH_Default_PFCdPFCm_8,Default Mode,16,52,36,#D77C7C
+386,387,RH_Default_PFCdPFCm_9,Default Mode,4,44,40,#D77C7C
+387,388,RH_Default_PFCdPFCm_10,Default Mode,26,34,38,#D77C7C
+388,389,RH_Default_PFCdPFCm_11,Default Mode,14,38,52,#D77C7C
+389,390,RH_Default_PFCdPFCm_12,Default Mode,24,26,50,#D77C7C
+390,391,RH_Default_PFCdPFCm_13,Default Mode,12,20,62,#D77C7C
+391,392,RH_Default_pCunPCC_1,Default Mode,12,-56,16,#D77C7C
+392,393,RH_Default_pCunPCC_2,Default Mode,8,-44,20,#D77C7C
+393,394,RH_Default_pCunPCC_3,Default Mode,16,-64,28,#D77C7C
+394,395,RH_Default_pCunPCC_4,Default Mode,6,-52,24,#D77C7C
+395,396,RH_Default_pCunPCC_5,Default Mode,4,-64,32,#D77C7C
+396,397,RH_Default_pCunPCC_6,Default Mode,6,-38,34,#D77C7C
+397,398,RH_Default_pCunPCC_7,Default Mode,4,-20,36,#D77C7C
+398,399,RH_Default_pCunPCC_8,Default Mode,10,-52,36,#D77C7C
+399,400,RH_Default_pCunPCC_9,Default Mode,8,-50,44,#D77C7C
+400,401,L_Accumbens,Subcortex,-9,12,-6,#6BD3FF
+401,402,L_Amygdala,Subcortex,-23,-5,-20,#6BD3FF
+402,403,L_Caudate,Subcortex,-13,6,11,#6BD3FF
+403,404,L_Hippocampus,Subcortex,-25,-23,-14,#6BD3FF
+404,405,L_Pallidum,Subcortex,-20,-5,-1,#6BD3FF
+405,406,L_Putamen,Subcortex,-26,0,0,#6BD3FF
+406,407,L_Thalamus,Subcortex,-11,-19,6,#6BD3FF
+407,408,R_Accumbens,Subcortex,10,12,-7,#6BD3FF
+408,409,R_Amygdala,Subcortex,24,-4,-20,#6BD3FF
+409,410,R_Caudate,Subcortex,14,9,10,#6BD3FF
+410,411,R_Hippocampus,Subcortex,27,-21,-14,#6BD3FF
+411,412,R_Pallidum,Subcortex,21,-4,-1,#6BD3FF
+412,413,R_Putamen,Subcortex,26,3,-1,#6BD3FF
+413,414,R_Thalamus,Subcortex,12,-18,7,#6BD3FF
+414,415,Cereb_Visual,Visual,0,0,0,#A76CD4
+415,416,Cereb_Somatomotor,SomMot,0,0,0,#6C92D4
+416,417,Cereb_Dorsal Attention,DorsAttn,0,0,0,#3C9F4D
+417,418,Cereb_Ventral Attention,VentAttn,0,0,0,#E586E5
+418,419,Cereb_Limbic,Limbic,0,0,0,#F6EFD1
+419,420,Cereb_Fronto-Parietal,Control,0,0,0,#FDB841
+420,421,Cereb_Default-Mode,Default Mode,0,0,0,#D77C7C
