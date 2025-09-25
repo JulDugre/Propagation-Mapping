@@ -2,7 +2,7 @@
 Propagation Mapping is a novel framework for reconstructing the neural circuits underlying the spatial organization of human brain maps. This user-friendly toolbox offers researchers in neuroscience and psychiatry a versatile and powerful alternative to traditional regional analyses, opening new avenues for discovery in both neurological and psychiatric neuroimaging. The method assumes that the spatial organization of a brain map can be predicted from a general and stable brain architecture. Propagation Mapping relies on group-level functional connectivity and structural covariance estimates from a sample of 1,000 healthy subjects (GSP1000, [Yeo et al., 2011]([URL](https://pubmed.ncbi.nlm.nih.gov/21653723/));[Holmes et al., 2015]([URL](https://pubmed.ncbi.nlm.nih.gov/26175908/)))
 
 ## Key Features
-The core idea behind propagation mapping is that if the spatial organization of brain maps can be accurately predicted by a weighted sum, this indicates that the weighted connectome—prior to summation—faithfully captures the connectivity patterns underlying a given spatial pattern. This reconstructed connectome, referred to as a propagation map, can then be used to generate new hypotheses through graph metrics and connectome-based predictive modeling. Propagation Mapping is an extension of Cole and colleagues [2016, Nature Neurosci]([URL](https://pubmed.ncbi.nlm.nih.gov/27723746/) and should therefore be cited when using the toolbox. 
+The core idea behind propagation mapping is that if the spatial organization of brain maps can be accurately predicted by a weighted sum, this indicates that the weighted connectome—prior to summation—faithfully captures the connectivity patterns underlying a given spatial pattern. This reconstructed connectome, referred to as a propagation map, can then be used to generate new hypotheses through graph metrics and connectome-based predictive modeling. Propagation Mapping is an extension of Cole and colleagues [2016, Nature Neurosci](https://pubmed.ncbi.nlm.nih.gov/27723746/) and should therefore be cited when using the toolbox. 
 
 The toolbox currently allows researchers to calculate and save:
 - **Predicted Regional Map** – a 1-dimensional feature vector representing predicted regional values.  
@@ -16,3 +16,6 @@ Users can select their preferred atlas to enable mapping across different modali
 - **Desikan-Killiany Atlas** ([Desikan et al., 2006](https://pubmed.ncbi.nlm.nih.gov/16530430/))  
 
 All atlases are supplemented by 14 additional subcortical regions ([Fischl et al., 2002](https://pubmed.ncbi.nlm.nih.gov/11832223/)) and 7 cerebellar regions ([Buckner et al., 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3214121/)).
+
+## To Run
+To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
