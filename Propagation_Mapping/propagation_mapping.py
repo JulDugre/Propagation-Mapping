@@ -132,8 +132,8 @@ if loaded_imgs:
         st.write("Shape of parcellated data (ROIs × Subjects):", masked_df.shape)
         st.dataframe(masked_df)
 
-        func_dir = "normative_connectomes/func"
-        struct_dir = "normative_connectomes/struct"
+        func_dir = BASE_DIR / "normative_connectomes" / "func"
+        struct_dir = BASE_DIR / "normative_connectomes" / "struct"
 
         func_file = os.path.join(func_dir, f"ATLAS_{atlas_choice}_resting_Fz.csv")
         struct_file = os.path.join(struct_dir, f"ATLAS_{atlas_choice}_structural_Fz.csv")
