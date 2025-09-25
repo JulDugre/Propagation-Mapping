@@ -134,7 +134,6 @@ if loaded_imgs:
         # --- Convert to DataFrame with generic column names ---
 
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=col_names)
-		st.write(st.session_state.masked_df.shape)
 		
         # --- Display results ---
         st.header("Parcellated Data")
