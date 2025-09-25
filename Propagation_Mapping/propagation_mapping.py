@@ -339,81 +339,89 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
     ctx_sctx_conn = connectome.iloc[:414, :414]
     coords = list(zip(labels_info.x[:414], labels_info.y[:414], labels_info.z[:414]))
 
-    # ----------------- COL1: HEATMAP -----------------
-    col1, col2 = st.columns(2)
+# ----------------- COL1: HEATMAP -----------------
+col1, col2 = st.columns(2)
 
-    @st.fragment
-    def render_heatmap():
-        prop_map = propagation_maps[0]
-        connectome_matrix = pd.DataFrame(prop_map, index=roi_labels, columns=roi_labels)
+def render_heatmap(subject_idx=0):
+    # Use filename from session_state column names
+    filename = st.session_state.masked_df.columns[subject_idx]
+    
+    propagation_maps = st.session_state.propagation_maps
+    roi_labels = labels_info['Label'].tolist()
 
-        # Sort by network
-        labels_info['Order'] = labels_info['Network']
-        sorted_labels = labels_info.sort_values('Order')['Label'].tolist()
-        reordered_matrix = connectome_matrix.loc[sorted_labels, sorted_labels]
+    prop_map = propagation_maps[subject_idx]
+    connectome_matrix = pd.DataFrame(prop_map, index=roi_labels, columns=roi_labels)
 
-        network_counts = labels_info.groupby('Network').size()
-        network_names = network_counts.index.tolist()
-        network_colors = {n: labels_info[labels_info['Network']==n]['colors'].unique()[0] for n in network_names}
-        heatmap_file = plots_dir / f"{filename}_heatmap.png"
-        plt.figure(figsize=(16, 10))
-        cmap = plt.get_cmap('Blues')
-        cmap.set_under('white')
-        ax = sns.heatmap(
-            reordered_matrix,
-            cmap=cmap,
-            cbar=True,
-            square=True,
-            annot=False,
-            vmax=connectome_matrix.values.max() * 0.9,
-            linewidths=0,
-            linecolor='white',
-            vmin=0,
-            cbar_kws={"orientation": "horizontal", "pad": 0.05, "fraction": 0.05, "shrink": 0.5}
-        )
-        ax.set_xticks([])
-        ax.set_yticks([])
+    # Sort by network
+    labels_info['Order'] = labels_info['Network']
+    sorted_labels = labels_info.sort_values('Order')['Label'].tolist()
+    reordered_matrix = connectome_matrix.loc[sorted_labels, sorted_labels]
 
-        # Add separators and labels
-        pos = 0
-        for network in network_names:
-            count = network_counts[network]
-            if pos != 0:
-                ax.vlines(pos, 0, len(reordered_matrix), color='black', lw=1, linestyle=(0, (3,5)))
-                ax.hlines(pos, 0, len(reordered_matrix), color='black', lw=1, linestyle=(0, (3,5)))
-            ax.text(-0.1, pos + count/2, network, ha='right', va='center', rotation=0, transform=ax.get_yaxis_transform())
-            pos += count
+    network_counts = labels_info.groupby('Network').size()
+    network_names = network_counts.index.tolist()
+    network_colors = {n: labels_info[labels_info['Network']==n]['colors'].unique()[0] for n in network_names}
 
-        # Network color blocks
-        color_ax = plt.axes([0.204, 0.145, 0.02, 0.842])
-        pos = 0
-        for network in network_names[::-1]:
-            count = network_counts[network]
-            color_ax.add_patch(plt.Rectangle((0, pos), 1, count, color=network_colors[network], alpha=1))
-            pos += count
-        color_ax.set_xlim(0, 1)
-        color_ax.set_ylim(0, len(reordered_matrix))
-        color_ax.axis('off')
+    # Save heatmap
+    heatmap_file = plots_dir / f"{filename}_heatmap.png"
+    plt.figure(figsize=(16, 10))
+    cmap = plt.get_cmap('Blues')
+    cmap.set_under('white')
+    ax = sns.heatmap(
+        reordered_matrix,
+        cmap=cmap,
+        cbar=True,
+        square=True,
+        annot=False,
+        vmax=connectome_matrix.values.max() * 0.9,
+        linewidths=0,
+        linecolor='white',
+        vmin=0,
+        cbar_kws={"orientation": "horizontal", "pad": 0.05, "fraction": 0.05, "shrink": 0.5}
+    )
+    ax.set_xticks([])
+    ax.set_yticks([])
 
-        # Colorbar label
-        colorbar = ax.collections[0].colorbar
-        colorbar.set_label('Propagation Strength', fontsize=12)
-        colorbar.ax.tick_params(labelsize=10)
+    # Add separators and labels
+    pos = 0
+    for network in network_names:
+        count = network_counts[network]
+        if pos != 0:
+            ax.vlines(pos, 0, len(reordered_matrix), color='black', lw=1, linestyle=(0, (3,5)))
+            ax.hlines(pos, 0, len(reordered_matrix), color='black', lw=1, linestyle=(0, (3,5)))
+        ax.text(-0.1, pos + count/2, network, ha='right', va='center', rotation=0, transform=ax.get_yaxis_transform())
+        pos += count
 
-        for _, spine in ax.spines.items():
-            spine.set_visible(True)
-            spine.set_color('black')
-            spine.set_linewidth(1)
+    # Network color blocks
+    color_ax = plt.axes([0.204, 0.145, 0.02, 0.842])
+    pos = 0
+    for network in network_names[::-1]:
+        count = network_counts[network]
+        color_ax.add_patch(plt.Rectangle((0, pos), 1, count, color=network_colors[network], alpha=1))
+        pos += count
+    color_ax.set_xlim(0, 1)
+    color_ax.set_ylim(0, len(reordered_matrix))
+    color_ax.axis('off')
 
-        plt.tight_layout()
-        plt.savefig(heatmap_file, dpi=300)
-        st.pyplot(plt)
-        plt.close()
-        for f in [heatmap_file]:
-             st.session_state.saved_files.append(f)
+    # Colorbar label
+    colorbar = ax.collections[0].colorbar
+    colorbar.set_label('Propagation Strength', fontsize=12)
+    colorbar.ax.tick_params(labelsize=10)
 
-    with col1:
-        render_heatmap()
+    for _, spine in ax.spines.items():
+        spine.set_visible(True)
+        spine.set_color('black')
+        spine.set_linewidth(1)
+
+    plt.tight_layout()
+    plt.savefig(heatmap_file, dpi=300)
+    st.pyplot(plt)
+    plt.close()
+
+    # Save file path to session_state
+    st.session_state.saved_files.append(heatmap_file)
+
+with col1:
+    render_heatmap(subject_idx=0)
 
 # ----------------- COL2: 3D CONNECTOME -----------------
     @st.fragment
