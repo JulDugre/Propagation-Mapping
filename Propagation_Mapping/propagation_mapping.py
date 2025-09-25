@@ -51,7 +51,6 @@ st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
 st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:10.1038/nn.4406")
 
-
 # --- Display the framework image here ---
 BASE_DIR = Path(__file__).parent
 framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
@@ -63,22 +62,27 @@ st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data"
 nii_files = []
 col_names = []
 
+def clean_name(name):
+    return re.sub(r'\.nii(\.gz)?$', '', name)
+
+# --- Multiple NIfTI uploader ---
 uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)", 
-    type=['nii', 'nii.gz'], 
+    "Upload NIFTI file(s)",
+    type=['nii', 'nii.gz'],
     accept_multiple_files=True
 )
 
 if uploaded_files:
     for uf in uploaded_files:
-        tmp_path = tmp_dir / uf.name
+        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-        nii_files.append(str(tmp_path))
+        nii_files.append(tmp_path)
         col_names.append(clean_name(uf.name))
+    
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-    st.write("File paths:")
-    st.write(nii_files)
+    st.write("Uploaded file paths:")
+    st.write([str(os.path.join(st.session_state.tmp_dir, uf.name)) for uf in uploaded_files])
 
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
