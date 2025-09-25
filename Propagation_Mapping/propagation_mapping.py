@@ -147,13 +147,13 @@ if loaded_imgs:
 
         if func_file.exists():
             st.session_state.func_df = pd.read_csv(func_file, index_col=[0])
-            st.write(f"Functional connectome shape: {func_df.shape}")
+            st.write(f"Functional connectome shape: {st.session_state.func_df.shape}")
         else:
             st.warning(f"No functional connectome found for {atlas_choice}")
 
         if struct_file.exists():
             st.session_state.struct_df = pd.read_csv(struct_file, index_col=[0])
-            st.write(f"Structural connectome shape: {struct_df.shape}")
+            st.write(f"Structural connectome shape: {st.session_state.struct_df.shape}")
         else:
             st.warning(f"No structural connectome found for {atlas_choice}")
 
