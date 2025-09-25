@@ -223,7 +223,7 @@ if st.session_state.get("launch_btn", False):
         for idx in range(n_subjects):
             feature_vector = masked_df.iloc[:, idx].values
             filename = masked_df.columns[idx]  # use uploaded filename
-			
+            
             # --- Functional connectome ---
             connectome_FC = np.clip(func_connectome, a_min=0, a_max=None)
             product_FC = feature_vector[:, np.newaxis] * connectome_FC
@@ -257,21 +257,21 @@ if st.session_state.get("launch_btn", False):
             corr_pos, _ = spearmanr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
 
-			# --- Store results ---
-			predicted_regional.append(pred_regional_scaled)
-			true_regional.append(feature_vector)
+            # --- Store results ---
+            predicted_regional.append(pred_regional_scaled)
+            true_regional.append(feature_vector)
+            
+            # --- Compute residuals (Observed - Predicted) ---
+            model = LinearRegression().fit(pred_regional.reshape(-1, 1), feature_vector)
+            y_hat = model.predict(pred_regional.reshape(-1, 1))
+            residuals = feature_vector - y_hat
+            
+            # --- Save CSVs ---
+            pd.DataFrame(pred_regional_scaled).to_csv(output_folder / f"{filename}_pred_map.csv")
+            pd.DataFrame(feature_vector).to_csv(output_folder / f"{filename}_obs_map.csv")
+            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(output_folder / f"{filename}_propagationmap.csv")
+            pd.DataFrame(residuals).to_csv(output_folder / f"{filename}_residualmap.csv")
 			
-			# --- Compute residuals (Observed - Predicted) ---
-			model = LinearRegression().fit(pred_regional.reshape(-1, 1), feature_vector)
-			y_hat = model.predict(pred_regional.reshape(-1, 1))
-			residuals = feature_vector - y_hat
-			
-			# --- Save CSVs ---
-			pd.DataFrame(pred_regional_scaled).to_csv(results_dir / f"{filename}_pred_map.csv")
-			pd.DataFrame(feature_vector).to_csv(results_dir / f"{filename}_obs_map.csv")
-			pd.DataFrame(avg_BOTH_sym_scaled).to_csv(results_dir / f"{filename}_propagationmap.csv")
-			pd.DataFrame(residuals).to_csv(results_dir / f"{filename}_residualmap.csv")
-
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
