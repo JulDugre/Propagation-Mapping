@@ -409,6 +409,8 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
         plt.savefig(heatmap_file, dpi=300)
         st.pyplot(plt)
         plt.close()
+        for f in [heatmap_file]:
+             st.session_state.saved_files.append(f)
 
     with col1:
         render_heatmap()
@@ -424,8 +426,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
         pos_conn_values = ctx_sctx_conn.values.flatten()
         pos_conn_values = pos_conn_values[pos_conn_values > 0]
         cutoff_value = np.percentile(pos_conn_values, st.session_state.threshold_value)
-
-
+		
         # Mask nodes
         mask_edges = (ctx_sctx_conn.values > cutoff_value).any(axis=0)  # boolean array aligned with rows/cols
         filtered_conn = ctx_sctx_conn.loc[mask_edges, mask_edges]
@@ -598,12 +599,13 @@ if st.session_state.get("plot_pred_btn", False):
         g.ax_joint.legend_.remove()
         
 		# Save figure
-        plot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
+        jointplot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
         g.fig.tight_layout()
-        g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
-		
+        g.fig.savefig(jointplot_file, dpi=300, bbox_inches='tight')
+        for f in [jointplot_file]:
+             st.session_state.saved_files.append(f)
 		# Display in Streamlit
-        st.image(plot_file, width=670)  # width in pixels
+        st.image(jointplot_file, width=670)  # width in pixels
         plt.close(g.fig)
 
 # --- Create ZIP of results for download ---
