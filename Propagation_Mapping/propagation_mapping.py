@@ -589,7 +589,7 @@ if st.session_state.get("plot_pred_btn", False):
         g.ax_joint.legend_.remove()
         
 		# Save figure
-		plot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
+        plot_file = plots_dir / f"{filename}_accuracy_jointplot.png"
 		g.fig.tight_layout()
 		g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
 		
