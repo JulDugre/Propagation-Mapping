@@ -309,7 +309,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
             caption="Schaefer-400 7 Networks with 14 Subcortical, and 7 Cerebellar Regions"
         )
 
-    st.header(f"Plot Propagation Map of: {masked_df.columns[0]}")
+    st.header(f"Plot Propagation Map of: {st.session_state.masked_df.columns[0]}")
     propagation_maps = st.session_state.propagation_maps  
     plots_folder = BASE_DIR / "plots"
     plots_folder.mkdir(parents=True, exist_ok=True)
@@ -457,7 +457,7 @@ if st.session_state.get("plot_prop_btn", False) and st.session_state.masked_df i
 
 # ----------------- PLOT COMPARISONS BETWEEN OBSERVED AND PREDICTED -----------
 if st.session_state.get("plot_pred_btn", False):
-  if st.session_state.masked_df is not None and not masked_df.empty and st.session_state.predicted_regional_scaled:
+  if st.session_state.masked_df is not None and not st.session_state.masked_df.empty and st.session_state.predicted_regional_scaled:
     st.header(f"Compare Maps of: {st.session_state.masked_df.columns[0]}")
     # ----------------- OBSERVED MAP -----------------
 
@@ -530,7 +530,7 @@ if st.session_state.get("plot_pred_btn", False):
 
          # ---------------- JOINT PLOT ----------------------
 
-        st.header(f"Accuracy Joint Plot of: {masked_df.columns[0]}")
+        st.header(f"Accuracy Joint Plot of: {st.session_state.masked_df.columns[0]}")
 
 	# Create two columns for side-by-side display
         col1, col2, col3 = st.columns(3)
@@ -584,7 +584,7 @@ if st.session_state.get("plot_pred_btn", False):
 		# Save figure
         plots_folder = BASE_DIR / "plots"
         plots_folder.mkdir(parents=True, exist_ok=True)
-        plot_file = plots_folder / f"{masked_df.columns[0]}_accuracy_jointplot.png"
+        plot_file = plots_folder / f"{st.session_state.masked_df.columns[0]}_accuracy_jointplot.png"
         g.fig.tight_layout()
         g.fig.savefig(plot_file, dpi=300, bbox_inches='tight')
 
