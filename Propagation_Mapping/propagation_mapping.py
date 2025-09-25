@@ -63,28 +63,12 @@ st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data"
 nii_files = []
 col_names = []
 
-def clean_name(name):
-    return re.sub(r'\.nii(\.gz)?$', '', name)
-
-# --- Single NIfTI uploader ---
-uploaded_file = st.sidebar.file_uploader(
-    "Upload a SINGLE NIFTI file",
-    type=['nii', 'nii.gz']
-)
-if uploaded_file is not None:
-    tmp_path = tmp_dir / uploaded_file.name
-    with open(tmp_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-    nii_files.append(str(tmp_path))
-    col_names.append(clean_name(uploaded_file.name))
-    st.success(f"Uploaded file: {uploaded_file.name}")
-
-# --- Multiple NIfTI uploader ---
 uploaded_files = st.sidebar.file_uploader(
-    "Upload MULTIPLE NIFTI files",
-    type=['nii', 'nii.gz'],
+    "Upload NIFTI file(s)", 
+    type=['nii', 'nii.gz'], 
     accept_multiple_files=True
 )
+
 if uploaded_files:
     for uf in uploaded_files:
         tmp_path = tmp_dir / uf.name
@@ -93,8 +77,8 @@ if uploaded_files:
         nii_files.append(str(tmp_path))
         col_names.append(clean_name(uf.name))
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-    st.write("Multiple file paths:")
-    st.write([str(tmp_dir / uf.name) for uf in uploaded_files])
+    st.write("File paths:")
+    st.write(nii_files)
 
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
