@@ -191,24 +191,33 @@ with col3_btn:
         st.session_state.plot_pred_btn = True
 
 if st.session_state.get("launch_btn", False):
-    pred_accuracy = []
-    predicted_regional = []     
-    true_regional = []
-    st.session_state.propagation_maps = []
-    st.session_state.predicted_regional_scaled = []
-
-
-    if st.session_state.masked_df is not None and not st.session_state.masked_df.empty:
+    if st.session_state.masked_df is None or st.session_state.masked_df.empty:
+		st.warning("No parcellated data available. Upload a NIfTI first!")
+	else:
+	    masked_df = st.session_state.masked_df
+		func_connectome = st.session_state.func_df.values.copy()
+	    struct_connectome = st.session_state.struct_df.values.copy()
+	    np.fill_diagonal(func_connectome, 0)
+	    np.fill_diagonal(struct_connectome, 0)
+	    func_connectome[np.isinf(func_connectome)] = 0
+	    struct_connectome[np.isinf(struct_connectome)] = 0
+		
+		pred_accuracy = []
+	    predicted_regional = []     
+	    true_regional = []
+	    st.session_state.propagation_maps = []
+	    st.session_state.predicted_regional_scaled = []
 
         # Create results folder if it does not exist
         output_folder = BASE_DIR / "results"
         output_folder.mkdir(parents=True, exist_ok=True)
-		
-        # Loop over each subject/column in masked_df
-        for subject_index in range(st.session_state.masked_df.shape[1]):
-            feature_vector = st.session_state.masked_df.iloc[:, subject_index].values  # (n_rois,)
-            filename = masked_df.columns[subject_index]  # use uploaded filename
 
+		n_subjects = masked_df.shape[1]
+        # Loop over each subject/column in masked_df
+        for idx in range(n_subjects):
+            feature_vector = masked_df.iloc[:, idx].values
+            filename = masked_df.columns[idx]  # use uploaded filename
+			
             # --- Functional connectome ---
             connectome_FC = np.clip(func_connectome, a_min=0, a_max=None)
             product_FC = feature_vector[:, np.newaxis] * connectome_FC
