@@ -21,8 +21,6 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
 from zipfile import ZipFile
-import gspread
-from google.oauth2.service_account import Credentials
 from streamlit_gsheets import GSheetsConnection
 
 # --- Session state for email form ---
@@ -81,17 +79,15 @@ st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
 
-# Connect using st.connection
 conn = st.connection("gsheets", type=GSheetsConnection)
+
 # Read worksheet into a DataFrame
 df = conn.read(worksheet="data")
 
-# --- Session state for email form ---
-if "form_data" not in st.session_state:
-    st.session_state.form_data = {
-        "email": "",
-        "submitted": False
-    }
+# When submitting email
+df.loc[len(df)] = [email_input]
+conn.write(df, worksheet="data")
+
 
 # --- Email validation ---
 def validate_email(email: str):
