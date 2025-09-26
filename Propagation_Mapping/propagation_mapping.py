@@ -25,17 +25,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 from streamlit_gsheets import GSheetsConnection
 
-# Load credentials from st.secrets
-creds_dict = st.secrets["gsheets"]
-st.write(creds_dict)
-scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
-
-# Connect to gspread
-client = gspread.authorize(creds)
-sheet = client.open_by_url(creds_dict["spreadsheet"])
-worksheet = sheet.worksheet(creds_dict["worksheet"])
-
 # --- Session state for email form ---
 if "form_data" not in st.session_state:
     st.session_state.form_data = {"email": "", "submitted": False}
@@ -46,10 +35,6 @@ def validate_email(email: str):
     if not re.match(pattern, email):
         return False, "Please enter a valid email address"
     return True, ""
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-df = conn.read(worksheet="data")
-st.dataframe(df)
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
@@ -95,6 +80,12 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
+
+# Connect using st.connection
+conn = st.connection("gsheets", type=GSheetsConnection)
+# Read worksheet into a DataFrame
+df = conn.read(worksheet="data")
+
 # --- Session state for email form ---
 if "form_data" not in st.session_state:
     st.session_state.form_data = {
@@ -118,13 +109,19 @@ if "col_names" not in st.session_state:
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Email form ---
+# --- Email form example ---
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {"email": "", "submitted": False}
+
+def validate_email(email: str):
+    import re
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
+
 with st.sidebar.form("email_form"):
-    email_input = st.text_input(
-        "Enter your email:",
-        value=st.session_state.form_data["email"],
-        placeholder="your@email.com"
-    )
+    email_input = st.text_input("Enter your email:", value=st.session_state.form_data["email"])
     submit_email = st.form_submit_button("Submit")
 
     if submit_email:
@@ -134,13 +131,11 @@ with st.sidebar.form("email_form"):
             st.session_state.form_data["submitted"] = True
             st.sidebar.success(f"Email saved: {email_input}")
 
-            # Append email to Google Sheet (via df update + conn write)
+            # Append email to Google Sheet
             try:
-                if df is not None:
-                    # Add new row
-                    df.loc[len(df)] = [email_input]
-                    conn.write(df, worksheet="0")
-                    st.sidebar.success("✅ Email saved to Google Sheet!")
+                df.loc[len(df)] = [email_input]
+                conn.write(df, worksheet="data")  # use actual worksheet name
+                st.sidebar.success("✅ Email saved to Google Sheet!")
             except Exception as e:
                 st.sidebar.error(f"Could not save to Google Sheet: {e}")
         else:
