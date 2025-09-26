@@ -2,7 +2,7 @@ matplotlib
 natsort
 git+https://github.com/netneurolab/neuromaps.git
 gspread 
-streamlit_gsheets
+git+https://github.com/streamlit/gsheets-connection
 google-auth
 nibabel
 nilearn
