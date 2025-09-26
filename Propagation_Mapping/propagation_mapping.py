@@ -24,14 +24,27 @@ from zipfile import ZipFile
 import gspread
 from google.oauth2.service_account import Credentials
 
+# Authorize
 scopes = ['https://www.googleapis.com/auth/spreadsheets']
 creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
 client = gspread.authorize(creds)
 
-# --- Open spreadsheet & worksheet ---
+# Open spreadsheet
 sheet_url = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
 sheet = client.open_by_url(sheet_url)
-worksheet = sheet.worksheet("data")  # replace with your tab name
+
+# --- DEBUG: list all worksheet titles ---
+worksheet_titles = [ws.title for ws in sheet.worksheets()]
+st.write("DEBUG: Available worksheets:", worksheet_titles)
+print("DEBUG: Available worksheets:", worksheet_titles)
+
+try:
+    worksheet = sheet.worksheet("data")
+    st.write("DEBUG: Successfully accessed worksheet 'data'")
+except gspread.exceptions.WorksheetNotFound as e:
+    st.error(f"DEBUG ERROR: Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
+    print(f"DEBUG ERROR: Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
+    worksheet = None
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
