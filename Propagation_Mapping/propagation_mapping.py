@@ -103,24 +103,27 @@ def clean_name(name):
 with st.sidebar.form("email_form"):
     email_input = st.text_input(
         "Enter your email:",
-        value=st.session_state.form_data["email"],
+        value=st.session_state.form_data.get("email", ""),
         placeholder="your@email.com"
     )
     submit_email = st.form_submit_button("Submit")
 
     if submit_email:
+        # Validate email
         is_valid, msg = validate_email(email_input)
         if is_valid:
+            # Save in session state
             st.session_state.form_data["email"] = email_input
             st.session_state.form_data["submitted"] = True
-            st.sidebar.success(f"Email saved: {email_input}")
+            st.sidebar.success(f"Email saved locally: {email_input}")
 
-            # --- Append email to Google Sheet using gspread ---
+            # Append email to Google Sheet using gspread
             try:
                 worksheet.append_row([email_input])
                 st.sidebar.success("✅ Email saved to Google Sheet!")
             except Exception as e:
                 st.sidebar.error(f"Could not save to Google Sheet: {e}")
+
         else:
             st.sidebar.error(msg)
             st.session_state.form_data["submitted"] = False
