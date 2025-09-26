@@ -66,8 +66,14 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-nii_files = []
-col_names = []
+with st.sidebar.form("email_form"):
+    user_email = st.text_input("Enter your email:", placeholder="your@email.com")
+    submit_email = st.form_submit_button("Submit")
+
+# Only allow upload if email has been submitted
+if submit_email and user_email.strip():
+    st.session_state["user_email"] = user_email  # store email in session_state
+    st.sidebar.success(f"Email saved: {user_email}")
 
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
@@ -89,7 +95,9 @@ if uploaded_files:
     
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
-
+else:
+    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
+	
 # --- Load images ---
 loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
 st.write(f"{len(loaded_imgs)} image(s) loaded successfully.")
