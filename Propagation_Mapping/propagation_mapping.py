@@ -111,7 +111,7 @@ if st.session_state.nii_files:
             # Store in session_state
             st.session_state.nii_files.append(tmp_path)
             st.session_state.col_names.append(clean_name(uf.name))
-        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
