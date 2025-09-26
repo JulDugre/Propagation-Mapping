@@ -66,15 +66,6 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-with st.sidebar.form("email_form"):
-    user_email = st.text_input("Enter your email:", placeholder="your@email.com")
-    submit_email = st.form_submit_button("Submit")
-
-# Only allow upload if email has been submitted
-if submit_email and user_email.strip():
-    st.session_state["user_email"] = user_email  # store email in session_state
-    st.sidebar.success(f"Email saved: {user_email}")
-
 # --- Initialize persistent lists ---
 if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
