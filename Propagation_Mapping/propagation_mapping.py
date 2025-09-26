@@ -23,11 +23,14 @@ import shutil
 from zipfile import ZipFile
 from streamlit_gsheets import GSheetsConnection
 
-SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
-# Connect to your private spreadsheet using the service account
-conn = st.connection("gsheets", type=GSheetsConnection)
-# Reference the worksheet (can use sheet name or GID)
-sheet = conn.read(worksheet="data")  # use the tab name of your sheet
+scopes = ['https://www.googleapis.com/auth/spreadsheets']
+creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+client = gspread.authorize(creds)
+
+# --- Open spreadsheet & worksheet ---
+sheet_url = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
+sheet = client.open_by_url(sheet_url)
+worksheet = sheet.worksheet("data")  # replace with your tab name
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
@@ -86,14 +89,13 @@ def validate_email(email: str):
     if not re.match(pattern, email):
         return False, "Please enter a valid email address"
     return True, ""
-	
-# --- Initialize persistent lists ---
+
+# --- Persistent lists ---
 if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
 if "col_names" not in st.session_state:
     st.session_state.col_names = []
 
-# --- Helper function ---
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
@@ -113,17 +115,12 @@ with st.sidebar.form("email_form"):
             st.session_state.form_data["submitted"] = True
             st.sidebar.success(f"Email saved: {email_input}")
 
-            # --- Append email to Google Sheet ---
+            # --- Append email to Google Sheet using gspread ---
             try:
-                # You can specify the worksheet name or GID if needed
-                conn.append(
-                    worksheet="Sheet1",  # replace with your sheet/tab name
-                    values=[[email_input]]
-                )
+                worksheet.append_row([email_input])
                 st.sidebar.success("✅ Email saved to Google Sheet!")
             except Exception as e:
                 st.sidebar.error(f"Could not save to Google Sheet: {e}")
-
         else:
             st.sidebar.error(msg)
             st.session_state.form_data["submitted"] = False
@@ -135,6 +132,18 @@ if st.session_state.form_data["submitted"]:
         type=['nii', 'nii.gz'],
         accept_multiple_files=True
     )
+
+    if uploaded_files:
+        for uf in uploaded_files:
+            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
+            with open(tmp_path, "wb") as f:
+                f.write(uf.getbuffer())
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(clean_name(uf.name))
+        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+else:
+    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
+
 
     # --- Process uploaded files ---
     if uploaded_files:
