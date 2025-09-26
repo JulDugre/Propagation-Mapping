@@ -66,7 +66,16 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-# --- Persistent lists ---
+with st.sidebar.form("email_form"):
+    user_email = st.text_input("Enter your email:", placeholder="your@email.com")
+    submit_email = st.form_submit_button("Submit")
+
+# Only allow upload if email has been submitted
+if submit_email and user_email.strip():
+    st.session_state["user_email"] = user_email  # store email in session_state
+    st.sidebar.success(f"Email saved: {user_email}")
+
+# --- Initialize persistent lists ---
 if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
 if "col_names" not in st.session_state:
@@ -75,7 +84,7 @@ if "col_names" not in st.session_state:
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- File uploader directly available ---
+# --- Multiple NIfTI uploader ---
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
     type=['nii', 'nii.gz'],
@@ -83,26 +92,18 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
-    # Clear previous session_state lists
-    st.session_state.nii_files = []
-    st.session_state.col_names = []
-
     for uf in uploaded_files:
-        tmp_path = tmp_dir / uf.name
+        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
 
         # Store in session_state
-        st.session_state.nii_files.append(str(tmp_path))
+        st.session_state.nii_files.append(tmp_path)
         st.session_state.col_names.append(clean_name(uf.name))
-
+    
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-
-# --- Show uploaded files in sidebar ---
-if st.session_state.nii_files:
-    st.sidebar.info("Uploaded files:")
-    for f in st.session_state.col_names:
-        st.sidebar.write("-", f)
+else:
+    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
 
 # --- Load images ---
 if st.session_state.nii_files:
