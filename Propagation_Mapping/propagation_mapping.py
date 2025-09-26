@@ -23,26 +23,29 @@ import shutil
 from zipfile import ZipFile
 import gspread
 from google.oauth2.service_account import Credentials
-# --- Authorize ---
-scopes = ['https://www.googleapis.com/auth/spreadsheets']
-creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
-client = gspread.authorize(creds)
+from streamlit_gsheets import GSheetsConnection
 
-# --- Open spreadsheet ---
-sheet_url = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
-sheet = client.open_by_url(sheet_url)
+# --- Session state for email form ---
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {"email": "", "submitted": False}
 
-# --- Debug: list worksheets ---
-worksheet_titles = [ws.title for ws in sheet.worksheets()]
-st.write("DEBUG: Available worksheets:", worksheet_titles)
+# --- Email validation ---
+def validate_email(email: str):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
 
-# --- Access correct worksheet ---
+# --- Connect to Google Sheet ---
 try:
-    worksheet = sheet.worksheet("data")  # must match your tab name exactly
-    st.write("DEBUG: Worksheet 'data' loaded successfully")
-except gspread.exceptions.WorksheetNotFound:
-    st.error(f"Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
-    worksheet = None
+    conn = st.connection("gsheets", type=GSheetsConnection)
+    # Use the worksheet GID (0 for your "data" tab)
+    df = conn.read(worksheet="0")
+    st.write("DEBUG: Google Sheet loaded successfully")
+    st.write(df.head())
+except Exception as e:
+    st.error(f"Could not read Google Sheet: {e}")
+    df = None
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
@@ -111,7 +114,7 @@ if "col_names" not in st.session_state:
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Email Form in sidebar ---
+# --- Email form ---
 with st.sidebar.form("email_form"):
     email_input = st.text_input(
         "Enter your email:",
@@ -127,10 +130,13 @@ with st.sidebar.form("email_form"):
             st.session_state.form_data["submitted"] = True
             st.sidebar.success(f"Email saved: {email_input}")
 
-            # --- Append email to Google Sheet using gspread ---
+            # Append email to Google Sheet (via df update + conn write)
             try:
-                worksheet.append_row([email_input])
-                st.sidebar.success("✅ Email saved to Google Sheet!")
+                if df is not None:
+                    # Add new row
+                    df.loc[len(df)] = [email_input]
+                    conn.write(df, worksheet="0")
+                    st.sidebar.success("✅ Email saved to Google Sheet!")
             except Exception as e:
                 st.sidebar.error(f"Could not save to Google Sheet: {e}")
         else:
@@ -146,12 +152,13 @@ if st.session_state.form_data["submitted"]:
     )
 
     if uploaded_files:
+        tmp_dir = Path(tempfile.mkdtemp())
+        nii_files = []
         for uf in uploaded_files:
-            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
+            tmp_path = tmp_dir / uf.name
             with open(tmp_path, "wb") as f:
                 f.write(uf.getbuffer())
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(clean_name(uf.name))
+            nii_files.append(tmp_path)
         st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 else:
     st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
