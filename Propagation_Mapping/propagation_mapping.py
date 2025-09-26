@@ -36,16 +36,9 @@ def validate_email(email: str):
         return False, "Please enter a valid email address"
     return True, ""
 
-# --- Connect to Google Sheet ---
-try:
-    conn = st.connection("gsheets", type=GSheetsConnection)
-    # Use the worksheet GID (0 for your "data" tab)
-    df = conn.read(worksheet="0")
-    st.write("DEBUG: Google Sheet loaded successfully")
-    st.write(df.head())
-except Exception as e:
-    st.error(f"Could not read Google Sheet: {e}")
-    df = None
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read()  # no need to specify worksheet again, it uses the secrets.toml settings
+st.dataframe(df)
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
