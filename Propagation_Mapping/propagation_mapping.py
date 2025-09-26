@@ -105,13 +105,6 @@ else:
     loaded_imgs = []
     st.write("No images loaded yet.")
 
-# --- Example: safely show masked_df ---
-if st.session_state.masked_df is not None:
-    # Make column names unique
-    df = st.session_state.masked_df.copy()
-    df.columns = pd.io.parsers.ParserBase({'names': df.columns})._maybe_dedup_names(df.columns)
-    st.dataframe(df)
-
 # If data loaded, prompt for atlas selection
 if loaded_imgs:    
     # Example: display first image shape
