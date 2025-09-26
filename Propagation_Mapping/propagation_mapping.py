@@ -27,7 +27,7 @@ from streamlit_gsheets import GSheetsConnection
 
 # Load credentials from st.secrets
 creds_dict = st.secrets["gsheets"]
-
+st.write(creds_dict)
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
 
