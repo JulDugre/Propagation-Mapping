@@ -163,8 +163,7 @@ else:
             st.session_state.col_names.append(clean_name(uf.name))
         
         st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-else:
-    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
+
 
 # --- Load images ---
 if st.session_state.nii_files:
