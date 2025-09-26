@@ -83,18 +83,24 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
+    # Clear previous uploads to avoid duplicates
+    st.session_state.nii_files = []
+    st.session_state.col_names = []
+
     for uf in uploaded_files:
         tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-
-        # Store in session_state
         st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(clean_name(uf.name))
-    
+
+        # Ensure unique column names
+        base = clean_name(uf.name)
+        count = sum([1 for c in st.session_state.col_names if c.startswith(base)])
+        if count > 0:
+            base = f"{base}_{count+1}"
+        st.session_state.col_names.append(base)
+
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-else:
-    st.write("Please upload NIFTI files")
 
 # --- Load images ---
 if st.session_state.nii_files:
@@ -102,7 +108,13 @@ if st.session_state.nii_files:
 else:
     loaded_imgs = []
     st.write("No images loaded yet.")
-	
+
+# --- Example: safely show masked_df ---
+if st.session_state.masked_df is not None:
+    # Make column names unique
+    df = st.session_state.masked_df.copy()
+    df.columns = pd.io.parsers.ParserBase({'names': df.columns})._maybe_dedup_names(df.columns)
+    st.dataframe(df)
 
 # If data loaded, prompt for atlas selection
 if loaded_imgs:    
