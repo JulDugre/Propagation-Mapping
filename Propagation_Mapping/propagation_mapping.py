@@ -66,14 +66,22 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-with st.sidebar.form("email_form"):
-    user_email = st.text_input("Enter your email:", placeholder="your@email.com")
-    submit_email = st.form_submit_button("Submit")
+# --- Session state for email form ---
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {
+        "email": "",
+        "submitted": False
+    }
 
-# Only allow upload if email has been submitted
-if submit_email and user_email.strip():
-    st.session_state["user_email"] = user_email  # store email in session_state
-    st.sidebar.success(f"Email saved: {user_email}")
+# --- Email validation ---
+def validate_email(email: str):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
+
+st.sidebar.markdown("# UPLOAD IMAGE(S)")
+st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
 # --- Initialize persistent lists ---
 if "nii_files" not in st.session_state:
@@ -81,30 +89,61 @@ if "nii_files" not in st.session_state:
 if "col_names" not in st.session_state:
     st.session_state.col_names = []
 
+# --- Helper function ---
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Multiple NIfTI uploader ---
-uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)",
-    type=['nii', 'nii.gz'],
-    accept_multiple_files=True
-)
+# --- Email Form in sidebar ---
+with st.sidebar.form("email_form"):
+    email_input = st.text_input(
+        "Enter your email:",
+        value=st.session_state.form_data["email"],
+        placeholder="your@email.com"
+    )
+    submit_email = st.form_submit_button("Submit")
 
-if uploaded_files:
-    for uf in uploaded_files:
-        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-        with open(tmp_path, "wb") as f:
-            f.write(uf.getbuffer())
+    if submit_email:
+        is_valid, msg = validate_email(email_input)
+        if is_valid:
+            st.session_state.form_data["email"] = email_input
+            st.session_state.form_data["submitted"] = True
+            st.sidebar.success(f"Email saved: {email_input}")
+        else:
+            st.sidebar.error(msg)
+            st.session_state.form_data["submitted"] = False
 
-        # Store in session_state
-        st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(clean_name(uf.name))
-    
-    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+# --- Only allow upload if email has been submitted ---
+if st.session_state.form_data["submitted"]:
+    uploaded_files = st.sidebar.file_uploader(
+        "Upload NIFTI file(s)",
+        type=['nii', 'nii.gz'],
+        accept_multiple_files=True
+    )
+
+    # --- Process uploaded files ---
+    if uploaded_files:
+        for uf in uploaded_files:
+            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
+            with open(tmp_path, "wb") as f:
+                f.write(uf.getbuffer())
+
+            # Store in session_state
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(clean_name(uf.name))
+        
+        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 else:
     st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
-	
+
+# --- Load images ---
+if st.session_state.nii_files:
+    loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
+    st.success(f"{len(loaded_imgs)} NIfTI file(s) successfully loaded.")
+else:
+    loaded_imgs = []
+    st.write("No images loaded yet.")
+
+
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
