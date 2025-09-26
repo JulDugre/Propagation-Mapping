@@ -66,11 +66,8 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-# --- Initialize persistent lists ---
-if "nii_files" not in st.session_state:
-    st.session_state.nii_files = []
-if "col_names" not in st.session_state:
-    st.session_state.col_names = []
+nii_files = []
+col_names = []
 
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
@@ -83,23 +80,13 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
-    # Clear previous uploads to avoid duplicates
-    st.session_state.nii_files = []
-    st.session_state.col_names = []
-
     for uf in uploaded_files:
         tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-        st.session_state.nii_files.append(tmp_path)
-
-        # Ensure unique column names
-        base = clean_name(uf.name)
-        count = sum([1 for c in st.session_state.col_names if c.startswith(base)])
-        if count > 0:
-            base = f"{base}_{count+1}"
-        st.session_state.col_names.append(base)
-
+        nii_files.append(tmp_path)
+        col_names.append(clean_name(uf.name))
+    
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
 # --- Load images ---
