@@ -1,28 +1,33 @@
+#!/usr/bin/env python3
+# propagation_mapping.py -- cleaned uploader-only version
+
 import os
-from tempfile import NamedTemporaryFile
-from nilearn.maskers import NiftiLabelsMasker
-from nilearn.image import smooth_img
-import matplotlib.pyplot as plt
+import re
+import tempfile
+from pathlib import Path
+from glob import glob
+
+import streamlit as st
 import nibabel as nib
 import numpy as np
-import streamlit as st
+import matplotlib.pyplot as plt
 import pandas as pd
-from scipy.stats import pearsonr, spearmanr
-from glob import glob
-from natsort import natsorted
-from matplotlib import pyplot as plt
+
+# (kept imports you had earlier; add back other specific imports you need later)
+from nilearn.maskers import NiftiLabelsMasker
+from nilearn.image import smooth_img
 from neuromaps.datasets import fetch_fsaverage
 from nilearn import plotting, datasets
 import seaborn as sns
-import re
+from natsort import natsorted
 from sklearn.preprocessing import RobustScaler, StandardScaler
-import tempfile
 from sklearn.linear_model import LinearRegression
-from pathlib import Path
-import shutil
 from zipfile import ZipFile
+import shutil
 
-# --- Load into session state ---
+# -------------------------
+# Session state defaults
+# -------------------------
 if "func_df" not in st.session_state:
     st.session_state.func_df = None
 if "struct_df" not in st.session_state:
@@ -33,74 +38,93 @@ if "propagation_maps" not in st.session_state:
     st.session_state.propagation_maps = []
 if "predicted_regional_scaled" not in st.session_state:
     st.session_state.predicted_regional_scaled = []
-if 'tmp_dir' not in st.session_state:
-    st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
 if "saved_files" not in st.session_state:
     st.session_state.saved_files = []
-	
+if "nii_files" not in st.session_state:
+    st.session_state.nii_files = []
+if "col_names" not in st.session_state:
+    st.session_state.col_names = []
+if "tmp_dir" not in st.session_state:
+    # store as string to be safe
+    st.session_state.tmp_dir = str(tempfile.mkdtemp())
+
 tmp_dir = Path(st.session_state.tmp_dir)
-# Create subfolders
 results_dir = tmp_dir / "results"
 plots_dir = tmp_dir / "plots"
-results_dir.mkdir(parents=True, exist_ok=True)
-plots_dir.mkdir(parents=True, exist_ok=True)
-obs_dir = results_dir / "observed_maps"
-pred_dir = results_dir / "predicted_maps"
-prop_dir = results_dir / "propagation_maps"
-resid_dir = results_dir / "residual_maps"
+for p in (results_dir, plots_dir):
+    p.mkdir(parents=True, exist_ok=True)
 
-for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
-    folder.mkdir(parents=True, exist_ok=True)
+# -------------------------
+# Helpers
+# -------------------------
+def clean_name(name: str) -> str:
+    """Remove .nii and .nii.gz from filename."""
+    return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# Define the Streamlit app UI
+# -------------------------
+# UI
+# -------------------------
 st.title("Propagation Mapping Toolbox")
 st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
 st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:10.1038/nn.4406")
 
-# --- Display the framework image here ---
-BASE_DIR = Path(__file__).parent
-framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
-st.image(framework_img_path, caption="Propagation Mapping is a new precision framework aiming at reconstructing the neural circuitry that explains the spatial organization of human brain maps.This method assume that regional measures can be best understood as a dot product between activity and functional connectivity.Uploading your NIfTI file will predict the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map, 2) the predicted map, 3) the propagation map, and 4) a residual map", width='stretch')
+# optional: show framework image if available
+try:
+    BASE_DIR = Path(__file__).parent
+    framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
+    if framework_img_path.exists():
+        st.image(str(framework_img_path), caption="Propagation Mapping framework", width=700)
+except Exception:
+    # avoid crashing if __file__ not available in some Streamlit contexts
+    pass
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
-st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
+st.sidebar.markdown("#### ⚠️ Note: this toolbox does not retain any data")
 
-# --- Persistent lists ---
-if "nii_files" not in st.session_state:
-    st.session_state.nii_files = []
-if "col_names" not in st.session_state:
-    st.session_state.col_names = []
-
-def clean_name(name):
-    return re.sub(r'\.nii(\.gz)?$', '', name)
-
-# --- File uploader for NIfTI files ---
+# -------------------------
+# File uploader (no email)
+# -------------------------
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
-    type=['nii', 'nii.gz'],
+    type=["nii", "nii.gz"],
     accept_multiple_files=True
 )
 
 if uploaded_files:
+    # use the persistent tmp_dir we set in session_state
+    tmp_path_dir = Path(st.session_state.tmp_dir)
+    tmp_path_dir.mkdir(parents=True, exist_ok=True)
+
+    added = 0
     for uf in uploaded_files:
-        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-        with open(tmp_path, "wb") as f:
+        target = tmp_path_dir / uf.name
+        # Avoid re-adding same file twice in session (optional)
+        if str(target) in st.session_state.nii_files:
+            continue
+        with open(target, "wb") as f:
             f.write(uf.getbuffer())
-
-        # Store in session_state
-        st.session_state.nii_files.append(tmp_path)
+        st.session_state.nii_files.append(str(target))
         st.session_state.col_names.append(clean_name(uf.name))
+        added += 1
 
-    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-	
-# --- Load images ---
+    st.success(f"{added} new file(s) uploaded successfully.")
+
+# -------------------------
+# Load images (if any)
+# -------------------------
 if st.session_state.nii_files:
-    loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
+    try:
+        loaded_imgs = [nib.load(fpath) for fpath in st.session_state.nii_files]
+        st.write(f"Loaded {len(loaded_imgs)} image(s):")
+        for name in st.session_state.col_names:
+            st.write("-", name)
+    except Exception as e:
+        st.error(f"Error loading NIfTI images: {e}")
+        loaded_imgs = []
 else:
     loaded_imgs = []
-    st.write("No images loaded yet.")
-
+    st.info("No images loaded yet.")
 # If data loaded, prompt for atlas selection
 if loaded_imgs:    
     # Example: display first image shape
