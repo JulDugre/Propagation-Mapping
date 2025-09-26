@@ -1,7 +1,8 @@
 matplotlib
 natsort
 git+https://github.com/netneurolab/neuromaps.git
-st-gsheets-connection
+gspread 
+google-auth
 nibabel
 nilearn
 numpy
