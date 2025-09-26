@@ -25,6 +25,17 @@ import gspread
 from google.oauth2.service_account import Credentials
 from streamlit_gsheets import GSheetsConnection
 
+# Load credentials from st.secrets
+creds_dict = st.secrets["gsheets"]
+
+scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+
+# Connect to gspread
+client = gspread.authorize(creds)
+sheet = client.open_by_url(creds_dict["spreadsheet"])
+worksheet = sheet.worksheet(creds_dict["worksheet"])
+
 # --- Session state for email form ---
 if "form_data" not in st.session_state:
     st.session_state.form_data = {"email": "", "submitted": False}
