@@ -106,8 +106,12 @@ else:
     st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
 	
 # --- Load images ---
-loaded_imgs = [nib.load(f) for f in nii_files] if nii_files else []
-st.write(f"{len(loaded_imgs)} image(s) loaded successfully.")
+if st.session_state.nii_files:
+    loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
+    st.success(f"{len(loaded_imgs)} NIfTI file(s) successfully loaded.")
+else:
+    loaded_imgs = []
+    st.write("No images loaded yet.")
 
 # If data loaded, prompt for atlas selection
 if loaded_imgs:
