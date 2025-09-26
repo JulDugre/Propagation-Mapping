@@ -21,7 +21,8 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
 from zipfile import ZipFile
-from streamlit_gsheets import GSheetsConnection
+import gspread
+from google.oauth2.service_account import Credentials
 
 scopes = ['https://www.googleapis.com/auth/spreadsheets']
 creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
