@@ -93,8 +93,6 @@ if uploaded_files:
         st.session_state.col_names.append(clean_name(uf.name))
 
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-else:
-    st.sidebar.info("👉 Please upload one or more NIfTI files to continue.")
 	
 # --- Load images ---
 if st.session_state.nii_files:
