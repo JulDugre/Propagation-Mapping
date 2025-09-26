@@ -23,10 +23,11 @@ import shutil
 from zipfile import ZipFile
 from streamlit_gsheets import GSheetsConnection
 
+SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
 # Connect to your private spreadsheet using the service account
 conn = st.connection("gsheets", type=GSheetsConnection)
 # Reference the worksheet (can use sheet name or GID)
-sheet = conn.read(worksheet="0")  
+sheet = conn.read(worksheet="Sheet1")  # use the tab name of your sheet
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
