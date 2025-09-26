@@ -23,27 +23,25 @@ import shutil
 from zipfile import ZipFile
 import gspread
 from google.oauth2.service_account import Credentials
-
-# Authorize
+# --- Authorize ---
 scopes = ['https://www.googleapis.com/auth/spreadsheets']
 creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
 client = gspread.authorize(creds)
 
-# Open spreadsheet
+# --- Open spreadsheet ---
 sheet_url = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw"
 sheet = client.open_by_url(sheet_url)
 
-# --- DEBUG: list all worksheet titles ---
+# --- Debug: list worksheets ---
 worksheet_titles = [ws.title for ws in sheet.worksheets()]
 st.write("DEBUG: Available worksheets:", worksheet_titles)
-print("DEBUG: Available worksheets:", worksheet_titles)
 
+# --- Access correct worksheet ---
 try:
-    worksheet = sheet.worksheet("data")
-    st.write("DEBUG: Successfully accessed worksheet 'data'")
-except gspread.exceptions.WorksheetNotFound as e:
-    st.error(f"DEBUG ERROR: Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
-    print(f"DEBUG ERROR: Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
+    worksheet = sheet.worksheet("data")  # must match your tab name exactly
+    st.write("DEBUG: Worksheet 'data' loaded successfully")
+except gspread.exceptions.WorksheetNotFound:
+    st.error(f"Worksheet 'data' not found! Available worksheets: {worksheet_titles}")
     worksheet = None
 
 # --- Load into session state ---
