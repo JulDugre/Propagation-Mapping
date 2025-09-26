@@ -79,10 +79,7 @@ def validate_email(email: str):
     if not re.match(pattern, email):
         return False, "Please enter a valid email address"
     return True, ""
-
-st.sidebar.markdown("# UPLOAD IMAGE(S)")
-st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
-
+	
 # --- Initialize persistent lists ---
 if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
@@ -138,16 +135,6 @@ else:
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
-    st.success(f"{len(loaded_imgs)} NIfTI file(s) successfully loaded.")
-else:
-    loaded_imgs = []
-    st.write("No images loaded yet.")
-
-
-# --- Load images ---
-if st.session_state.nii_files:
-    loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
-    st.success(f"{len(loaded_imgs)} NIfTI file(s) successfully loaded.")
 else:
     loaded_imgs = []
     st.write("No images loaded yet.")
