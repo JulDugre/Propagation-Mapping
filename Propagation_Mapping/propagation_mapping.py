@@ -23,9 +23,10 @@ import shutil
 from zipfile import ZipFile
 from streamlit_gsheets import GSheetsConnection
 
-sheet = conn.read(worksheet="data")  # exact tab name
+# Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
-st.write(conn.list_worksheets())  # should list all tabs accessible to the service account
+df = conn.read()
+st.write(df)
 # --- Session state for email form ---
 if "form_data" not in st.session_state:
     st.session_state.form_data = {"email": "", "submitted": False}
