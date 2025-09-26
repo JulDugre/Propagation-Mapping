@@ -37,7 +37,7 @@ def validate_email(email: str):
     return True, ""
 
 conn = st.connection("gsheets", type=GSheetsConnection)
-df = conn.read()  # no need to specify worksheet again, it uses the secrets.toml settings
+df = conn.read(worksheet="data")
 st.dataframe(df)
 
 # --- Load into session state ---
