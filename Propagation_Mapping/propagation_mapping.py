@@ -21,22 +21,6 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
 from zipfile import ZipFile
-from streamlit_gsheets import GSheetsConnection
-
-# Create a connection object.
-conn = st.connection("gsheets", type=GSheetsConnection)
-df = conn.read()
-st.write(df)
-# --- Session state for email form ---
-if "form_data" not in st.session_state:
-    st.session_state.form_data = {"email": "", "submitted": False}
-
-# --- Email validation ---
-def validate_email(email: str):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    if not re.match(pattern, email):
-        return False, "Please enter a valid email address"
-    return True, ""
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
@@ -82,13 +66,6 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-# --- Email validation ---
-def validate_email(email: str):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    if not re.match(pattern, email):
-        return False, "Please enter a valid email address"
-    return True, ""
-
 # --- Persistent lists ---
 if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
@@ -98,73 +75,27 @@ if "col_names" not in st.session_state:
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Email form example ---
-if "form_data" not in st.session_state:
-    st.session_state.form_data = {"email": "", "submitted": False}
+# --- File uploader for NIfTI files ---
+uploaded_files = st.sidebar.file_uploader(
+    "Upload NIFTI file(s)",
+    type=['nii', 'nii.gz'],
+    accept_multiple_files=True
+)
 
-def validate_email(email: str):
-    import re
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    if not re.match(pattern, email):
-        return False, "Please enter a valid email address"
-    return True, ""
+if uploaded_files:
+    for uf in uploaded_files:
+        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
+        with open(tmp_path, "wb") as f:
+            f.write(uf.getbuffer())
 
-with st.sidebar.form("email_form"):
-    email_input = st.text_input("Enter your email:", value=st.session_state.form_data["email"])
-    submit_email = st.form_submit_button("Submit")
+        # Store in session_state
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(clean_name(uf.name))
 
-    if submit_email:
-        is_valid, msg = validate_email(email_input)
-        if is_valid:
-            st.session_state.form_data["email"] = email_input
-            st.session_state.form_data["submitted"] = True
-            st.sidebar.success(f"Email saved: {email_input}")
-
-            # Append email to Google Sheet
-            try:
-                df.loc[len(df)] = [email_input]
-                conn.write(df, worksheet="data")  # use actual worksheet name
-                st.sidebar.success("✅ Email saved to Google Sheet!")
-            except Exception as e:
-                st.sidebar.error(f"Could not save to Google Sheet: {e}")
-        else:
-            st.sidebar.error(msg)
-            st.session_state.form_data["submitted"] = False
-
-if st.session_state.form_data["submitted"]:
-    uploaded_files = st.sidebar.file_uploader(
-        "Upload NIFTI file(s)",
-        type=['nii', 'nii.gz'],
-        accept_multiple_files=True
-    )
-
-    if uploaded_files:
-        for uf in uploaded_files:
-            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-            with open(tmp_path, "wb") as f:
-                f.write(uf.getbuffer())
-
-            # Store in session_state
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(clean_name(uf.name))
-        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-
-    # --- Process uploaded files ---
-    if uploaded_files:
-        for uf in uploaded_files:
-            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-            with open(tmp_path, "wb") as f:
-                f.write(uf.getbuffer())
-
-            # Store in session_state
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(clean_name(uf.name))
-        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 else:
-    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
-
-
-
+    st.sidebar.info("👉 Please upload one or more NIfTI files to continue.")
+	
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
