@@ -94,7 +94,7 @@ if uploaded_files:
     
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 else:
-
+    st.write("Please upload NIFTI files")
 
 # --- Load images ---
 if st.session_state.nii_files:
