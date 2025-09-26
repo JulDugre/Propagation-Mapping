@@ -1,29 +1,44 @@
-
 import os
-import re
-import tempfile
-from pathlib import Path
-from glob import glob
-import streamlit as st
-import nibabel as nib
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
+from tempfile import NamedTemporaryFile
 from nilearn.maskers import NiftiLabelsMasker
 from nilearn.image import smooth_img
+import matplotlib.pyplot as plt
+import nibabel as nib
+import numpy as np
+import streamlit as st
+import pandas as pd
+from scipy.stats import pearsonr, spearmanr
+from glob import glob
+from natsort import natsorted
+from matplotlib import pyplot as plt
 from neuromaps.datasets import fetch_fsaverage
 from nilearn import plotting, datasets
 import seaborn as sns
-from natsort import natsorted
-from scipy.stats import spearmanr
+import re
 from sklearn.preprocessing import RobustScaler, StandardScaler
+import tempfile
 from sklearn.linear_model import LinearRegression
-from zipfile import ZipFile
+from pathlib import Path
 import shutil
+from zipfile import ZipFile
+from streamlit_gsheets import GSheetsConnection
 
-# -------------------------
-# Session state defaults
-# -------------------------
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read()
+st.write(df)
+# --- Session state for email form ---
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {"email": "", "submitted": False}
+
+# --- Email validation ---
+def validate_email(email: str):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
+
+# --- Load into session state ---
 if "func_df" not in st.session_state:
     st.session_state.func_df = None
 if "struct_df" not in st.session_state:
@@ -34,93 +49,128 @@ if "propagation_maps" not in st.session_state:
     st.session_state.propagation_maps = []
 if "predicted_regional_scaled" not in st.session_state:
     st.session_state.predicted_regional_scaled = []
+if 'tmp_dir' not in st.session_state:
+    st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
 if "saved_files" not in st.session_state:
     st.session_state.saved_files = []
-if "nii_files" not in st.session_state:
-    st.session_state.nii_files = []
-if "col_names" not in st.session_state:
-    st.session_state.col_names = []
-if "tmp_dir" not in st.session_state:
-    # store as string to be safe
-    st.session_state.tmp_dir = str(tempfile.mkdtemp())
-
+	
 tmp_dir = Path(st.session_state.tmp_dir)
+# Create subfolders
 results_dir = tmp_dir / "results"
 plots_dir = tmp_dir / "plots"
-for p in (results_dir, plots_dir):
-    p.mkdir(parents=True, exist_ok=True)
+results_dir.mkdir(parents=True, exist_ok=True)
+plots_dir.mkdir(parents=True, exist_ok=True)
+obs_dir = results_dir / "observed_maps"
+pred_dir = results_dir / "predicted_maps"
+prop_dir = results_dir / "propagation_maps"
+resid_dir = results_dir / "residual_maps"
 
-# -------------------------
-# Helpers
-# -------------------------
-def clean_name(name: str) -> str:
-    """Remove .nii and .nii.gz from filename."""
-    return re.sub(r'\.nii(\.gz)?$', '', name)
+for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
+    folder.mkdir(parents=True, exist_ok=True)
 
-# -------------------------
-# UI
-# -------------------------
+# Define the Streamlit app UI
 st.title("Propagation Mapping Toolbox")
 st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
 st.markdown("• Cole, Ito, Bassett et Schultz. (2016). *Nature Neurosci*, DOI:10.1038/nn.4406")
 
-# optional: show framework image if available
-try:
-    BASE_DIR = Path(__file__).parent
-    framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
-    if framework_img_path.exists():
-        st.image(str(framework_img_path), caption="Propagation Mapping framework", width=700)
-except Exception:
-    # avoid crashing if __file__ not available in some Streamlit contexts
-    pass
+# --- Display the framework image here ---
+BASE_DIR = Path(__file__).parent
+framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
+st.image(framework_img_path, caption="Propagation Mapping is a new precision framework aiming at reconstructing the neural circuitry that explains the spatial organization of human brain maps.This method assume that regional measures can be best understood as a dot product between activity and functional connectivity.Uploading your NIfTI file will predict the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map, 2) the predicted map, 3) the propagation map, and 4) a residual map", width='stretch')
 
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
-st.sidebar.markdown("#### ⚠️ Note: this toolbox does not retain any data")
+st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-# -------------------------
-# File uploader (no email)
-# -------------------------
-uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)",
-    type=["nii", "nii.gz"],
-    accept_multiple_files=True
-)
+# --- Email validation ---
+def validate_email(email: str):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
 
-if uploaded_files:
-    # use the persistent tmp_dir we set in session_state
-    tmp_path_dir = Path(st.session_state.tmp_dir)
-    tmp_path_dir.mkdir(parents=True, exist_ok=True)
+# --- Persistent lists ---
+if "nii_files" not in st.session_state:
+    st.session_state.nii_files = []
+if "col_names" not in st.session_state:
+    st.session_state.col_names = []
 
-    added = 0
-    for uf in uploaded_files:
-        target = tmp_path_dir / uf.name
-        # Avoid re-adding same file twice in session (optional)
-        if str(target) in st.session_state.nii_files:
-            continue
-        with open(target, "wb") as f:
-            f.write(uf.getbuffer())
-        st.session_state.nii_files.append(str(target))
-        st.session_state.col_names.append(clean_name(uf.name))
-        added += 1
+def clean_name(name):
+    return re.sub(r'\.nii(\.gz)?$', '', name)
 
-    st.success(f"{added} new file(s) uploaded successfully.")
+# --- Email form example ---
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {"email": "", "submitted": False}
 
-# -------------------------
-# Load images (if any)
-# -------------------------
+def validate_email(email: str):
+    import re
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
+        return False, "Please enter a valid email address"
+    return True, ""
+
+with st.sidebar.form("email_form"):
+    email_input = st.text_input("Enter your email:", value=st.session_state.form_data["email"])
+    submit_email = st.form_submit_button("Submit")
+
+    if submit_email:
+        is_valid, msg = validate_email(email_input)
+        if is_valid:
+            st.session_state.form_data["email"] = email_input
+            st.session_state.form_data["submitted"] = True
+            st.sidebar.success(f"Email saved: {email_input}")
+
+            # Append email to Google Sheet
+            try:
+                df.loc[len(df)] = [email_input]
+                conn.write(df, worksheet="data")  # use actual worksheet name
+                st.sidebar.success("✅ Email saved to Google Sheet!")
+            except Exception as e:
+                st.sidebar.error(f"Could not save to Google Sheet: {e}")
+        else:
+            st.sidebar.error(msg)
+            st.session_state.form_data["submitted"] = False
+
+# --- Only allow upload if email has been submitted ---
+if st.session_state.form_data["submitted"]:
+    uploaded_files = st.sidebar.file_uploader(
+        "Upload NIFTI file(s)",
+        type=['nii', 'nii.gz'],
+        accept_multiple_files=True
+    )
+
+    if uploaded_files:
+        tmp_dir = Path(tempfile.mkdtemp())
+        nii_files = []
+        for uf in uploaded_files:
+            tmp_path = tmp_dir / uf.name
+            with open(tmp_path, "wb") as f:
+                f.write(uf.getbuffer())
+            nii_files.append(tmp_path)
+        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+else:
+    st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
+
+
+    # --- Process uploaded files ---
+    if uploaded_files:
+        for uf in uploaded_files:
+            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
+            with open(tmp_path, "wb") as f:
+                f.write(uf.getbuffer())
+
+            # Store in session_state
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(clean_name(uf.name))
+        st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+# --- Load images ---
 if st.session_state.nii_files:
-    try:
-        loaded_imgs = [nib.load(fpath) for fpath in st.session_state.nii_files]
-        st.write(f"Loaded {len(loaded_imgs)} image(s):")
-        for name in st.session_state.col_names:
-            st.write("-", name)
-    except Exception as e:
-        st.error(f"Error loading NIfTI images: {e}")
-        loaded_imgs = []
+    loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
 else:
     loaded_imgs = []
-    st.info("No images loaded yet.")
+    st.write("No images loaded yet.")
+
+
 # If data loaded, prompt for atlas selection
 if loaded_imgs:    
     # Example: display first image shape
