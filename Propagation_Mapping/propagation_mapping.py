@@ -27,7 +27,7 @@ SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXW
 # Connect to your private spreadsheet using the service account
 conn = st.connection("gsheets", type=GSheetsConnection)
 # Reference the worksheet (can use sheet name or GID)
-sheet = conn.read(worksheet="Sheet1")  # use the tab name of your sheet
+sheet = conn.read(worksheet="Feuille 1")  # use the tab name of your sheet
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
