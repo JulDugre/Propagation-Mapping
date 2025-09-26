@@ -78,19 +78,6 @@ st.image(framework_img_path, caption="Propagation Mapping is a new precision fra
 st.sidebar.markdown("# UPLOAD IMAGE(S)")
 st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data")
 
-url = "https://docs.google.com/spreadsheets/d/1-sgqON_ypbmUnrcfn9bXWpNMkQzW2QlpF_mR_G8cPZw/"
-conn = st.connection("gsheets", type=GSheetsConnection)
-data = conn.read(spreadsheet=url, usecols=[0, 1])
-st.dataframe(data)
-
-# Read worksheet into a DataFrame
-df = conn.read(worksheet="data")
-
-# When submitting email
-df.loc[len(df)] = [email_input]
-conn.write(df, worksheet="data")
-
-
 # --- Email validation ---
 def validate_email(email: str):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
