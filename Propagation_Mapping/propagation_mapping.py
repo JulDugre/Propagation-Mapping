@@ -23,6 +23,11 @@ import shutil
 from zipfile import ZipFile
 from streamlit_gsheets import GSheetsConnection
 
+# Connect to your private spreadsheet using the service account
+conn = st.connection("gsheets", type=GSheetsConnection)
+# Reference the worksheet (can use sheet name or GID)
+sheet = conn.read(worksheet="0")  
+
 # --- Load into session state ---
 if "func_df" not in st.session_state:
     st.session_state.func_df = None
@@ -106,6 +111,18 @@ with st.sidebar.form("email_form"):
             st.session_state.form_data["email"] = email_input
             st.session_state.form_data["submitted"] = True
             st.sidebar.success(f"Email saved: {email_input}")
+
+            # --- Append email to Google Sheet ---
+            try:
+                # You can specify the worksheet name or GID if needed
+                conn.append(
+                    worksheet="Sheet1",  # replace with your sheet/tab name
+                    values=[[email_input]]
+                )
+                st.sidebar.success("✅ Email saved to Google Sheet!")
+            except Exception as e:
+                st.sidebar.error(f"Could not save to Google Sheet: {e}")
+
         else:
             st.sidebar.error(msg)
             st.session_state.form_data["submitted"] = False
