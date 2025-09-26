@@ -1,25 +1,21 @@
-#!/usr/bin/env python3
-# propagation_mapping.py -- cleaned uploader-only version
 
 import os
 import re
 import tempfile
 from pathlib import Path
 from glob import glob
-
 import streamlit as st
 import nibabel as nib
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-# (kept imports you had earlier; add back other specific imports you need later)
 from nilearn.maskers import NiftiLabelsMasker
 from nilearn.image import smooth_img
 from neuromaps.datasets import fetch_fsaverage
 from nilearn import plotting, datasets
 import seaborn as sns
 from natsort import natsorted
+from scipy.stats import spearmanr
 from sklearn.preprocessing import RobustScaler, StandardScaler
 from sklearn.linear_model import LinearRegression
 from zipfile import ZipFile
