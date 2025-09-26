@@ -21,6 +21,7 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
 from zipfile import ZipFile
+from streamlit_gsheets import GSheetsConnection
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
