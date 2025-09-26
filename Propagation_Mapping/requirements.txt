@@ -3,6 +3,7 @@ natsort
 git+https://github.com/netneurolab/neuromaps.git
 gspread 
 git+https://github.com/streamlit/gsheets-connection
+st-gsheets-connection
 google-auth
 nibabel
 nilearn
