@@ -193,7 +193,7 @@ if loaded_imgs:
             masked_data.append(roi_values)
 
         # --- Convert to DataFrame with generic column names ---
-        st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=col_names)
+        st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
 		
         # --- Display results ---
         st.header("Parcellated Data")
