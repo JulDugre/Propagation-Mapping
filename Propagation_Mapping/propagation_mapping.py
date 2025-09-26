@@ -83,34 +83,26 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
-    nii_files = []
+    # Clear previous session_state lists
+    st.session_state.nii_files = []
+    st.session_state.col_names = []
+
     for uf in uploaded_files:
         tmp_path = tmp_dir / uf.name
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-        nii_files.append(tmp_path)
 
-        # Track uploaded files in session state
+        # Store in session_state
         st.session_state.nii_files.append(str(tmp_path))
         st.session_state.col_names.append(clean_name(uf.name))
 
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
+# --- Show uploaded files in sidebar ---
 if st.session_state.nii_files:
     st.sidebar.info("Uploaded files:")
     for f in st.session_state.col_names:
         st.sidebar.write("-", f)
-
-    # --- Process uploaded files ---
-    if uploaded_files:
-        for uf in uploaded_files:
-            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-            with open(tmp_path, "wb") as f:
-                f.write(uf.getbuffer())
-
-            # Store in session_state
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(clean_name(uf.name))
 
 # --- Load images ---
 if st.session_state.nii_files:
@@ -118,7 +110,7 @@ if st.session_state.nii_files:
 else:
     loaded_imgs = []
     st.write("No images loaded yet.")
-
+	
 
 # If data loaded, prompt for atlas selection
 if loaded_imgs:    
