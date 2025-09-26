@@ -131,7 +131,6 @@ with st.sidebar.form("email_form"):
             st.sidebar.error(msg)
             st.session_state.form_data["submitted"] = False
 
-# --- Only allow upload if email has been submitted ---
 if st.session_state.form_data["submitted"]:
     uploaded_files = st.sidebar.file_uploader(
         "Upload NIFTI file(s)",
@@ -140,13 +139,14 @@ if st.session_state.form_data["submitted"]:
     )
 
     if uploaded_files:
-        tmp_dir = Path(tempfile.mkdtemp())
-        nii_files = []
         for uf in uploaded_files:
-            tmp_path = tmp_dir / uf.name
+            tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
             with open(tmp_path, "wb") as f:
                 f.write(uf.getbuffer())
-            nii_files.append(tmp_path)
+
+            # Store in session_state
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(clean_name(uf.name))
         st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 else:
     st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
