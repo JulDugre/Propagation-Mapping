@@ -37,6 +37,10 @@ if 'tmp_dir' not in st.session_state:
     st.session_state.tmp_dir = tempfile.mkdtemp()  # folder persists
 if "saved_files" not in st.session_state:
     st.session_state.saved_files = []
+if "nii_files" not in st.session_state:
+    st.session_state.nii_files = []
+if "col_names" not in st.session_state:
+    st.session_state.col_names = []
 	
 tmp_dir = Path(st.session_state.tmp_dir)
 # Create subfolders
