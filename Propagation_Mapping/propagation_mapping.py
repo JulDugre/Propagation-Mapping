@@ -75,6 +75,12 @@ if submit_email and user_email.strip():
     st.session_state["user_email"] = user_email  # store email in session_state
     st.sidebar.success(f"Email saved: {user_email}")
 
+# --- Initialize persistent lists ---
+if "nii_files" not in st.session_state:
+    st.session_state.nii_files = []
+if "col_names" not in st.session_state:
+    st.session_state.col_names = []
+
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
@@ -90,11 +96,12 @@ if uploaded_files:
         tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-        nii_files.append(tmp_path)
-        col_names.append(clean_name(uf.name))
+
+        # Store in session_state
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(clean_name(uf.name))
     
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
-
 else:
     st.sidebar.warning("👉 Please enter your email and click Submit before uploading files.")
 	
