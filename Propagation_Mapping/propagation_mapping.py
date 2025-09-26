@@ -114,9 +114,7 @@ else:
     st.write("No images loaded yet.")
 
 # If data loaded, prompt for atlas selection
-if loaded_imgs:
-    st.success(f"{len(loaded_imgs)} NIfTI file(s) successfully loaded.")
-    
+if loaded_imgs:    
     # Example: display first image shape
     img_data = loaded_imgs[0].get_fdata()
     st.write(f"First image shape: {img_data.shape}")
