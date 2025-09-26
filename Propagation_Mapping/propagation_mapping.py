@@ -84,13 +84,18 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
+    # Clear previous uploads if you want a fresh start
+    st.session_state.nii_files = []
+    st.session_state.col_names = []
+
     for uf in uploaded_files:
         tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
         with open(tmp_path, "wb") as f:
             f.write(uf.getbuffer())
-        nii_files.append(tmp_path)
-        col_names.append(clean_name(uf.name))
-    
+
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(clean_name(uf.name))
+
     st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
 
 # --- Load images ---
