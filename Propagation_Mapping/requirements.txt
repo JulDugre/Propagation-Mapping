@@ -9,4 +9,4 @@ pandas
 scikit_learn
 scipy
 seaborn
-streamlit>=1.28
+streamlit
