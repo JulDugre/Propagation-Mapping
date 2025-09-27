@@ -21,8 +21,7 @@ All atlases are supplemented by 14 additional subcortical regions ([Fischl et al
 
 ## To Run
 To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
-https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1
-
+<video src='https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1' width=180/>
 
 ![Demo](C:/Users/jules/Downloads/output.gif)
 
