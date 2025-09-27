@@ -23,8 +23,6 @@ All atlases are supplemented by 14 additional subcortical regions ([Fischl et al
 To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
 <video src='https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1' width=180/>
 
-![Demo](C:/Users/jules/Downloads/output.gif)
-
 
 ## To Cite
 To cite the method & toolbox, please use: [Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, DOI: ???](https://www.biorxiv.org/)
