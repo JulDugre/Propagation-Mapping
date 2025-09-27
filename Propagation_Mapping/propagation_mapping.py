@@ -77,7 +77,7 @@ def clean_name(name):
 
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
-    type=[".nii", "nii.gz"], 
+    type=["nii", "nii.gz"], 
     accept_multiple_files=True
 )
 
