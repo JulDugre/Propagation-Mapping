@@ -41,7 +41,7 @@ if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
 if "col_names" not in st.session_state:
     st.session_state.col_names = []
-	
+
 tmp_dir = Path(st.session_state.tmp_dir)
 # Create subfolders
 results_dir = tmp_dir / "results"
@@ -96,7 +96,8 @@ if uploaded_files:
         # Store the path or object in session state
         st.session_state.nii_files.append(tmp_path)
         st.write(f"Loaded {uf.name} successfully")
-
+        st.session_state.col_names = [clean_name(uf.name) for uf in uploaded_files]
+		
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
