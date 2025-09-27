@@ -76,7 +76,6 @@ col_names = []
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Multiple NIfTI uploader ---
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
     type=['nii', 'nii.gz'],
@@ -84,19 +83,19 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
-    # Clear previous uploads if you want a fresh start
     st.session_state.nii_files = []
-    st.session_state.col_names = []
-
     for uf in uploaded_files:
-        tmp_path = os.path.join(st.session_state.tmp_dir, uf.name)
-        with open(tmp_path, "wb") as f:
-            f.write(uf.getbuffer())
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".nii.gz") as tmp_file:
+            tmp_file.write(uf.getbuffer())
+            tmp_path = tmp_file.name
 
+        # Load NIfTI using nibabel
+        img = nib.load(tmp_path)
+
+        # Store the path or object in session state
         st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(clean_name(uf.name))
-
-    st.success(f"{len(uploaded_files)} file(s) uploaded successfully.")
+        st.write(f"Loaded {uf.name} successfully")
 
 # --- Load images ---
 if st.session_state.nii_files:
