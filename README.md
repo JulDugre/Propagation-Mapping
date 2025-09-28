@@ -3,6 +3,9 @@ Propagation Mapping is a novel precision framework for reconstructing the neural
 
 ![Alt text describing the image](https://github.com/JulDugre/Propagation-Mapping/blob/main/Propagation_Mapping/miscellaneous/Framework.png)
 
+
+*Please reach out for any questions, suggestions, collaborations (jules [dot] dugre [at] umich [dot] edu)
+
 ## Key Features
 The core idea behind propagation mapping is that if the spatial organization of brain maps can be accurately predicted by a weighted sum, this indicates that the weighted connectome—prior to summation—faithfully captures the connectivity patterns underlying a given spatial pattern. This reconstructed connectome, referred to as a propagation map, can then be used to generate new hypotheses through graph metrics and connectome-based predictive modeling. Propagation Mapping is an extension of [Cole and colleagues, 2016, Nature Neurosci](https://pubmed.ncbi.nlm.nih.gov/27723746/) and should therefore be cited when using the toolbox. 
 
@@ -28,5 +31,4 @@ To use propagation mapping, please follow [this link](https://propagation-mappin
 To cite the method & toolbox, please use: 
 - Dugré, J.R. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, [DOI: 10.1101/2025.09.27.678975](https://doi.org/10.1101/2025.09.27.678975)
 
-<img width="248" height="324" alt="image" src="https://github.com/user-attachments/assets/0c5f3c67-3d8b-42e3-9bf0-0f7f4b2ba195" />
-
+--------------------------------------------------------     <img width="186" height="243" alt="image" src="https://github.com/user-attachments/assets/3b6554b0-ceb8-4a06-a54b-d9110f804825">    --------------------------------------------------------
