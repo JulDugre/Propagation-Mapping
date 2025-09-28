@@ -25,4 +25,8 @@ To use propagation mapping, please follow [this link](https://propagation-mappin
 
 
 ## To Cite
-To cite the method & toolbox, please use: [Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, DOI: ???](https://www.biorxiv.org/)
+To cite the method & toolbox, please use: 
+- Dugré, J.R. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, [DOI: 10.1101/2025.09.27.678975](https://doi.org/10.1101/2025.09.27.678975)
+
+<img width="248" height="324" alt="image" src="https://github.com/user-attachments/assets/0c5f3c67-3d8b-42e3-9bf0-0f7f4b2ba195" />
+
