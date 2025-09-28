@@ -22,8 +22,12 @@ Users can select their preferred atlas to enable mapping across different modali
 
 All atlases are supplemented by 14 additional subcortical regions ([Fischl et al., 2002](https://pubmed.ncbi.nlm.nih.gov/11832223/)) and 7 cerebellar regions ([Buckner et al., 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3214121/)).
 
+
 ## To Run
 To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
+
+**IMPORTANT.** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon).
+
 <video src='https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1' width=180/>
 
 
