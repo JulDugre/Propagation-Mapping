@@ -101,11 +101,25 @@ uploaded_files = st.sidebar.file_uploader(
 
 if uploaded_files:
     st.session_state.nii_files = []
+    st.session_state.col_names = []
+
     for uf in uploaded_files:
-        # Create a temporary file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".nii.gz") as tmp_file:
+        # Ensure the file has a valid extension
+        if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
+            st.warning(f"Skipped unsupported file: {uf.name}")
+            continue
+
+        # Save as temporary file with proper suffix
+        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
             tmp_file.write(uf.getbuffer())
-            tmp_path = tmp_file.name
+            tmp_path = Path(tmp_file.name)
+
+        # Add to session state
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(clean_name(uf.name))
+
+    st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 		
 # --- Load images ---
 if st.session_state.nii_files:
