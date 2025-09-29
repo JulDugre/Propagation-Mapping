@@ -22,6 +22,11 @@ Users can select their preferred atlas to enable mapping across different modali
 
 All atlases are supplemented by 14 additional subcortical regions ([Fischl et al., 2002](https://pubmed.ncbi.nlm.nih.gov/11832223/)) and 7 cerebellar regions ([Buckner et al., 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3214121/)).
 
+## To Cite
+To cite the method & toolbox, please use: 
+- Dugré, J.R. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, [DOI: 10.1101/2025.09.27.678975](https://doi.org/10.1101/2025.09.27.678975)
+
+-------------------------------------------------------------     <img width="186" height="243" alt="image" src="https://github.com/user-attachments/assets/3b6554b0-ceb8-4a06-a54b-d9110f804825">    --------------------------------------------------------
 
 ## To Run
 To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
@@ -30,9 +35,3 @@ To use propagation mapping, please follow [this link](https://propagation-mappin
 
 <video src='https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1' width=180/>
 
-
-## To Cite
-To cite the method & toolbox, please use: 
-- Dugré, J.R. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. bioRxiv, [DOI: 10.1101/2025.09.27.678975](https://doi.org/10.1101/2025.09.27.678975)
-
---------------------------------------------------------     <img width="186" height="243" alt="image" src="https://github.com/user-attachments/assets/3b6554b0-ceb8-4a06-a54b-d9110f804825">    --------------------------------------------------------
