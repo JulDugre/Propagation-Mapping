@@ -75,27 +75,39 @@ col_names = []
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
+def save_uploaded_nii(uf):
+    """Save uploaded NIfTI file to a temp file, keeping the right suffix."""
+    if uf.name.endswith(".nii.gz"):
+        suffix = ".nii.gz"
+    elif uf.name.endswith(".nii"):
+        suffix = ".nii"
+    else:
+        raise ValueError(f"Unsupported file type: {uf.name}")
+
+    tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    tmp_file.write(uf.getbuffer())
+    tmp_file.close()  # important to flush everything
+    return Path(tmp_file.name)
+
+
 uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)",
-    type=["nii", "gz"],
-    accept_multiple_files=True
+    "Upload NIFTI file(s)", type=["nii", "nii.gz"], accept_multiple_files=True
 )
 
 if uploaded_files:
     st.session_state.nii_files = []
+    st.session_state.col_names = []
+
     for uf in uploaded_files:
-        # Create a temporary file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".nii.gz") as tmp_file:
-            tmp_file.write(uf.getbuffer())
-            tmp_path = tmp_file.name
-
-        # Load NIfTI using nibabel
-        img = nib.load(tmp_path)
-
-        # Store the path or object in session state
-        st.session_state.nii_files.append(tmp_path)
-        st.write(f"Loaded {uf.name} successfully")
-        st.session_state.col_names = [clean_name(uf.name) for uf in uploaded_files]
+        try:
+            tmp_path = save_uploaded_nii(uf)
+            # Test loading with nibabel
+            img = nib.load(tmp_path)
+            
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(re.sub(r'\.nii(\.gz)?$', '', uf.name))
+        except Exception as e:
+            st.error(f"Failed to load {uf.name}: {e}")
 		
 # --- Load images ---
 if st.session_state.nii_files:
