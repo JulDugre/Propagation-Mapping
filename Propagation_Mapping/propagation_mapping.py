@@ -90,24 +90,22 @@ def save_uploaded_nii(uf):
     return Path(tmp_file.name)
 
 
+def clean_name(name):
+    return re.sub(r'\.nii(\.gz)?$', '', name)
+
 uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)", type=["nii", "nii.gz"], accept_multiple_files=True
+    "Upload NIFTI file(s)",
+    type=["nii", "gz"],
+    accept_multiple_files=True
 )
 
 if uploaded_files:
     st.session_state.nii_files = []
-    st.session_state.col_names = []
-
     for uf in uploaded_files:
-        try:
-            tmp_path = save_uploaded_nii(uf)
-            # Test loading with nibabel
-            img = nib.load(tmp_path)
-            
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(re.sub(r'\.nii(\.gz)?$', '', uf.name))
-        except Exception as e:
-            st.error(f"Failed to load {uf.name}: {e}")
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".nii.gz") as tmp_file:
+            tmp_file.write(uf.getbuffer())
+            tmp_path = tmp_file.name
 		
 # --- Load images ---
 if st.session_state.nii_files:
