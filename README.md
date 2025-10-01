@@ -12,7 +12,7 @@ The core idea behind propagation mapping is that if the spatial organization of 
 The toolbox currently allows researchers to calculate and save:
 - **Predicted Regional Map** – a 1-dimensional feature vector representing predicted regional values.  
 - **Propagation Map** – a region-by-region matrix capturing the propagation patterns underlying the spatial map.  
-- **Residual Map** – a 1-dimensional feature vector representing regional deviations from what is expected based on a normative connectome.
+- **Residual Map** – a 1-dimensional feature vector representing regional deviations (z-scores) from what is typically expected from a normative connectome (i.e., A higher score means that the magnitude of one's region is higher than typically expected based on the normative reference, and vice-versa).
 
 Users can select their preferred atlas to enable mapping across different modalities (e.g., resting-state, diffusion), including:
 - **Schaefer-400 7Networks Atlas** ([Schaefer et al., 2018](https://pubmed.ncbi.nlm.nih.gov/28981612/))  
