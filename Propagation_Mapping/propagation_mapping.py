@@ -273,13 +273,13 @@ if st.session_state.launch_btn:
         output_folder = BASE_DIR / "results"
         output_folder.mkdir(parents=True, exist_ok=True)
 
-        n_subjects = masked_df.shape[1]
+        n_subjects = st.session_state.masked_df.shape[1]
         rocket_progress = st.progress(0)
         progress_text = st.empty()  # For text info
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
-            feature_vector = masked_df.iloc[:, idx].values
-            filename = masked_df.columns[idx]  # use uploaded filename
+            feature_vector = st.session_state.masked_df.iloc[:, idx].values
+            filename =st.session_state.masked_df.columns[idx]  # use uploaded filename
             
             # --- Functional connectome ---
             connectome_FC = np.clip(func_connectome, a_min=0, a_max=None)
@@ -352,7 +352,7 @@ if st.session_state.launch_btn:
 
         # --- Compute summary stats if more than one subject ---
         if len(pred_accuracy) == 1:
-            st.header(f"Prediction Accuracy for {masked_df.columns[0]}")            
+            st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
             st.write("Spearman's rank order:", pred_accuracy[0])
 
         else:
