@@ -346,7 +346,7 @@ if st.session_state.get("launch_btn", False):
 			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
 			
             rocket_progress.progress((idx + 1) / n_subjects)
-	        progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
+            progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
