@@ -138,6 +138,7 @@ else:
     st.write("No images loaded yet.")
   
 # --- Atlas selection ---
+# --- Atlas selection ---
 if loaded_imgs:    
     st.header("Please select a Brain Atlas for Parcellation:")
     atlas_choice = st.radio(
@@ -145,7 +146,8 @@ if loaded_imgs:
         ("Schaefer7", "Desikan", "Gordon", "Glasser"),
         index=0
     )
-    st.session_state.atlas_choice = atlas_choice  # Save choice for later
+    st.session_state.atlas_choice = atlas_choice  # Save choice
+
     atlas_files = {
         "Schaefer7": BASE_DIR / "atlases" / "ATLAS_Schaefer7.nii.gz",
         "Desikan": BASE_DIR / "atlases" / "ATLAS_Desikan.nii.gz",
@@ -154,28 +156,18 @@ if loaded_imgs:
     }
     atlas_path = atlas_files[atlas_choice]
 
-    # -------------------------------
-    # Parcellation (runs only once)
-    # -------------------------------
-    if not st.session_state.parcellated and atlas_path.exists():
-   
-        func_dir = BASE_DIR / "normative_connectomes" / "func"
-        struct_dir = BASE_DIR / "normative_connectomes" / "struct"
+    # Load atlas image and ROI labels immediately
+    st.session_state.atlas_img = nib.load(atlas_path)
+    atlas_csv = BASE_DIR / "atlases" / f"listnames_ATLAS_{atlas_choice}.csv"
+    labels_info = pd.read_csv(atlas_csv)
+    st.session_state.roi_labels = labels_info['Label'].tolist()
 
-        func_file = func_dir / f"ATLAS_{atlas_choice}_resting_Fz.csv"
-        struct_file = struct_dir / f"ATLAS_{atlas_choice}_structural_Fz.csv"
+    # Load connectomes
+    func_file = BASE_DIR / "normative_connectomes" / "func" / f"ATLAS_{atlas_choice}_resting_Fz.csv"
+    struct_file = BASE_DIR / "normative_connectomes" / "struct" / f"ATLAS_{atlas_choice}_structural_Fz.csv"
 
-        if func_file.exists():
-            st.session_state.func_df = pd.read_csv(func_file, index_col=[0])
-            st.write(f"Functional connectome shape: {st.session_state.func_df.shape}")
-        else:
-            st.warning(f"No functional connectome found for {atlas_choice}")
-
-        if struct_file.exists():
-            st.session_state.struct_df = pd.read_csv(struct_file, index_col=[0])
-            st.write(f"Structural connectome shape: {st.session_state.struct_df.shape}")
-        else:
-            st.warning(f"No structural connectome found for {atlas_choice}")
+    st.session_state.func_df = pd.read_csv(func_file, index_col=0) if func_file.exists() else None
+    st.session_state.struct_df = pd.read_csv(struct_file, index_col=0) if struct_file.exists() else None
 
     # --- Clean connectomes ---
 if st.session_state.func_df is not None and st.session_state.struct_df is not None:
@@ -211,14 +203,21 @@ with col3_btn:
 
 
 if st.session_state.launch_btn:
-    # Check prerequisites
     if not st.session_state.nii_files:
-        st.warning("No NIfTI files uploaded. Please upload first!")
-    elif "atlas_img" not in st.session_state:
-        st.warning("No atlas selected. Please select an atlas first!")
+        st.warning("No NIfTI files uploaded!")
+    elif "atlas_img" not in st.session_state or "roi_labels" not in st.session_state:
+        st.warning("No atlas selected!")
     elif st.session_state.func_df is None or st.session_state.struct_df is None:
-        st.warning("Functional or Structural connectomes not loaded!")
+        st.warning("Functional or structural connectomes not loaded!")
     else:
+        # Access atlas and labels from session state
+        atlas_img = st.session_state.atlas_img
+        roi_labels = st.session_state.roi_labels
+        atlas_choice = st.session_state.atlas_choice
+        func_connectome = st.session_state.func_df.values.copy()
+        struct_connectome = st.session_state.struct_df.values.copy()
+        
+        # Proceed with parcellation and propagation mapping...
         # --- Load images ---
         loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
 
