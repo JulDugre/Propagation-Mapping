@@ -136,77 +136,29 @@ if st.session_state.nii_files:
 else:
     loaded_imgs = []
     st.write("No images loaded yet.")
-
-# If data loaded, prompt for atlas selection
+  
+# --- Atlas selection ---
 if loaded_imgs:    
-    # Example: display first image shape
-    img_data = loaded_imgs[0].get_fdata()
-    st.write(f"First image shape: {img_data.shape}")
-
-    # Prompt for atlas selection
     st.header("Please select a Brain Atlas for Parcellation:")
     atlas_choice = st.radio(
         "Choose one atlas:",
         ("Schaefer7", "Desikan", "Gordon", "Glasser"),
         index=0
     )
-
-    # Map atlas names to file paths
+    st.session_state.atlas_choice = atlas_choice  # Save choice for later
     atlas_files = {
-    "Schaefer7": BASE_DIR / "atlases" / "ATLAS_Schaefer7.nii.gz",
-    "Desikan": BASE_DIR / "atlases" / "ATLAS_Desikan.nii.gz",
-    "Gordon": BASE_DIR / "atlases" / "ATLAS_Gordon.nii.gz",
-    "Glasser": BASE_DIR / "atlases" / "ATLAS_Glasser.nii.gz"}
-
+        "Schaefer7": BASE_DIR / "atlases" / "ATLAS_Schaefer7.nii.gz",
+        "Desikan": BASE_DIR / "atlases" / "ATLAS_Desikan.nii.gz",
+        "Gordon": BASE_DIR / "atlases" / "ATLAS_Gordon.nii.gz",
+        "Glasser": BASE_DIR / "atlases" / "ATLAS_Glasser.nii.gz"
+    }
     atlas_path = atlas_files[atlas_choice]
 
     # -------------------------------
     # Parcellation (runs only once)
     # -------------------------------
     if not st.session_state.parcellated and atlas_path.exists():
-        st.session_state.parcellated = True
-        atlas_img = nib.load(atlas_path)
-        st.success(f"✅ You selected the **{atlas_choice}** atlas.")
-        atlas_csv = BASE_DIR / "atlases" / f"listnames_ATLAS_{atlas_choice}.csv"
-        labels_info = pd.read_csv(atlas_csv)
-        roi_labels = labels_info['Label'].tolist()
-		
-        # --- Define masker AFTER images are loaded ---
-        masker = NiftiLabelsMasker(
-            labels_img=atlas_img,
-            strategy='mean',
-            keep_masked_labels=True,resampling_target="labels")
-        parcellation_progress = st.progress(0)
-        progress_text = st.empty()
-        start_time = time.time()
-		
-        # --- Parcellate all images ---
-        masked_data = []
-        for i, img in enumerate(loaded_imgs):
-            roi_values = masker.fit_transform(img)
-            roi_values = roi_values.squeeze()
-            masked_data.append(roi_values)
-
-            # Update progress bar
-            frac_done = (i + 1) / len(loaded_imgs)
-            parcellation_progress.progress(frac_done)
-
-            # Estimate time left
-            elapsed = time.time() - start_time
-            time_per_img = elapsed / (i + 1)
-            remaining = time_per_img * (len(loaded_imgs) - (i + 1))
-            progress_text.text(f"Parcellating image {i+1}/{len(loaded_imgs)} — ~{int(remaining)} sec remaining")
-
-
-	
-        # --- Convert to DataFrame with generic column names ---
-        st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
-		
-        # --- Display results ---
-        st.header("Parcellated Data")
-        st.write("Shape of parcellated data (ROIs × Subjects):", st.session_state.masked_df.shape)
-        st.dataframe(st.session_state.masked_df)
-
+   
         func_dir = BASE_DIR / "normative_connectomes" / "func"
         struct_dir = BASE_DIR / "normative_connectomes" / "struct"
 
@@ -257,18 +209,56 @@ with col3_btn:
     if st.button("PLOT PREDICTION MAP 🧠"):
         st.session_state.plot_pred_btn = True
 
-if st.session_state.get("launch_btn", False):
-    if st.session_state.masked_df is None or st.session_state.masked_df.empty:
-        st.warning("No parcellated data available. Upload a NIfTI first!")
+
+if st.session_state.launch_btn:
+    # Check prerequisites
+    if not st.session_state.nii_files:
+        st.warning("No NIfTI files uploaded. Please upload first!")
+    elif "atlas_img" not in st.session_state:
+        st.warning("No atlas selected. Please select an atlas first!")
+    elif st.session_state.func_df is None or st.session_state.struct_df is None:
+        st.warning("Functional or Structural connectomes not loaded!")
     else:
-        masked_df = st.session_state.masked_df
+        # --- Load images ---
+        loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
+
+        # --- Parcellation ---
+        masker = NiftiLabelsMasker(
+            labels_img=st.session_state.atlas_img,
+            strategy='mean',
+            keep_masked_labels=True,
+            resampling_target="labels"
+        )
+
+        parcellation_progress = st.progress(0)
+        progress_text = st.empty()
+        start_time = time.time()
+
+        masked_data = []
+        for i, img in enumerate(loaded_imgs):
+            roi_values = masker.fit_transform(img).squeeze()
+            masked_data.append(roi_values)
+
+            # Progress bar update
+            frac_done = (i + 1) / len(loaded_imgs)
+            parcellation_progress.progress(frac_done)
+
+            elapsed = time.time() - start_time
+            time_per_img = elapsed / (i + 1)
+            remaining = time_per_img * (len(loaded_imgs) - (i + 1))
+            progress_text.text(f"Parcellating image {i+1}/{len(loaded_imgs)} — ~{int(remaining)} sec remaining")
+
+        # --- Save to session state ---
+        st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
+
+        # --- Display results ---
+        st.header("Parcellated Data")
+        st.write("Shape of parcellated data (ROIs × Subjects):", st.session_state.masked_df.shape)
+        st.dataframe(st.session_state.masked_df)
+
+        # --- Connectomes ---
         func_connectome = st.session_state.func_df.values.copy()
         struct_connectome = st.session_state.struct_df.values.copy()
-		# Load ROI labels from atlas name list
-        atlas_csv = BASE_DIR / "atlases" / f"listnames_ATLAS_{atlas_choice}.csv"
-        labels_info = pd.read_csv(atlas_csv)
-        roi_labels = labels_info['Label'].tolist()
-
         np.fill_diagonal(func_connectome, 0)
         np.fill_diagonal(struct_connectome, 0)
         func_connectome[np.isinf(func_connectome)] = 0
