@@ -42,7 +42,11 @@ if "nii_files" not in st.session_state:
     st.session_state.nii_files = []
 if "col_names" not in st.session_state:
     st.session_state.col_names = []
-
+if "parcellated" not in st.session_state:
+    st.session_state.parcellated = False
+if "launch_btn" not in st.session_state:
+    st.session_state.launch_btn = False
+	
 tmp_dir = Path(st.session_state.tmp_dir)
 
 # Create subfolders
@@ -121,7 +125,8 @@ if uploaded_files:
         # Add to session state
         st.session_state.nii_files.append(tmp_path)
         st.session_state.col_names.append(clean_name(uf.name))
-
+		
+	st.session_state.parcellated = False  # Reset parcellation
     st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 		
 # --- Load images ---
@@ -154,7 +159,11 @@ if loaded_imgs:
 
     atlas_path = atlas_files[atlas_choice]
 
-    if atlas_path.exists():
+    # -------------------------------
+    # Parcellation (runs only once)
+    # -------------------------------
+    if not st.session_state.parcellated and atlas_path.exists():
+        st.session_state.parcellated = True
         atlas_img = nib.load(atlas_path)
         st.success(f"✅ You selected the **{atlas_choice}** atlas.")
         atlas_csv = BASE_DIR / "atlases" / f"listnames_ATLAS_{atlas_choice}.csv"
