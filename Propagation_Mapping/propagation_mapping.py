@@ -313,18 +313,18 @@ if st.session_state.get("launch_btn", False):
             resid_file = output_folder / f"{filename}_z_residualmap.csv"
             acc_file = output_folder / f"{filename}_accuracy.csv"
 			
-            pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_obs_map.csv")
-            pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_pred_map.csv")
-            pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels).to_csv(prop_dir / f"{filename}_propagationmap.csv")
-            pd.DataFrame(residuals_z, index=roi_labels).to_csv(resid_dir / f"{filename}_z_residualmap.csv")
-            pd.DataFrame([pred_accuracy[-1]], index=[filename], columns=["Spearman_r"]).to_csv(acc_dir / f"{filename}_accuracy.csv")
+            pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
+            pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_map.csv")
+            pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
+            pd.DataFrame(residuals_z, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
+            pd.DataFrame([pred_accuracy[-1]], index=[filename], columns=["Spearman_r"]).to_csv(acc_dir / f"{filename}_{atlas_choice}_accuracy.csv")
 			
             st.session_state.saved_files.extend([
-				obs_dir / f"{filename}_obs_map.csv",
-				pred_dir / f"{filename}_pred_map.csv",
-				prop_dir / f"{filename}_propagationmap.csv",
-				resid_dir / f"{filename}_z_residualmap.csv",
-			acc_dir / f"{filename}_accuracy.csv"])
+				obs_dir / f"{filename}_{atlas_choice}_obs_map.csv",
+				pred_dir / f"{filename}_{atlas_choice}_pred_map.csv",
+				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
+				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv",
+			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
 				
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
