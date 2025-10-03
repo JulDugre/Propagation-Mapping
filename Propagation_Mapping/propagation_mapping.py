@@ -43,19 +43,27 @@ if "col_names" not in st.session_state:
     st.session_state.col_names = []
 
 tmp_dir = Path(st.session_state.tmp_dir)
-# Create subfolders
-results_dir = tmp_dir / "results"
-plots_dir = tmp_dir / "plots"
-results_dir.mkdir(parents=True, exist_ok=True)
-plots_dir.mkdir(parents=True, exist_ok=True)
-obs_dir = results_dir / "observed_maps"
-pred_dir = results_dir / "predicted_maps"
-prop_dir = results_dir / "propagation_maps"
-resid_dir = results_dir / "residual_maps"
-acc_dir = results_dir / "accuracies"
+# Let user pick save directory (default = BASE_DIR/results)
+save_dir = st.sidebar.text_input(
+    "Enter a directory to save results:",
+    value=str(BASE_DIR / "results")
+)
 
-for folder in [obs_dir, pred_dir, prop_dir, resid_dir, acc_dir]:
-    folder.mkdir(parents=True, exist_ok=True)
+# Validate / create folder
+save_dir = Path(save_dir).expanduser()
+save_dir.mkdir(parents=True, exist_ok=True)
+
+# Use save_dir instead of hardcoded BASE_DIR/results
+output_folder = save_dir
+obs_dir = output_folder / "observed"
+pred_dir = output_folder / "predicted"
+prop_dir = output_folder / "propagationmaps"
+resid_dir = output_folder / "residuals"
+acc_dir = output_folder / "accuracy"
+
+# Make sure subfolders exist
+for d in [obs_dir, pred_dir, prop_dir, resid_dir, acc_dir]:
+    d.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
 st.title("Propagation Mapping Toolbox")
