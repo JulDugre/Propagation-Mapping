@@ -21,6 +21,7 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import shutil
 from zipfile import ZipFile
+import time
 
 # --- Load into session state ---
 if "func_df" not in st.session_state:
@@ -166,14 +167,28 @@ if loaded_imgs:
             strategy='mean',
             keep_masked_labels=True,resampling_target="labels")
         parcellation_progress = st.progress(0)
+        progress_text = st.empty()
+        start_time = time.time()
+		
         # --- Parcellate all images ---
         masked_data = []
         for i, img in enumerate(loaded_imgs):
             roi_values = masker.fit_transform(img)
             roi_values = roi_values.squeeze()
             masked_data.append(roi_values)
-            parcellation_progress.progress((i+1)/len(loaded_imgs))
-			
+
+            # Update progress bar
+            frac_done = (i + 1) / len(loaded_imgs)
+            parcellation_progress.progress(frac_done)
+
+            # Estimate time left
+            elapsed = time.time() - start_time
+            time_per_img = elapsed / (i + 1)
+            remaining = time_per_img * (len(loaded_imgs) - (i + 1))
+            progress_text.text(f"Parcellating image {i+1}/{len(loaded_imgs)} — ~{int(remaining)} sec remaining")
+
+
+	
         # --- Convert to DataFrame with generic column names ---
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
 		
@@ -261,6 +276,7 @@ if st.session_state.get("launch_btn", False):
 
         n_subjects = masked_df.shape[1]
         rocket_progress = st.progress(0)
+        progress_text = st.empty()  # For text info
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = masked_df.iloc[:, idx].values
@@ -328,7 +344,9 @@ if st.session_state.get("launch_btn", False):
 				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
 				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv",
 			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
-            progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
+			
+            rocket_progress.progress((idx + 1) / n_subjects)
+			progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
