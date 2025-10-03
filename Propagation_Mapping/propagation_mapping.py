@@ -168,7 +168,7 @@ if loaded_imgs:
         parcellation_progress = st.progress(0)
         # --- Parcellate all images ---
         masked_data = []
-        for img in loaded_imgs:
+        for i, img in enumerate(loaded_imgs):
             roi_values = masker.fit_transform(img)
             roi_values = roi_values.squeeze()
             masked_data.append(roi_values)
