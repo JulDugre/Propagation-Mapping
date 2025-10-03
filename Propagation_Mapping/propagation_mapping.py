@@ -245,7 +245,7 @@ if st.session_state.launch_btn:
             elapsed = time.time() - start_time
             time_per_img = elapsed / (i + 1)
             remaining = time_per_img * (len(loaded_imgs) - (i + 1))
-            progress_text.text(f"Parcellating image {i+1}/{len(loaded_imgs)} — ~{int(remaining)} sec remaining")
+            progress_text.text(f"Time for a ☕, Parcellating image {i+1}/{len(loaded_imgs)} — ~{int(remaining)} sec remaining")
 
         # --- Save to session state ---
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
@@ -345,7 +345,7 @@ if st.session_state.launch_btn:
 			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
 			
             rocket_progress.progress((idx + 1) / n_subjects)
-            progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
+            progress_text.text(f"Time for a sip ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
