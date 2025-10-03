@@ -332,3 +332,24 @@
 330,331,Default_41,Default,54.4,1.1,-12.9,#E69422
 331,332,VentralAttn_22,VentralAttn,57.1,-6.3,-7.7,#E69422
 332,333,VentralAttn_23,VentralAttn,46.6,-21.5,-8.5,#E69422
+333,334,L_Accumbens,Subcortex,-9,12,-6,#6BD3FF
+334,335,L_Amygdala,Subcortex,-23,-5,-20,#6BD3FF
+335,336,L_Caudate,Subcortex,-13,6,11,#6BD3FF
+336,337,L_Hippocampus,Subcortex,-25,-23,-14,#6BD3FF
+337,338,L_Pallidum,Subcortex,-20,-5,-1,#6BD3FF
+338,339,L_Putamen,Subcortex,-26,0,0,#6BD3FF
+339,340,L_Thalamus,Subcortex,-11,-19,6,#6BD3FF
+340,341,R_Accumbens,Subcortex,10,12,-7,#6BD3FF
+341,342,R_Amygdala,Subcortex,24,-4,-20,#6BD3FF
+342,343,R_Caudate,Subcortex,14,9,10,#6BD3FF
+343,344,R_Hippocampus,Subcortex,27,-21,-14,#6BD3FF
+344,345,R_Pallidum,Subcortex,21,-4,-1,#6BD3FF
+345,346,R_Putamen,Subcortex,26,3,-1,#6BD3FF
+346,347,R_Thalamus,Subcortex,12,-18,7,#6BD3FF
+347,348,Cereb_Visual,Cerebellum,0,0,0,
+348,349,Cereb_Somatomotor,Cerebellum,0,0,0,
+349,350,Cereb_Dorsal Attention,Cerebellum,0,0,0,
+350,351,Cereb_Ventral Attention,Cerebellum,0,0,0,
+351,352,Cereb_Limbic,Cerebellum,0,0,0,
+352,353,Cereb_Fronto-Parietal,Cerebellum,0,0,0,
+353,354,Cereb_Default-Mode,Cerebellum,0,0,0,
