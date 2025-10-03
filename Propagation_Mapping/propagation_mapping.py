@@ -125,8 +125,9 @@ if uploaded_files:
         # Add to session state
         st.session_state.nii_files.append(tmp_path)
         st.session_state.col_names.append(clean_name(uf.name))
-		
-	st.session_state.parcellated = False  # Reset parcellation
+
+    # Reset parcellation after all files are loaded
+    st.session_state.parcellated = False
     st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 		
 # --- Load images ---
