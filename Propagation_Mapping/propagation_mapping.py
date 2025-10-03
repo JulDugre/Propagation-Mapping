@@ -165,14 +165,15 @@ if loaded_imgs:
             labels_img=atlas_img,
             strategy='mean',
             keep_masked_labels=True,resampling_target="labels")
-
+        parcellation_progress = st.progress(0)
         # --- Parcellate all images ---
         masked_data = []
         for img in loaded_imgs:
             roi_values = masker.fit_transform(img)
             roi_values = roi_values.squeeze()
             masked_data.append(roi_values)
-
+            parcellation_progress.progress((i+1)/len(loaded_imgs))
+			
         # --- Convert to DataFrame with generic column names ---
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
 		
@@ -259,6 +260,7 @@ if st.session_state.get("launch_btn", False):
         output_folder.mkdir(parents=True, exist_ok=True)
 
         n_subjects = masked_df.shape[1]
+		rocket_progress = st.progress(0)
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = masked_df.iloc[:, idx].values
@@ -326,7 +328,8 @@ if st.session_state.get("launch_btn", False):
 				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
 				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv",
 			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
-				
+            progress_text.text(f"Processing subject {idx + 1} of {n_subjects}: {filename}")
+			
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
 
