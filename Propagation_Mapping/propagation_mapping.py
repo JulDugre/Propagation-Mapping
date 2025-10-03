@@ -54,7 +54,7 @@ prop_dir = results_dir / "propagation_maps"
 resid_dir = results_dir / "residual_maps"
 acc_dir = results_dir / "accuracies"
 
-for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
+for folder in [obs_dir, pred_dir, prop_dir, resid_dir, acc_dir]:
     folder.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
@@ -316,7 +316,7 @@ if st.session_state.get("launch_btn", False):
 				pred_dir / f"{filename}_pred_map.csv",
 				prop_dir / f"{filename}_propagationmap.csv",
 				resid_dir / f"{filename}_z_residualmap.csv",
-			acc_dir / f"{filename}_accuuracy.csv"])
+			acc_dir / f"{filename}_accuracy.csv"])
 				
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
