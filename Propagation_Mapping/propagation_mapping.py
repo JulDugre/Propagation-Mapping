@@ -260,7 +260,7 @@ if st.session_state.get("launch_btn", False):
         output_folder.mkdir(parents=True, exist_ok=True)
 
         n_subjects = masked_df.shape[1]
-		rocket_progress = st.progress(0)
+        rocket_progress = st.progress(0)
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = masked_df.iloc[:, idx].values
