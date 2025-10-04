@@ -46,8 +46,7 @@ if "parcellated" not in st.session_state:
     st.session_state.parcellated = False
 if "launch_btn" not in st.session_state:
     st.session_state.launch_btn = False
-if "uploader_key" not in st.session_state:
-    st.session_state.uploader_key = 0
+
 	
 tmp_dir = Path(st.session_state.tmp_dir)
 
@@ -108,21 +107,8 @@ uploaded_files = st.sidebar.file_uploader(
 	key=f"uploader_{st.session_state.uploader_key}"
 )
 
-def reset_uploader():
-    st.session_state.uploader_key += 1
-    # Also clear previous session state
-    st.session_state.nii_files = []
-    st.session_state.col_names = []
-    st.session_state.masked_df = None
-    st.session_state.propagation_maps = []
-    st.session_state.predicted_regional_scaled = []
-    st.session_state.parcellated = False
-    st.session_state.launch_btn = False
-    st.session_state.plot_prop_btn = False
-    st.session_state.plot_pred_btn = False
 	
 if uploaded_files:
-
     for uf in uploaded_files:
         # Ensure the file has a valid extension
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
