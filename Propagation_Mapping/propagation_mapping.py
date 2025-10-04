@@ -122,7 +122,7 @@ def reset_uploader():
     st.session_state.plot_pred_btn = False
 
 # Optional button to reset uploader manually
-if st.sidebar.button("Upload new files / Reset cache"):
+if st.sidebar.button("Reset"):
     reset_uploader()
 	
 if uploaded_files:
