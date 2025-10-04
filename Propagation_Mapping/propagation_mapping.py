@@ -349,7 +349,7 @@ if st.session_state.launch_btn:
         all_acc_df.to_csv(all_acc_file)
 		
         # --- Show summary ---
-		st.success("🚀 Propagation mapping complete!")
+        st.success("🚀 Propagation mapping complete!")
 
         # --- Compute summary stats if more than one subject ---
         if len(pred_accuracy) == 1:
