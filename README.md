@@ -1,5 +1,10 @@
 # Propagation-Mapping
-Propagation Mapping is a novel precision framework for reconstructing the neural circuits underlying the spatial organization of human brain maps. This user-friendly toolbox offers researchers in neuroscience and psychiatry a versatile and powerful alternative to traditional regional analyses, opening new avenues for discovery in both neurological and psychiatric neuroimaging. The method assumes that the spatial organization of a brain map can be predicted from a general and stable brain architecture. Propagation Mapping relies on group-level functional connectivity and structural covariance estimates from a sample of 1,000 healthy subjects (GSP1000, [Yeo et al., 2011](https://pubmed.ncbi.nlm.nih.gov/21653723/);[Holmes et al., 2015](https://pubmed.ncbi.nlm.nih.gov/26175908/))
+## To Run
+To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
+**IMPORTANT.** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon).
+
+## INFOS
+Propagation Mapping is a novel precision framework for reconstructing the neural circuits underlying the spatial organization of human brain maps. It combines the magnitude of regional measures with their underlying connectivity to model how changes in one region propagate across the brain. This user-friendly toolbox offers researchers in neuroscience and psychiatry a versatile and powerful alternative to traditional regional analyses, opening new avenues for discovery in both neurological and psychiatric neuroimaging. The method assumes that the spatial organization of a brain map can be predicted from a general and stable brain architecture. Propagation Mapping relies on group-level functional connectivity and structural covariance estimates from a sample of 1,000 healthy subjects (GSP1000, [Yeo et al., 2011](https://pubmed.ncbi.nlm.nih.gov/21653723/);[Holmes et al., 2015](https://pubmed.ncbi.nlm.nih.gov/26175908/))
 
 ![Alt text describing the image](https://github.com/JulDugre/Propagation-Mapping/blob/main/Propagation_Mapping/miscellaneous/Framework.png)
 
@@ -28,10 +33,7 @@ To cite the method & toolbox, please use:
 
 <img width="186" height="243" alt="image" src="https://github.com/user-attachments/assets/3b6554b0-ceb8-4a06-a54b-d9110f804825">
 
-## To Run
-To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
-
-**IMPORTANT.** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon).
+## HOW TO
 
 <video src='https://github.com/user-attachments/assets/e2654c54-bb30-445f-ad6d-d40f9bcbeed1' width=180/>
 
