@@ -58,9 +58,8 @@ obs_dir = results_dir / "observed_maps"
 pred_dir = results_dir / "predicted_maps"
 prop_dir = results_dir / "propagation_maps"
 resid_dir = results_dir / "residual_maps"
-acc_dir = results_dir / "accuracies"
 
-for folder in [obs_dir, pred_dir, prop_dir, resid_dir, acc_dir]:
+for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
     folder.mkdir(parents=True, exist_ok=True)
 
 # Define the Streamlit app UI
@@ -329,26 +328,28 @@ if st.session_state.launch_btn:
             obs_file = output_folder / f"{filename}_obs_map.csv"
             prop_file = output_folder / f"{filename}_propagationmap.csv"
             resid_file = output_folder / f"{filename}_z_residualmap.csv"
-            acc_file = output_folder / f"{filename}_accuracy.csv"
 			
             pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
             pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
             pd.DataFrame(residuals_z, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
-            pd.DataFrame([pred_accuracy[-1]], index=[filename], columns=["Spearman_r"]).to_csv(acc_dir / f"{filename}_{atlas_choice}_accuracy.csv")
 			
             st.session_state.saved_files.extend([
 				obs_dir / f"{filename}_{atlas_choice}_obs_map.csv",
 				pred_dir / f"{filename}_{atlas_choice}_pred_map.csv",
 				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
-				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv",
-			acc_dir / f"{filename}_{atlas_choice}_accuracy.csv"])
+				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv"])
 			
             rocket_progress.progress((idx + 1) / n_subjects)
             progress_text.text(f"Another sip  ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
+        # --- Save all pred accuracies ---
+        all_acc_df = pd.DataFrame(pred_accuracy, index=st.session_state.col_names, columns=["Spearman_r"])
+        all_acc_file = output_folder / "prediction_accuracies.csv"
+        all_acc_df.to_csv(all_acc_file)
+		
         # --- Show summary ---
-        st.success("🚀 Propagation mapping complete!")
+		st.success("🚀 Propagation mapping complete!")
 
         # --- Compute summary stats if more than one subject ---
         if len(pred_accuracy) == 1:
