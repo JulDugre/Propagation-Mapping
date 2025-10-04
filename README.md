@@ -1,7 +1,9 @@
 # Propagation-Mapping
 ## To Run
 To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
-**IMPORTANT.** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon).
+
+
+***IMPORTANT:** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon)
 
 ## INFOS
 Propagation Mapping is a novel precision framework for reconstructing the neural circuits underlying the spatial organization of human brain maps. It combines the magnitude of regional measures with their underlying connectivity to model how changes in one region propagate across the brain. This user-friendly toolbox offers researchers in neuroscience and psychiatry a versatile and powerful alternative to traditional regional analyses, opening new avenues for discovery in both neurological and psychiatric neuroimaging. The method assumes that the spatial organization of a brain map can be predicted from a general and stable brain architecture. Propagation Mapping relies on group-level functional connectivity and structural covariance estimates from a sample of 1,000 healthy subjects (GSP1000, [Yeo et al., 2011](https://pubmed.ncbi.nlm.nih.gov/21653723/);[Holmes et al., 2015](https://pubmed.ncbi.nlm.nih.gov/26175908/))
