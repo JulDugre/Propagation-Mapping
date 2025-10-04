@@ -344,9 +344,9 @@ if st.session_state.launch_btn:
             progress_text.text(f"Another sip  ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Save all pred accuracies ---
-        all_acc_df = pd.DataFrame(pred_accuracy, index=st.session_state.col_names, columns=["Spearman_r"])
+        all_acc_df = pd.DataFrame(pred_accuracy, index=st.session_state.col_names, columns=["Spearman_r"]).to_csv(results_dir / "accuracy.csv")
         all_acc_file = output_folder / "prediction_accuracies.csv"
-        all_acc_df.to_csv(all_acc_file)
+        st.session_state.saved_files.extend([results_dir / "accuracy.csv"])
 		
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
