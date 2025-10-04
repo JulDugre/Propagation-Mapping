@@ -106,8 +106,17 @@ uploaded_files = st.sidebar.file_uploader(
 )
 
 if uploaded_files:
+	if uploaded_files:
+    # --- RESET session state for everything related to old files ---
     st.session_state.nii_files = []
     st.session_state.col_names = []
+    st.session_state.masked_df = None
+    st.session_state.propagation_maps = []
+    st.session_state.predicted_regional_scaled = []
+    st.session_state.parcellated = False
+    st.session_state.launch_btn = False
+    st.session_state.plot_prop_btn = False
+    st.session_state.plot_pred_btn = False
 
     for uf in uploaded_files:
         # Ensure the file has a valid extension
