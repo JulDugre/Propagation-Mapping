@@ -108,9 +108,8 @@ uploaded_files = st.sidebar.file_uploader(
 	key=f"uploader_{st.session_state.uploader_key}"
 )
 
+# --- Streamlit uploader and session handling ---
 def reset_uploader():
-    st.session_state.uploader_key += 1
-    # Also clear previous session state
     st.session_state.nii_files = []
     st.session_state.col_names = []
     st.session_state.masked_df = None
@@ -120,32 +119,54 @@ def reset_uploader():
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
+    st.session_state.uploader_key += 1
 
-# Optional button to reset uploader manually
+# Optional manual reset button
 if st.sidebar.button("Reset"):
     reset_uploader()
-	
-if uploaded_files:
 
-    nii_files = []
-    col_names = []	
+uploaded_files = st.sidebar.file_uploader(
+    "Upload NIFTI file(s)",
+    type=["nii", "gz"],
+    accept_multiple_files=True,
+    key=f"uploader_{st.session_state.uploader_key}"
+)
+
+if uploaded_files:
+    # Clear old files to avoid duplicates
+    reset_uploader()
+
     for uf in uploaded_files:
-        # Ensure the file has a valid extension
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
             st.warning(f"Skipped unsupported file: {uf.name}")
             continue
 
-        # Save as temporary file with proper suffix
+        # Save uploaded file to temp
         suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
-            tmp_file.write(uf.getbuffer())
-            tmp_path = Path(tmp_file.name)
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        tmp_file.write(uf.getbuffer())
+        tmp_file.close()
+        tmp_path = Path(tmp_file.name)
 
-        # Add to session state
+        # Add file to session state
         st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(clean_name(uf.name))
+        st.session_state.col_names.append(uf.name)
 
-    # Reset parcellation after all files are loaded
+    # Ensure unique column names
+    unique_cols = []
+    for i, name in enumerate(st.session_state.col_names):
+        base_name = re.sub(r'\.nii(\.gz)?$', '', name)
+        if base_name not in unique_cols:
+            unique_cols.append(base_name)
+        else:
+            suffix = 1
+            new_name = f"{base_name}_{suffix}"
+            while new_name in unique_cols:
+                suffix += 1
+                new_name = f"{base_name}_{suffix}"
+            unique_cols.append(new_name)
+    st.session_state.col_names = unique_cols
+
     st.session_state.parcellated = False
     st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 		
