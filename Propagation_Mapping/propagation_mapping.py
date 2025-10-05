@@ -129,29 +129,26 @@ if st.sidebar.button("Reset"):
     reset_uploader()
 	
 # Process uploaded files
+# --- Process uploaded files ---
 if uploaded_files:
-    # Clear old files first
-    reset_uploader()  # safely reset session state
+    # Only reset if the uploader key changed (new upload)
+    if st.session_state.parcellated is False:  
+        st.session_state.nii_files = []
+        st.session_state.col_names = []
 
     for uf in uploaded_files:
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
             st.warning(f"Skipped unsupported file: {uf.name}")
             continue
 
-        # Save uploaded file to temp
-        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
-        tmp_file.write(uf.getbuffer())
-        tmp_file.close()
-        tmp_path = Path(tmp_file.name)
-
+        tmp_path = save_uploaded_nii(uf)
         st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(uf.name)
+        st.session_state.col_names.append(clean_name(uf.name))
 
     # Ensure unique column names
     unique_cols = []
-    for i, name in enumerate(st.session_state.col_names):
-        base_name = re.sub(r'\.nii(\.gz)?$', '', name)
+    for name in st.session_state.col_names:
+        base_name = clean_name(name)
         if base_name not in unique_cols:
             unique_cols.append(base_name)
         else:
@@ -163,7 +160,6 @@ if uploaded_files:
             unique_cols.append(new_name)
     st.session_state.col_names = unique_cols
 
-    st.session_state.parcellated = False
     st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 		
 # --- Load images ---
@@ -285,7 +281,7 @@ if st.session_state.launch_btn:
 
         # --- Save to session state ---
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
-
+        st.session_state.parcellated = True  # mark as done
         # --- Display results ---
         st.header("Parcellated Data")
         st.write("Shape of parcellated data (ROIs × Subjects):", st.session_state.masked_df.shape)
