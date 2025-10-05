@@ -228,9 +228,6 @@ col1_btn, col2_btn, col3_btn = st.columns(3)
 with col1_btn:
     if st.button("LAUNCH THE ROCKET 🚀"):
         st.session_state.launch_btn = True
-        if not st.session_state.get("parcellation_done", False):
-            st.session_state.propagation_maps = run_propagation(st.session_state.masked_df)
-            st.session_state.parcellation_done = True
 
 with col2_btn:
     if st.button("PLOT PROPAGATION MAP 🎨"):
