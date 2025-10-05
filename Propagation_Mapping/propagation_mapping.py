@@ -102,7 +102,7 @@ def save_uploaded_nii(uf):
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-# --- Streamlit uploader and session handling ---
+
 def reset_uploader():
     """Reset uploader-related session state without creating widgets."""
     st.session_state.nii_files = []
@@ -114,11 +114,7 @@ def reset_uploader():
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
-    st.session_state.uploader_key += 1  # increment key to avoid duplicate
-
-# Optional manual reset button
-if st.sidebar.button("Reset"):
-    reset_uploader()
+    st.session_state.uploader_key += 1
 
 # --- Single file uploader widget ---
 uploaded_files = st.sidebar.file_uploader(
@@ -128,6 +124,10 @@ uploaded_files = st.sidebar.file_uploader(
     key=f"uploader_{st.session_state.uploader_key}"
 )
 
+# Optional manual reset button
+if st.sidebar.button("Reset"):
+    reset_uploader()
+	
 # Process uploaded files
 if uploaded_files:
     # Clear old files first
