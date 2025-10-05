@@ -102,15 +102,9 @@ def save_uploaded_nii(uf):
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
-uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)",
-    type=["nii", "gz"],
-    accept_multiple_files=True,
-	key=f"uploader_{st.session_state.uploader_key}"
-)
-
 # --- Streamlit uploader and session handling ---
 def reset_uploader():
+    """Reset uploader-related session state without creating widgets."""
     st.session_state.nii_files = []
     st.session_state.col_names = []
     st.session_state.masked_df = None
@@ -120,12 +114,13 @@ def reset_uploader():
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
-    st.session_state.uploader_key += 1
+    st.session_state.uploader_key += 1  # increment key to avoid duplicate
 
 # Optional manual reset button
 if st.sidebar.button("Reset"):
     reset_uploader()
 
+# --- Single file uploader widget ---
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
     type=["nii", "gz"],
@@ -133,9 +128,10 @@ uploaded_files = st.sidebar.file_uploader(
     key=f"uploader_{st.session_state.uploader_key}"
 )
 
+# Process uploaded files
 if uploaded_files:
-    # Clear old files to avoid duplicates
-    reset_uploader()
+    # Clear old files first
+    reset_uploader()  # safely reset session state
 
     for uf in uploaded_files:
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
@@ -149,7 +145,6 @@ if uploaded_files:
         tmp_file.close()
         tmp_path = Path(tmp_file.name)
 
-        # Add file to session state
         st.session_state.nii_files.append(tmp_path)
         st.session_state.col_names.append(uf.name)
 
