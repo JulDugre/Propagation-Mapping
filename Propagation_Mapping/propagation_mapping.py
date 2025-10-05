@@ -130,12 +130,16 @@ if st.sidebar.button("Reset"):
 	
 # Process uploaded files
 # --- Process uploaded files ---
-if uploaded_files:
-    # Only reset if the uploader key changed (new upload)
-    if st.session_state.parcellated is False:  
-        st.session_state.nii_files = []
-        st.session_state.col_names = []
+# --- Handle uploaded files ---
+uploaded_files = st.sidebar.file_uploader(
+    "Upload NIFTI file(s)",
+    type=["nii", "gz"],
+    accept_multiple_files=True,
+    key=f"uploader_{st.session_state.uploader_key}"
+)
 
+# Only process uploaded files if they are new
+if uploaded_files and not st.session_state.nii_files:
     for uf in uploaded_files:
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
             st.warning(f"Skipped unsupported file: {uf.name}")
@@ -145,7 +149,7 @@ if uploaded_files:
         st.session_state.nii_files.append(tmp_path)
         st.session_state.col_names.append(clean_name(uf.name))
 
-    # Ensure unique column names
+    # Ensure unique names
     unique_cols = []
     for name in st.session_state.col_names:
         base_name = clean_name(name)
@@ -161,7 +165,9 @@ if uploaded_files:
     st.session_state.col_names = unique_cols
 
     st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
-		
+
+loaded_imgs = [nib.load(f) for f in st.session_state.nii_files] if st.session_state.nii_files else []
+	
 # --- Load images ---
 if st.session_state.nii_files:
     loaded_imgs = [nib.load(f) for f in st.session_state.nii_files]
