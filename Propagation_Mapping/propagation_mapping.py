@@ -126,6 +126,9 @@ if st.sidebar.button("Reset"):
     reset_uploader()
 	
 if uploaded_files:
+
+    nii_files = []
+    col_names = []	
     for uf in uploaded_files:
         # Ensure the file has a valid extension
         if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
