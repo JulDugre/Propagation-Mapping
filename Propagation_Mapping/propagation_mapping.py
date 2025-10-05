@@ -129,16 +129,6 @@ if st.sidebar.button("Reset"):
     reset_uploader()
 	
 # Process uploaded files
-# --- Process uploaded files ---
-# --- Handle uploaded files ---
-uploaded_files = st.sidebar.file_uploader(
-    "Upload NIFTI file(s)",
-    type=["nii", "gz"],
-    accept_multiple_files=True,
-    key=f"uploader_{st.session_state.uploader_key}"
-)
-
-# Process uploaded files
 if uploaded_files:
     # Clear old files first
     reset_uploader()  # safely reset session state
