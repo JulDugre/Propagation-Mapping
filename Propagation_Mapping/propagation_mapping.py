@@ -228,6 +228,9 @@ col1_btn, col2_btn, col3_btn = st.columns(3)
 with col1_btn:
     if st.button("LAUNCH THE ROCKET 🚀"):
         st.session_state.launch_btn = True
+        if not st.session_state.get("parcellation_done", False):
+            st.session_state.propagation_maps = run_propagation(st.session_state.masked_df)
+	        st.session_state.parcellation_done = True
 
 with col2_btn:
     if st.button("PLOT PROPAGATION MAP 🎨"):
@@ -286,6 +289,7 @@ if st.session_state.launch_btn:
         # --- Save to session state ---
         st.session_state.masked_df = pd.DataFrame(np.array(masked_data).T, columns=st.session_state.col_names)
         st.session_state.parcellated = True  # mark as done
+		
         # --- Display results ---
         st.header("Parcellated Data")
         st.write("Shape of parcellated data (ROIs × Subjects):", st.session_state.masked_df.shape)
