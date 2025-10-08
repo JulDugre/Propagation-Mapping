@@ -1,6 +1,6 @@
 # Propagation-Mapping
 ## To Run
-To use propagation mapping, please follow [this link](https://propagation-mapping.streamlit.app/)
+To run *Propagation Mapping Toolbox* on the Cloud, click on [this link](https://propagation-mapping.streamlit.app/)  !!
 
 
 ***IMPORTANT:** Propagation Mapping works for all parcellations, but **visualisations** currently only work for Schaefer-400 7 Networks (will update soon)
