@@ -69,7 +69,7 @@ for folder in [obs_dir, pred_dir, prop_dir, resid_dir]:
 st.title("Propagation Mapping Toolbox")
 st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, [DOI: 10.1101/2025.09.27.678975](https://doi.org/10.1101/2025.09.27.678975)")
-st.markdown("For more information, please refer to the [Github Page](https://github.com/JulDugre/Propagation-Mapping/))
+st.markdown("For more information, please refer to the [Github Page](https://github.com/JulDugre/Propagation-Mapping/)")
 
 # --- Display the framework image here ---
 BASE_DIR = Path(__file__).parent
