@@ -302,7 +302,7 @@ if st.session_state.launch_btn:
         struct_connectome[np.isinf(struct_connectome)] = 0
 
         pred_accuracy = []
-		pred_corr_accuracy = []
+        pred_corr_accuracy = []
         predicted_regional = []     
         true_regional = []
         st.session_state.propagation_maps = []
