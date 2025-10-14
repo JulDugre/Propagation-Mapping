@@ -420,7 +420,7 @@ if st.session_state.launch_btn:
             fig, ax = plt.subplots(figsize=(6,4))
             sns.kdeplot(all_acc_df["Raw_r"], fill=True, label="Raw", ax=ax, clip=(0,1))
             sns.kdeplot(all_acc_df["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
-            ax.set_xlim(0, 1)
+            ax.set_xlim(0.5, 1)
             ax.set_xlabel("Predictive Accuracies\n(correlation)")
             ax.set_ylabel("Density")
             st.pyplot(fig)
