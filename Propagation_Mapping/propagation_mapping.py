@@ -372,7 +372,8 @@ if st.session_state.launch_btn:
             y_hat = model.predict(pred_regional.reshape(-1, 1))
             residuals = feature_vector - y_hat
             residuals_z = (residuals - np.mean(residuals)) / np.std(residuals)
-
+            mae_per_region = np.abs(residuals)
+			
             # --- Save CSVs ---
             pred_file = output_folder / f"{filename}_pred_map.csv"
             obs_file = output_folder / f"{filename}_obs_map.csv"
@@ -382,7 +383,7 @@ if st.session_state.launch_btn:
             pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
             pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
-            pd.DataFrame(residuals_z, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
+            pd.DataFrame({"Residual_z": residuals_z, "MAE": mae_per_region}, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
 			
             st.session_state.saved_files.extend([
 				obs_dir / f"{filename}_{atlas_choice}_obs_map.csv",
