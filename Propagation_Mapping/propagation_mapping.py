@@ -432,9 +432,9 @@ if st.session_state.launch_btn:
         # --- Compute summary stats if more than one subject ---
         if len(pred_accuracy) == 1:
             st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
-            st.write("Raw-correlation:", pred_accuracy[0])
-            st.write("Prediction vs Observed (Hub-corrected) (r):", pred_corr_accuracy[0])
-            st.write("Hubness Contribution to Predicted Map (r):", pred_hubs_accuracy[0])
+            st.write("Raw Prediction (r)", pred_accuracy[0])
+            st.write("Hub-Corrected Prediction (r):", pred_corr_accuracy[0])
+            st.write("Hub Contribution to Prediction (r):", pred_hubs_accuracy[0])
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
