@@ -404,28 +404,24 @@ if st.session_state.launch_btn:
         # --- Compute summary stats if more than one subject ---
         if len(pred_accuracy) == 1:
             st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
-            st.write("Spearman's rank order:", pred_accuracy[0])
+            st.write("Raw-correlation:", pred_accuracy[0])
+			st.write("Corrected-correlation:", pred_corr_accuracy[0])
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
 
-            pred_accuracy_array = np.array(pred_accuracy)
-            summary_stats = {
-                "Mean": np.mean(pred_accuracy_array),
-                "Std": np.std(pred_accuracy_array),
-                "Min": np.min(pred_accuracy_array),
-                "Max": np.max(pred_accuracy_array)
-            }
+            summary_stats = pred_corr_accuracy.agg(["mean", "std", "min", "max"])
             st.subheader("Summary statistics across all subjects")
-            st.table(pd.DataFrame([summary_stats]))
+            st.table(summary_stats)
 
             # --- Density plot of prediction accuracy ---
             import seaborn as sns
             import matplotlib.pyplot as plt
             fig, ax = plt.subplots(figsize=(6,4))
-            sns.kdeplot(pred_accuracy_array, fill=True, clip=(0,1), ax=ax)
+            sns.kdeplot(all_acc_df["Raw_r"], fill=True, label="Raw", ax=ax, clip=(0,1))
+			sns.kdeplot(pred_corr_accuracy["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
             ax.set_xlim(0, 1)
-            ax.set_xlabel("Spearman correlation")
+            ax.set_xlabel("Predictive Accuracies\n(correlation)")
             ax.set_ylabel("Density")
             st.pyplot(fig)
 
