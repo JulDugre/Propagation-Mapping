@@ -305,6 +305,7 @@ if st.session_state.launch_btn:
         pred_corr_accuracy = []
         predicted_regional = []     
         true_regional = []
+		pred_hubs_accuracy = []
         st.session_state.propagation_maps = []
         st.session_state.predicted_regional_scaled = []
         st.session_state.predicted_regional_scaledcorr = []
@@ -358,15 +359,16 @@ if st.session_state.launch_btn:
 
             # --- Predict regional values ---
             pred_regional = avg_BOTH_sym.sum(axis=0)
+            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
 
             # --- Correlation with true feature vector ---
             corr_pos, _ = pearsonr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
-            # --- Correlation with density correction ---
-            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
-
+            
 			# --- Density correction ---
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
+            corr_density_act, _ = pearsonr(density, feature_vector)
+            pred_hubs_accuracy.append(corr_density_act)
             pred_resid = residualize(pred_regional, density)
 			
             # --- Now scale both raw and residuals ---
@@ -414,7 +416,7 @@ if st.session_state.launch_btn:
             progress_text.text(f"Another sip  ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Save all pred accuracies ---
-        all_acc_df = pd.DataFrame({"Raw_r": np.array(pred_accuracy),"Corrected_r": np.array(pred_corr_accuracy)}, index=st.session_state.col_names)        
+        all_acc_df = pd.DataFrame({"Raw_r": np.array(pred_accuracy),"Corrected_r": np.array(pred_corr_accuracy), "Hubs_r": np.array(pred_hubs_accuracy)}, index=st.session_state.col_names)        
         all_acc_df.to_csv(results_dir / f"{atlas_choice}_accuracy.csv")		
         st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])	
 		
@@ -426,6 +428,7 @@ if st.session_state.launch_btn:
             st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
             st.write("Raw-correlation:", pred_accuracy[0])
             st.write("Corrected-correlation:", pred_corr_accuracy[0])
+			st.write("Hubs-correlation:", pred_hubs_accuracy[0])
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
@@ -439,6 +442,7 @@ if st.session_state.launch_btn:
             fig, ax = plt.subplots(figsize=(6,4))
             sns.kdeplot(all_acc_df["Raw_r"], fill=True, label="Raw", ax=ax, clip=(0,1))
             sns.kdeplot(all_acc_df["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
+			sns.kdeplot(all_acc_df["Hubs_r"], fill=True, label="Hubs", ax=ax, clip=(0,1))
             ax.set_xlim(0.5, 1)
             ax.set_xlabel("Predictive Accuracies\n(correlation)")
             ax.set_ylabel("Density")
