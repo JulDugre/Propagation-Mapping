@@ -395,7 +395,7 @@ if st.session_state.launch_btn:
 			
         # --- Save all pred accuracies ---
         all_acc_df = pd.DataFrame({"Raw_r": np.array(pred_accuracy),"Corrected_r": np.array(pred_corr_accuracy)}, index=st.session_state.col_names)        
-        all_acc_df.to_csv(results_dir / f"{atlas_choice}_accuracy.csv"))		
+        all_acc_df.to_csv(results_dir / f"{atlas_choice}_accuracy.csv")		
         st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])	
 		
         # --- Show summary ---
