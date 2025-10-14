@@ -307,7 +307,8 @@ if st.session_state.launch_btn:
         true_regional = []
         st.session_state.propagation_maps = []
         st.session_state.predicted_regional_scaled = []
-
+		st.session_state.predicted_regional_scaledcorr = []
+		
         # Create results folder if it does not exist
         output_folder = BASE_DIR / "results"
         output_folder.mkdir(parents=True, exist_ok=True)
@@ -345,16 +346,12 @@ if st.session_state.launch_btn:
             # --- Predict regional values ---
             pred_regional = avg_BOTH_sym.sum(axis=0)
 
-            # --- Standardize predicted map before saving ---
-            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
-            st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
-
             # --- Correlation with true feature vector ---
             corr_pos, _ = pearsonr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
 			
             # --- Correlation with density correction ---
-            pred_scaled_corr = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
+            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
 			
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
             model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_scaled_corr)
@@ -364,6 +361,8 @@ if st.session_state.launch_btn:
             pred_corr_accuracy.append(corr_scaled_dencorr)
 			
             # --- Store results ---
+            st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
+			st.session_state.predicted_regional_scaledcorr.append(pred_dencorr)
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
             
@@ -375,19 +374,22 @@ if st.session_state.launch_btn:
             mae_per_region = np.abs(residuals)
 			
             # --- Save CSVs ---
-            pred_file = output_folder / f"{filename}_pred_map.csv"
+            pred_file = output_folder / f"{filename}_pred_scaled_map.csv"
+            pred_corr_file = output_folder / f"{filename}_pred_scaled_corr_map.csv"
             obs_file = output_folder / f"{filename}_obs_map.csv"
             prop_file = output_folder / f"{filename}_propagationmap.csv"
             resid_file = output_folder / f"{filename}_z_residualmap.csv"
 			
             pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
-            pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_map.csv")
+            pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv")
+            pd.DataFrame(pred_dencorr, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
             pd.DataFrame({"Residual_z": residuals_z, "MAE": mae_per_region}, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
 			
             st.session_state.saved_files.extend([
 				obs_dir / f"{filename}_{atlas_choice}_obs_map.csv",
-				pred_dir / f"{filename}_{atlas_choice}_pred_map.csv",
+				pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv",
+				pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv",
 				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
 				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv"])
 			
