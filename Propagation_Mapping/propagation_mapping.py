@@ -396,7 +396,11 @@ if st.session_state.launch_btn:
         # --- Save all pred accuracies ---
         all_acc_df = pd.DataFrame({"Raw_r": np.array(pred_accuracy),"Corrected_r": np.array(pred_corr_accuracy)}, index=st.session_state.col_names)        
         all_acc_file = output_folder / "prediction_accuracies.csv"
-        st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])
+        all_acc_df.to_csv(all_acc_file)
+        st.session_state.saved_files.append(all_acc_file)
+		
+		#all_acc_file = output_folder / "prediction_accuracies.csv"
+        #st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])
 		
         # --- Show summary ---
         st.success("🚀 Propagation mapping complete!")
@@ -419,7 +423,7 @@ if st.session_state.launch_btn:
             import matplotlib.pyplot as plt
             fig, ax = plt.subplots(figsize=(6,4))
             sns.kdeplot(all_acc_df["Raw_r"], fill=True, label="Raw", ax=ax, clip=(0,1))
-            sns.kdeplot(pred_corr_accuracy["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
+            sns.kdeplot(all_acc_df["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
             ax.set_xlim(0, 1)
             ax.set_xlabel("Predictive Accuracies\n(correlation)")
             ax.set_ylabel("Density")
