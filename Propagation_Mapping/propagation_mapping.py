@@ -360,7 +360,7 @@ if st.session_state.launch_btn:
             model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_scaled_corr)
             pred_dencorr = model_dencorr.predict(density.reshape(-1, 1))
             resid_dencorr = pred_regional - pred_dencorr
-            corr_scaled_dencorr, _ = pearsonr(resid_scaled_dencorr, feature_vector)
+            corr_scaled_dencorr, _ = pearsonr(resid_dencorr, feature_vector)
             pred_corr_accuracy.append(corr_scaled_dencorr)
 			
             # --- Store results ---
