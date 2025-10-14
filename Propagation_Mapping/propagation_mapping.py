@@ -329,7 +329,7 @@ if st.session_state.launch_btn:
            y_pred = model.predict(X)
            return (y - y_pred).flatten()
 
-		
+		rob_scaler = RobustScaler()
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = st.session_state.masked_df.iloc[:, idx].values
@@ -721,8 +721,8 @@ if st.session_state.get("plot_pred_btn", False):
 
         atlas_csv = BASE_DIR / "atlases" / "listnames_ATLAS_Schaefer7.csv"
         labels_info = pd.read_csv(atlas_csv)
-        scaler = RobustScaler()
-        df_obs_scaled = scaler.fit_transform(df_obs['value'].values.reshape(-1, 1))
+        rob_scaler = RobustScaler()
+        df_obs_scaled = rob_scaler.fit_transform(df_obs['value'].values.reshape(-1, 1))
         df_obs_scaled = pd.DataFrame(df_obs_scaled)
         
         df_pred_scaled = pd.DataFrame(pred_scaled, columns=['value'])
