@@ -380,9 +380,9 @@ if st.session_state.launch_btn:
             prop_file = output_folder / f"{filename}_propagationmap.csv"
             resid_file = output_folder / f"{filename}_z_residualmap.csv"
 			
-            pd.DataFrame({"OBSmap":feature_vector}, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
-            pd.DataFrame({"PREDmap_scaled": pred_regional_scaled}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv")
-            pd.DataFrame({"PREDmap_scaledcorr": resid_dencorr}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
+            pd.DataFrame({"Observed":feature_vector}, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
+            pd.DataFrame({"Predicted_scaled": pred_regional_scaled}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv")
+            pd.DataFrame({"Predicted_scaledcorr": resid_dencorr}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
             pd.DataFrame({"Residual_z": residuals_z, "MAE": mae_per_region}, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
 			
