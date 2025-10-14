@@ -410,8 +410,7 @@ if st.session_state.launch_btn:
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
-
-            summary_stats = pred_corr_accuracy.agg(["mean", "std", "min", "max"])
+            summary_stats = all_acc_df.agg(["mean", "std", "min", "max"])
             st.subheader("Summary statistics across all subjects")
             st.table(summary_stats)
 
