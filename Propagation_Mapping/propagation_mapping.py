@@ -362,7 +362,7 @@ if st.session_state.launch_btn:
 			
             # --- Store results ---
             st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
-			st.session_state.predicted_regional_scaledcorr.append(pred_dencorr)
+            st.session_state.predicted_regional_scaledcorr.append(pred_dencorr)
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
             
