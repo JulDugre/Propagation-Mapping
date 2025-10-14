@@ -354,7 +354,7 @@ if st.session_state.launch_btn:
             pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
 			
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
-            model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_scaled_corr)
+            model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_regional_scaled)
             pred_dencorr = model_dencorr.predict(density.reshape(-1, 1))
             resid_dencorr = pred_regional - pred_dencorr
             corr_scaled_dencorr, _ = pearsonr(resid_dencorr, feature_vector)
