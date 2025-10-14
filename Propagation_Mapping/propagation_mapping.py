@@ -307,7 +307,7 @@ if st.session_state.launch_btn:
         true_regional = []
         st.session_state.propagation_maps = []
         st.session_state.predicted_regional_scaled = []
-		st.session_state.predicted_regional_scaledcorr = []
+        st.session_state.predicted_regional_scaledcorr = []
 		
         # Create results folder if it does not exist
         output_folder = BASE_DIR / "results"
