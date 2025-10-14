@@ -428,7 +428,7 @@ if st.session_state.launch_btn:
             st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
             st.write("Raw-correlation:", pred_accuracy[0])
             st.write("Corrected-correlation:", pred_corr_accuracy[0])
-			st.write("Hubs-correlation:", pred_hubs_accuracy[0])
+            st.write("Hubs-correlation:", pred_hubs_accuracy[0])
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
@@ -442,7 +442,7 @@ if st.session_state.launch_btn:
             fig, ax = plt.subplots(figsize=(6,4))
             sns.kdeplot(all_acc_df["Raw_r"], fill=True, label="Raw", ax=ax, clip=(0,1))
             sns.kdeplot(all_acc_df["Corrected_r"], fill=True, label="Scaled+Dencorr", ax=ax, clip=(0,1))
-			sns.kdeplot(all_acc_df["Hubs_r"], fill=True, label="Hubs", ax=ax, clip=(0,1))
+            sns.kdeplot(all_acc_df["Hubs_r"], fill=True, label="Hubs", ax=ax, clip=(0,1))
             ax.set_xlim(0.5, 1)
             ax.set_xlabel("Predictive Accuracies\n(correlation)")
             ax.set_ylabel("Density")
