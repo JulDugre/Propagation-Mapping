@@ -394,7 +394,7 @@ if st.session_state.launch_btn:
             progress_text.text(f"Another sip  ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Save all pred accuracies ---
-        all_acc_df = pd.DataFrame([pred_accuracy.values, pred_corr_accuracy.values], index=st.session_state.col_names, columns=["Raw_r", "Corrected_r"]).to_csv(results_dir / f"{atlas_choice}_accuracy.csv")
+        all_acc_df = pd.DataFrame([pred_accuracy, pred_corr_accuracy], index=st.session_state.col_names, columns=["Raw_r", "Corrected_r"]).to_csv(results_dir / f"{atlas_choice}_accuracy.csv")
         all_acc_file = output_folder / "prediction_accuracies.csv"
         st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])
 		
