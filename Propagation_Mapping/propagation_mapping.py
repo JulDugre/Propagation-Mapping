@@ -335,42 +335,35 @@ if st.session_state.launch_btn:
             feature_vector = st.session_state.masked_df.iloc[:, idx].values
             filename =st.session_state.masked_df.columns[idx]  # use uploaded filename
             
-         # --- Functional connectome ---
+        # Loop over each subject/column in masked_df
+        for idx in range(n_subjects):
+            feature_vector = st.session_state.masked_df.iloc[:, idx].values
+            filename =st.session_state.masked_df.columns[idx]  # use uploaded filename
+            
+            # --- Functional connectome ---
             connectome_FC = np.clip(func_connectome, a_min=0, a_max=None)
             product_FC = feature_vector[:, np.newaxis] * connectome_FC
             product_FC_sym = 0.5 * (product_FC + product_FC.T)
-
-            # --- CHANGE: Pre-scale FC propagation matrix ---
-            triu_idx = np.triu_indices_from(product_FC_sym, k=1)  # get upper triangle indices
-            upper_vals_FC = product_FC_sym[triu_idx].reshape(-1, 1)
-            upper_vals_FC_scaled = rob_scaler.fit_transform(upper_vals_FC).flatten()  # scale before summing
-            product_FC_sym_scaled = np.zeros_like(product_FC_sym)
-            product_FC_sym_scaled[triu_idx] = upper_vals_FC_scaled
-            product_FC_sym_scaled = product_FC_sym_scaled + product_FC_sym_scaled.T
-            np.fill_diagonal(product_FC_sym_scaled, np.diag(product_FC_sym))
 
             # --- Structural covariance ---
             connectome_SC = np.clip(struct_connectome, a_min=0, a_max=None)
             product_SC = feature_vector[:, np.newaxis] * connectome_SC
             product_SC_sym = 0.5 * (product_SC + product_SC.T)
 
-            # --- CHANGE: Pre-scale SC propagation matrix ---
-            upper_vals_SC = product_SC_sym[triu_idx].reshape(-1, 1)
-            upper_vals_SC_scaled = rob_scaler.fit_transform(upper_vals_SC).flatten()  # scale before summing
-            product_SC_sym_scaled = np.zeros_like(product_SC_sym)
-            product_SC_sym_scaled[triu_idx] = upper_vals_SC_scaled
-            product_SC_sym_scaled = product_SC_sym_scaled + product_SC_sym_scaled.T
-            np.fill_diagonal(product_SC_sym_scaled, np.diag(product_SC_sym))
-
-            # --- CHANGE: Average the pre-scaled matrices ---
-            avg_BOTH_sym_scaled = 0.5 * (product_FC_sym_scaled + product_SC_sym_scaled)
+            # --- Average both matrices ---
+            avg_BOTH_sym = 0.5 * (product_FC_sym + product_SC_sym)
+            rob_scaler = RobustScaler()
+            triu_idx = np.triu_indices_from(avg_BOTH_sym, k=1)
+            upper_vals = avg_BOTH_sym[triu_idx].reshape(-1, 1)
+            upper_vals_scaled = rob_scaler.fit_transform(upper_vals).flatten()
+            avg_BOTH_sym_scaled = np.zeros_like(avg_BOTH_sym)
+            avg_BOTH_sym_scaled[triu_idx] = upper_vals_scaled
+            avg_BOTH_sym_scaled = avg_BOTH_sym_scaled + avg_BOTH_sym_scaled.T
+            np.fill_diagonal(avg_BOTH_sym_scaled, np.diag(avg_BOTH_sym))
             st.session_state.propagation_maps.append(avg_BOTH_sym_scaled)
 
             # --- Predict regional values ---
-            pred_regional = avg_BOTH_sym_scaled.sum(axis=0)  # sum is now already on scaled matrices
-
-            # --- Predict regional values ---
-            #pred_regional = avg_BOTH_sym.sum(axis=0)
+            pred_regional = avg_BOTH_sym.sum(axis=0)
             pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
 
             # --- Correlation with true feature vector ---
