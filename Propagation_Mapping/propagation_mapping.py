@@ -361,7 +361,7 @@ if st.session_state.launch_btn:
             pred_dencorr = model_dencorr.predict(density.reshape(-1, 1))
             resid_dencorr = pred_regional - pred_dencorr
             corr_scaled_dencorr, _ = pearsonr(resid_scaled_dencorr, feature_vector)
-			pred_corr_accuracy.append(corr_scaled_dencorr)
+            pred_corr_accuracy.append(corr_scaled_dencorr)
 			
             # --- Store results ---
             predicted_regional.append(pred_regional_scaled)
