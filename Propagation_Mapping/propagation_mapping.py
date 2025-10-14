@@ -372,7 +372,7 @@ if st.session_state.launch_btn:
             
 			# --- Density correction ---
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
-            corr_density_act, _ = pearsonr(density, feature_vector)
+            corr_density_act, _ = pearsonr(density, pred_regional_scaled)
             pred_hubs_accuracy.append(corr_density_act)
             pred_resid = residualize(pred_regional, density)
             act_resid  = residualize(feature_vector, density)
