@@ -367,7 +367,7 @@ if st.session_state.launch_btn:
 
 			# --- Density correction ---
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
-			pred_resid = residualize(pred_regional, density)
+            pred_resid = residualize(pred_regional, density)
 			
             # --- Now scale both raw and residuals ---
             pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
