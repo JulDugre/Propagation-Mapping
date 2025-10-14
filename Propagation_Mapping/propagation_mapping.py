@@ -329,7 +329,7 @@ if st.session_state.launch_btn:
            y_pred = model.predict(X)
            return (y - y_pred).flatten()
 
-		rob_scaler = RobustScaler()
+        rob_scaler = RobustScaler()
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = st.session_state.masked_df.iloc[:, idx].values
