@@ -405,7 +405,7 @@ if st.session_state.launch_btn:
         if len(pred_accuracy) == 1:
             st.header(f"Prediction Accuracy for {st.session_state.masked_df.columns[0]}")            
             st.write("Raw-correlation:", pred_accuracy[0])
-			st.write("Corrected-correlation:", pred_corr_accuracy[0])
+            st.write("Corrected-correlation:", pred_corr_accuracy[0])
 
         else:
             st.header("Prediction Accuracy Across Subjects") 
