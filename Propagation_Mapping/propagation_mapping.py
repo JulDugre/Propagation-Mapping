@@ -362,7 +362,7 @@ if st.session_state.launch_btn:
 			
             # --- Store results ---
             st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
-            st.session_state.predicted_regional_scaledcorr.append(pred_dencorr)
+            st.session_state.predicted_regional_scaledcorr.append(resid_dencorr)
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
             
@@ -382,7 +382,7 @@ if st.session_state.launch_btn:
 			
             pd.DataFrame(feature_vector, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
             pd.DataFrame(pred_regional_scaled, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv")
-            pd.DataFrame(pred_dencorr, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
+            pd.DataFrame(resid_dencorr, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
             pd.DataFrame({"Residual_z": residuals_z, "MAE": mae_per_region}, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
 			
