@@ -326,7 +326,7 @@ if st.session_state.launch_btn:
            X = np.asarray(X).reshape(-1, 1)
            model = LinearRegression().fit(X, y)
            y_pred = model.predict(X)
-        return (y - y_pred).flatten()
+           return (y - y_pred).flatten()
 
 		
         # Loop over each subject/column in masked_df
