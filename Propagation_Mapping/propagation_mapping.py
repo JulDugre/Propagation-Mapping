@@ -316,6 +316,19 @@ if st.session_state.launch_btn:
         n_subjects = st.session_state.masked_df.shape[1]
         rocket_progress = st.progress(0)
         progress_text = st.empty()  # For text info
+
+        def residualize(y, X):
+           """
+           Removes linear effects of X from y.
+           Both y and X can be 1D arrays of the same length.
+           """
+           y = np.asarray(y).reshape(-1, 1)
+           X = np.asarray(X).reshape(-1, 1)
+           model = LinearRegression().fit(X, y)
+           y_pred = model.predict(X)
+               return (y - y_pred).flatten()
+
+		
         # Loop over each subject/column in masked_df
         for idx in range(n_subjects):
             feature_vector = st.session_state.masked_df.iloc[:, idx].values
@@ -349,20 +362,24 @@ if st.session_state.launch_btn:
             # --- Correlation with true feature vector ---
             corr_pos, _ = pearsonr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
-			
             # --- Correlation with density correction ---
             pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
-			
+
+			# --- Density correction ---
             density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
-            model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_regional_scaled)
-            pred_dencorr = model_dencorr.predict(density.reshape(-1, 1))
-            resid_dencorr = pred_regional_scaled - pred_dencorr
-            corr_scaled_dencorr, _ = pearsonr(resid_dencorr, feature_vector)
+			pred_resid = residualize(pred_regional, density)
+			
+            # --- Now scale both raw and residuals ---
+            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
+            pred_resid_scaled = rob_scaler.fit_transform(pred_resid.reshape(-1, 1)).flatten()
+
+            # --- Correlation with true feature vector (hub-corrected) ---
+            corr_scaled_dencorr, _ = pearsonr(pred_resid_scaled, feature_vector)
             pred_corr_accuracy.append(corr_scaled_dencorr)
 			
             # --- Store results ---
             st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
-            st.session_state.predicted_regional_scaledcorr.append(resid_dencorr)
+            st.session_state.predicted_regional_scaledcorr.append(pred_resid_scaled)
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
             
