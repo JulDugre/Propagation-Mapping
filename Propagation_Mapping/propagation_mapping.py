@@ -302,6 +302,7 @@ if st.session_state.launch_btn:
         struct_connectome[np.isinf(struct_connectome)] = 0
 
         pred_accuracy = []
+		pred_corr_accuracy = []
         predicted_regional = []     
         true_regional = []
         st.session_state.propagation_maps = []
@@ -349,9 +350,19 @@ if st.session_state.launch_btn:
             st.session_state.predicted_regional_scaled.append(pred_regional_scaled)
 
             # --- Correlation with true feature vector ---
-            corr_pos, _ = spearmanr(pred_regional, feature_vector)
+            corr_pos, _ = pearsonr(pred_regional, feature_vector)
             pred_accuracy.append(corr_pos)
-
+			
+            # --- Correlation with density correction ---
+            pred_scaled_corr = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
+			
+            density = 0.5 * (connectome_FC.mean(axis=0) + connectome_SC.mean(axis=0))
+            model_dencorr = LinearRegression().fit(density.reshape(-1, 1), pred_scaled_corr)
+            pred_dencorr = model_dencorr.predict(density.reshape(-1, 1))
+            resid_dencorr = pred_regional - pred_dencorr
+            corr_scaled_dencorr, _ = pearsonr(resid_scaled_dencorr, feature_vector)
+			pred_corr_accuracy.append(corr_scaled_dencorr)
+			
             # --- Store results ---
             predicted_regional.append(pred_regional_scaled)
             true_regional.append(feature_vector)
@@ -383,7 +394,7 @@ if st.session_state.launch_btn:
             progress_text.text(f"Another sip  ☕, Processing subject {idx + 1} of {n_subjects}: {filename}")
 			
         # --- Save all pred accuracies ---
-        all_acc_df = pd.DataFrame(pred_accuracy, index=st.session_state.col_names, columns=["Spearman_r"]).to_csv(results_dir / f"{atlas_choice}_accuracy.csv")
+        all_acc_df = pd.DataFrame([pred_accuracy.values, pred_corr_accuracy.values], index=st.session_state.col_names, columns=["Raw_r", "Corrected_r"]).to_csv(results_dir / f"{atlas_choice}_accuracy.csv")
         all_acc_file = output_folder / "prediction_accuracies.csv"
         st.session_state.saved_files.extend([results_dir / f"{atlas_choice}_accuracy.csv"])
 		
