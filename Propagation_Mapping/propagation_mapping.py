@@ -370,13 +370,14 @@ if st.session_state.launch_btn:
             corr_density_act, _ = pearsonr(density, feature_vector)
             pred_hubs_accuracy.append(corr_density_act)
             pred_resid = residualize(pred_regional, density)
+            act_resid  = residualize(feature_vector, density)
 			
-            # --- Now scale both raw and residuals ---
-            pred_regional_scaled = rob_scaler.fit_transform(pred_regional.reshape(-1, 1)).flatten()
+            # --- Now scale both residualized observed and predicted ---
+            act_resid_scaled  = rob_scaler.fit_transform(act_resid.reshape(-1, 1)).flatten()
             pred_resid_scaled = rob_scaler.fit_transform(pred_resid.reshape(-1, 1)).flatten()
 
             # --- Correlation with true feature vector (hub-corrected) ---
-            corr_scaled_dencorr, _ = pearsonr(pred_resid_scaled, feature_vector)
+            corr_scaled_dencorr, _ = pearsonr(pred_resid_scaled, act_resid_scaled)
             pred_corr_accuracy.append(corr_scaled_dencorr)
 			
             # --- Store results ---
