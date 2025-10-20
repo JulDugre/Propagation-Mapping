@@ -102,7 +102,7 @@ def reset_uploader():
     st.session_state.masked_df = None
     st.session_state.propagation_maps = []
     st.session_state.predicted_regional_scaled = []
-    st.session_state.parcellated = True
+    st.session_state.parcellated = False
     st.session_state.launch_btn = False
     st.session_state.plot_prop_btn = False
     st.session_state.plot_pred_btn = False
