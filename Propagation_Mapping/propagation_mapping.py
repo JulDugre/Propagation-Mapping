@@ -302,6 +302,7 @@ if st.session_state.launch_btn:
         true_regional = []
         pred_hubs_accuracy = []
         st.session_state.propagation_maps = []
+		st.session_state.propagation_maps2 = []
         st.session_state.predicted_regional_scaled = []
         st.session_state.predicted_regional_scaledcorr = []
 		
@@ -398,12 +399,14 @@ if st.session_state.launch_btn:
             pred_corr_file = output_folder / f"{filename}_pred_scaled_corr_map.csv"
             obs_file = output_folder / f"{filename}_obs_map.csv"
             prop_file = output_folder / f"{filename}_propagationmap.csv"
+            prop_file = output_folder / f"{filename}_propagationmap.txt"
             resid_file = output_folder / f"{filename}_z_residualmap.csv"
 			
             pd.DataFrame({"Observed":feature_vector}, index=roi_labels).to_csv(obs_dir / f"{filename}_{atlas_choice}_obs_map.csv")
             pd.DataFrame({"Predicted_scaled": pred_regional_scaled}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv")
             pd.DataFrame({"Predicted_scaledcorr": pred_resid_scaled}, index=roi_labels).to_csv(pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv")
             pd.DataFrame(avg_BOTH_sym_scaled, index=roi_labels, columns=roi_labels).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv")
+            pd.DataFrame(avg_BOTH_sym_scaled).to_csv(prop_dir / f"{filename}_{atlas_choice}_propagationmap.txt", index=False, header=False)
             pd.DataFrame({"Residual_z": residuals_z, "MAE": mae_per_region}, index=roi_labels).to_csv(resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv")
 			
             st.session_state.saved_files.extend([
@@ -411,6 +414,7 @@ if st.session_state.launch_btn:
 				pred_dir / f"{filename}_{atlas_choice}_pred_scaled_map.csv",
 				pred_dir / f"{filename}_{atlas_choice}_pred_scaled_corr_map.csv",
 				prop_dir / f"{filename}_{atlas_choice}_propagationmap.csv",
+                prop_dir / f"{filename}_{atlas_choice}_propagationmap.txt",
 				resid_dir / f"{filename}_{atlas_choice}_z_residualmap.csv"])
 			
             rocket_progress.progress((idx + 1) / n_subjects)
