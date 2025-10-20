@@ -129,43 +129,47 @@ uploaded_files = st.sidebar.file_uploader(
 if st.sidebar.button("Reset"):
     reset_uploader()
 	
-# Process uploaded files
+# Only process files if they are new
 if uploaded_files:
-    # Clear old files first
-    reset_uploader()  # safely reset session state
+    uploaded_names = [uf.name for uf in uploaded_files]
+    previous_names = getattr(st.session_state, "previous_uploaded_names", [])
 
-    for uf in uploaded_files:
-        if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
-            st.warning(f"Skipped unsupported file: {uf.name}")
-            continue
+    # Only reset and process if new files differ from before
+    if uploaded_names != previous_names:
+        reset_uploader()
+        st.session_state.previous_uploaded_names = uploaded_names  # remember last upload
 
-        # Save uploaded file to temp
-        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
-        tmp_file.write(uf.getbuffer())
-        tmp_file.close()
-        tmp_path = Path(tmp_file.name)
+        for uf in uploaded_files:
+            if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
+                st.warning(f"Skipped unsupported file: {uf.name}")
+                continue
 
-        st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(uf.name)
+            suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
+            tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+            tmp_file.write(uf.getbuffer())
+            tmp_file.close()
+            tmp_path = Path(tmp_file.name)
 
-    # Ensure unique column names
-    unique_cols = []
-    for i, name in enumerate(st.session_state.col_names):
-        base_name = re.sub(r'\.nii(\.gz)?$', '', name)
-        if base_name not in unique_cols:
-            unique_cols.append(base_name)
-        else:
-            suffix = 1
-            new_name = f"{base_name}_{suffix}"
-            while new_name in unique_cols:
-                suffix += 1
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(uf.name)
+
+        # Ensure unique column names
+        unique_cols = []
+        for i, name in enumerate(st.session_state.col_names):
+            base_name = re.sub(r'\.nii(\.gz)?$', '', name)
+            if base_name not in unique_cols:
+                unique_cols.append(base_name)
+            else:
+                suffix = 1
                 new_name = f"{base_name}_{suffix}"
-            unique_cols.append(new_name)
-    st.session_state.col_names = unique_cols
+                while new_name in unique_cols:
+                    suffix += 1
+                    new_name = f"{base_name}_{suffix}"
+                unique_cols.append(new_name)
+        st.session_state.col_names = unique_cols
 
-    st.session_state.parcellated = False
-    st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
+        st.session_state.parcellated = False
+        st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 	
 # --- Load images ---
 if st.session_state.nii_files:
