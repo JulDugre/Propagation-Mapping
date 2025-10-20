@@ -95,10 +95,21 @@ def save_uploaded_nii(uf):
     tmp_file.close()  # important to flush everything
     return Path(tmp_file.name)
 
-
+def reset_uploader():
+    """Reset uploader-related session state without creating widgets."""
+    st.session_state.nii_files = []
+    st.session_state.col_names = []
+    st.session_state.masked_df = None
+    st.session_state.propagation_maps = []
+    st.session_state.predicted_regional_scaled = []
+    st.session_state.parcellated = False
+    st.session_state.launch_btn = False
+    st.session_state.plot_prop_btn = False
+    st.session_state.plot_pred_btn = False
+    st.session_state.uploader_key += 1
+	
 def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
-
 
 # --- Single file uploader widget ---
 uploaded_files = st.sidebar.file_uploader(
@@ -110,9 +121,7 @@ uploaded_files = st.sidebar.file_uploader(
 
 # Optional manual reset button
 if st.sidebar.button("Reset"):
-    st.session_state.nii_files = []
-    st.session_state.col_names = []
-    st.experimental_rerun()
+	reset_uploader()
 	
 # --- Detect new uploads ---
 # Process uploaded files
