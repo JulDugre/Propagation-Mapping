@@ -48,7 +48,8 @@ if "launch_btn" not in st.session_state:
     st.session_state.launch_btn = False
 if "uploader_key" not in st.session_state:
     st.session_state.uploader_key = 0
-
+if "previous_uploaded_names" not in st.session_state:
+    st.session_state.previous_uploaded_names = []
 
 tmp_dir = Path(st.session_state.tmp_dir)
 
@@ -81,9 +82,6 @@ st.sidebar.markdown("#### ⚠️ Note that the toolbox does not retain any data"
 
 nii_files = []
 col_names = []
-
-def clean_name(name):
-    return re.sub(r'\.nii(\.gz)?$', '', name)
 
 def save_uploaded_nii(uf):
     """Save uploaded NIfTI file to a temp file, keeping the right suffix."""
@@ -129,15 +127,14 @@ uploaded_files = st.sidebar.file_uploader(
 if st.sidebar.button("Reset"):
     reset_uploader()
 	
-# Only process files if they are new
+# --- Detect new uploads ---
 if uploaded_files:
     uploaded_names = [uf.name for uf in uploaded_files]
-    previous_names = getattr(st.session_state, "previous_uploaded_names", [])
 
-    # Only reset and process if new files differ from before
-    if uploaded_names != previous_names:
+    # Only process if the uploaded file set is new
+    if uploaded_names != st.session_state.previous_uploaded_names:
         reset_uploader()
-        st.session_state.previous_uploaded_names = uploaded_names  # remember last upload
+        st.session_state.previous_uploaded_names = uploaded_names
 
         for uf in uploaded_files:
             if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
@@ -148,28 +145,15 @@ if uploaded_files:
             tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
             tmp_file.write(uf.getbuffer())
             tmp_file.close()
-            tmp_path = Path(tmp_file.name)
-
-            st.session_state.nii_files.append(tmp_path)
+            st.session_state.nii_files.append(Path(tmp_file.name))
             st.session_state.col_names.append(uf.name)
 
-        # Ensure unique column names
-        unique_cols = []
-        for i, name in enumerate(st.session_state.col_names):
-            base_name = re.sub(r'\.nii(\.gz)?$', '', name)
-            if base_name not in unique_cols:
-                unique_cols.append(base_name)
-            else:
-                suffix = 1
-                new_name = f"{base_name}_{suffix}"
-                while new_name in unique_cols:
-                    suffix += 1
-                    new_name = f"{base_name}_{suffix}"
-                unique_cols.append(new_name)
-        st.session_state.col_names = unique_cols
-
-        st.session_state.parcellated = False
         st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
+        st.session_state.parcellated = False  # Ready for new parcellation
+    else:
+        st.info("Files already loaded — skipping re-upload.")
+else:
+    st.session_state.previous_uploaded_names = []
 	
 # --- Load images ---
 if st.session_state.nii_files:
