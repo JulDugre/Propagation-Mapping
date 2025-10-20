@@ -125,26 +125,29 @@ if st.sidebar.button("Reset"):
 	
 # --- Detect new uploads ---
 # Process uploaded files
+# Process uploaded files
 if uploaded_files:
+    # Clear old files first
+    reset_uploader()  # safely reset session state
+
     for uf in uploaded_files:
-        if uf.name not in st.session_state.col_names:  # skip duplicates
-            if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
-                st.warning(f"Skipped unsupported file: {uf.name}")
-                continue
+        if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
+            st.warning(f"Skipped unsupported file: {uf.name}")
+            continue
 
-            # Save uploaded file to temp
-            suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-            tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
-            tmp_file.write(uf.getbuffer())
-            tmp_file.close()
-            tmp_path = Path(tmp_file.name)
+        # Save uploaded file to temp
+        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        tmp_file.write(uf.getbuffer())
+        tmp_file.close()
+        tmp_path = Path(tmp_file.name)
 
-            st.session_state.nii_files.append(tmp_path)
-            st.session_state.col_names.append(uf.name)
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(uf.name)
 
     # Ensure unique column names
     unique_cols = []
-    for name in st.session_state.col_names:
+    for i, name in enumerate(st.session_state.col_names):
         base_name = re.sub(r'\.nii(\.gz)?$', '', name)
         if base_name not in unique_cols:
             unique_cols.append(base_name)
