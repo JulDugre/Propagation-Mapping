@@ -128,32 +128,42 @@ if st.sidebar.button("Reset"):
     reset_uploader()
 	
 # --- Detect new uploads ---
+# Process uploaded files
 if uploaded_files:
-    uploaded_names = [uf.name for uf in uploaded_files]
+    # Clear old files first
 
-    # Only process if the uploaded file set is new
-    if uploaded_names != st.session_state.previous_uploaded_names:
-        reset_uploader()
-        st.session_state.previous_uploaded_names = uploaded_names
+    for uf in uploaded_files:
+        if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
+            st.warning(f"Skipped unsupported file: {uf.name}")
+            continue
 
-        for uf in uploaded_files:
-            if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
-                st.warning(f"Skipped unsupported file: {uf.name}")
-                continue
+        # Save uploaded file to temp
+        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
+        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+        tmp_file.write(uf.getbuffer())
+        tmp_file.close()
+        tmp_path = Path(tmp_file.name)
 
-            suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-            tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
-            tmp_file.write(uf.getbuffer())
-            tmp_file.close()
-            st.session_state.nii_files.append(Path(tmp_file.name))
-            st.session_state.col_names.append(uf.name)
+        st.session_state.nii_files.append(tmp_path)
+        st.session_state.col_names.append(uf.name)
 
-        st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
-        st.session_state.parcellated = False  # Ready for new parcellation
-    else:
-        st.info("Files already loaded — skipping re-upload.")
-else:
-    st.session_state.previous_uploaded_names = []
+    # Ensure unique column names
+    unique_cols = []
+    for i, name in enumerate(st.session_state.col_names):
+        base_name = re.sub(r'\.nii(\.gz)?$', '', name)
+        if base_name not in unique_cols:
+            unique_cols.append(base_name)
+        else:
+            suffix = 1
+            new_name = f"{base_name}_{suffix}"
+            while new_name in unique_cols:
+                suffix += 1
+                new_name = f"{base_name}_{suffix}"
+            unique_cols.append(new_name)
+    st.session_state.col_names = unique_cols
+
+    st.session_state.parcellated = False
+    st.success(f"Loaded {len(st.session_state.nii_files)} NIfTI file(s).")
 	
 # --- Load images ---
 if st.session_state.nii_files:
