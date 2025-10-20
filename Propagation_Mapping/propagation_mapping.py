@@ -48,8 +48,6 @@ if "launch_btn" not in st.session_state:
     st.session_state.launch_btn = False
 if "uploader_key" not in st.session_state:
     st.session_state.uploader_key = 0
-if "previous_uploaded_names" not in st.session_state:
-    st.session_state.previous_uploaded_names = []
 
 tmp_dir = Path(st.session_state.tmp_dir)
 
@@ -102,19 +100,6 @@ def clean_name(name):
     return re.sub(r'\.nii(\.gz)?$', '', name)
 
 
-def reset_uploader():
-    """Reset uploader-related session state without creating widgets."""
-    st.session_state.nii_files = []
-    st.session_state.col_names = []
-    st.session_state.masked_df = None
-    st.session_state.propagation_maps = []
-    st.session_state.predicted_regional_scaled = []
-    st.session_state.parcellated = False
-    st.session_state.launch_btn = False
-    st.session_state.plot_prop_btn = False
-    st.session_state.plot_pred_btn = False
-    st.session_state.uploader_key += 1
-
 # --- Single file uploader widget ---
 uploaded_files = st.sidebar.file_uploader(
     "Upload NIFTI file(s)",
@@ -125,31 +110,32 @@ uploaded_files = st.sidebar.file_uploader(
 
 # Optional manual reset button
 if st.sidebar.button("Reset"):
-    reset_uploader()
+    st.session_state.nii_files = []
+    st.session_state.col_names = []
+    st.experimental_rerun()
 	
 # --- Detect new uploads ---
 # Process uploaded files
 if uploaded_files:
-    # Clear old files first
-
     for uf in uploaded_files:
-        if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
-            st.warning(f"Skipped unsupported file: {uf.name}")
-            continue
+        if uf.name not in st.session_state.col_names:  # skip duplicates
+            if not (uf.name.endswith(".nii") or uf.name.endswith(".nii.gz")):
+                st.warning(f"Skipped unsupported file: {uf.name}")
+                continue
 
-        # Save uploaded file to temp
-        suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
-        tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
-        tmp_file.write(uf.getbuffer())
-        tmp_file.close()
-        tmp_path = Path(tmp_file.name)
+            # Save uploaded file to temp
+            suffix = ".nii.gz" if uf.name.endswith(".gz") else ".nii"
+            tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+            tmp_file.write(uf.getbuffer())
+            tmp_file.close()
+            tmp_path = Path(tmp_file.name)
 
-        st.session_state.nii_files.append(tmp_path)
-        st.session_state.col_names.append(uf.name)
+            st.session_state.nii_files.append(tmp_path)
+            st.session_state.col_names.append(uf.name)
 
     # Ensure unique column names
     unique_cols = []
-    for i, name in enumerate(st.session_state.col_names):
+    for name in st.session_state.col_names:
         base_name = re.sub(r'\.nii(\.gz)?$', '', name)
         if base_name not in unique_cols:
             unique_cols.append(base_name)
