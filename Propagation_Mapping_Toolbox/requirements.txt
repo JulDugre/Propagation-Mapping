@@ -8,3 +8,4 @@ pandas
 scikit_learn
 scipy
 seaborn
+altair<5
