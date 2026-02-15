@@ -60,7 +60,7 @@ st.image(
 # SESSION STATE
 # -------------------------------
 if 'tmp_dir' not in st.session_state:
-    st.session_state.tmp_dir = Path(tempfile.mkdtemp())
+    st.session_state.tmp_dir = tempfile.mkdtemp()  # store as string
 
 for key in ['masked_df', 'standardized_df', 'propagation_results', 'atlas_choice_prev']:
     if key not in st.session_state:
@@ -91,7 +91,7 @@ def clean_name(name):
 
 if uploaded_files:
     for up in uploaded_files:
-        tmp_path = Path(st.session_state.tmp_dir) / up.name
+        tmp_path = Path(st.session_state.tmp_dir) / up.name  # ✅ wrap here
         with open(tmp_path, "wb") as f:
             f.write(up.getbuffer())
         nii_files.append(tmp_path)
