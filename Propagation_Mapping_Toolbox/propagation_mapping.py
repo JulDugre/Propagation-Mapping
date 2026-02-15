@@ -60,7 +60,7 @@ st.image(
 # SESSION STATE
 # -------------------------------
 if 'tmp_dir' not in st.session_state:
-    st.session_state.tmp_dir = tempfile.mkdtemp()
+    st.session_state.tmp_dir = Path(tempfile.mkdtemp())
 
 for key in ['masked_df', 'standardized_df', 'propagation_results', 'atlas_choice_prev']:
     if key not in st.session_state:
