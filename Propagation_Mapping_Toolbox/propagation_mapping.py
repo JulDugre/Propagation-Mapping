@@ -2,7 +2,6 @@ import os
 import tempfile
 import re
 from glob import glob
-from pathlib import Path
 import io
 import zipfile
 
@@ -60,7 +59,7 @@ st.image(
 # SESSION STATE
 # -------------------------------
 if 'tmp_dir' not in st.session_state:
-    st.session_state.tmp_dir = tempfile.mkdtemp()  # store as string
+    st.session_state.tmp_dir = tempfile.mkdtemp()  # Store as string
 
 for key in ['masked_df', 'standardized_df', 'propagation_results', 'atlas_choice_prev']:
     if key not in st.session_state:
@@ -91,7 +90,7 @@ def clean_name(name):
 
 if uploaded_files:
     for up in uploaded_files:
-        tmp_path = os.path.join(st.session_state.tmp_dir, up.name)
+        tmp_path = os.path.join(st.session_state.tmp_dir, up.name)  # Use os.path.join
         with open(tmp_path, "wb") as f:
             f.write(up.getbuffer())
         nii_files.append(tmp_path)
