@@ -8,5 +8,5 @@ pandas
 scikit_learn
 scipy
 seaborn
-streamlit
+streamlit==1.19.0
 altair<5
