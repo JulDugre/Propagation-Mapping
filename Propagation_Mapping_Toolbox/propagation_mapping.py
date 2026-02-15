@@ -39,9 +39,11 @@ st.markdown(
 # -------------------------------
 # BASE DIRECTORY (Streamlit Cloud-safe)
 # -------------------------------
-BASE_DIR = os.getcwd()
-repo_root = os.path.dirname(BASE_DIR)  # go up one level to repo root
-framework_img_path = os.path.join(repo_root, "miscellaneous", "Framework.png")
+# BASE_DIR is the folder where this script lives
+BASE_DIR = Path(__file__).parent
+
+# Path to the framework image
+framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
 
 if os.path.exists(framework_img_path):
     st.image(
