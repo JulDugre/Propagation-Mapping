@@ -24,7 +24,7 @@ from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 st.set_page_config(page_title="Propagation Mapping Toolbox", layout="wide")
 st.title("Propagation Mapping Toolbox (v0.2)")
 
-# Markdown references with DOI hyperlinks
+# Markdown references
 st.markdown("##### Please cite:")
 st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
 st.markdown(
@@ -37,29 +37,31 @@ st.markdown(
 )
 
 # -------------------------------
-# BASE DIRECTORY
+# BASE DIRECTORY (Streamlit Cloud-safe)
 # -------------------------------
-BASE_DIR = Path(__file__).parent
+BASE_DIR = os.getcwd()  # current working directory
 
-# Framework image
-framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
-st.image(
-    str(framework_img_path),
-    caption=("Propagation Mapping is a new precision framework aiming at reconstructing "
-             "the neural circuitry that explains the spatial organization of human brain maps. "
-             "This method assumes that regional measures can be best understood as a dot product "
-             "between activity and functional connectivity. Uploading your NIfTI file will predict "
-             "the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map, "
-             "2) the predicted map, and 3) a propagation map, which reflects the circuitry predicting your "
-             "statistical map, prior to summation."),
-    width=800
-)
+framework_img_path = os.path.join(BASE_DIR, "miscellaneous", "Framework.png")
+if os.path.exists(framework_img_path):
+    st.image(
+        framework_img_path,
+        caption=("Propagation Mapping is a new precision framework aiming at reconstructing "
+                 "the neural circuitry that explains the spatial organization of human brain maps. "
+                 "This method assumes that regional measures can be best understood as a dot product "
+                 "between activity and functional connectivity. Uploading your NIfTI file will predict "
+                 "the spatial pattern of your uploaded map and return 1) the observed (raw) parcellated map, "
+                 "2) the predicted map, and 3) a propagation map, which reflects the circuitry predicting your "
+                 "statistical map, prior to summation."),
+        width=800
+    )
+else:
+    st.warning(f"Framework image not found at: {framework_img_path}")
 
 # -------------------------------
 # SESSION STATE
 # -------------------------------
 if 'tmp_dir' not in st.session_state:
-    st.session_state.tmp_dir = tempfile.mkdtemp()  # Store as string
+    st.session_state.tmp_dir = tempfile.mkdtemp()  # always string, works with os.path.join
 
 for key in ['masked_df', 'standardized_df', 'propagation_results', 'atlas_choice_prev']:
     if key not in st.session_state:
@@ -90,7 +92,7 @@ def clean_name(name):
 
 if uploaded_files:
     for up in uploaded_files:
-        tmp_path = os.path.join(st.session_state.tmp_dir, up.name)  # Use os.path.join
+        tmp_path = os.path.join(st.session_state.tmp_dir, up.name)
         with open(tmp_path, "wb") as f:
             f.write(up.getbuffer())
         nii_files.append(tmp_path)
@@ -98,7 +100,6 @@ elif folder_path and os.path.exists(folder_path):
     nii_files = natsorted(glob(os.path.join(folder_path, '*.nii*')))
 
 st.sidebar.write(f"📂 Files detected: {len(nii_files)}")
-
 # -------------------------------
 # HELPER FUNCTIONS
 # -------------------------------
