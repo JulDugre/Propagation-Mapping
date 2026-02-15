@@ -9,3 +9,4 @@ scikit_learn
 scipy
 seaborn
 altair<5
+streamlit>=1.52.0
