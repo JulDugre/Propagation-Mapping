@@ -39,10 +39,10 @@ st.markdown(
 # -------------------------------
 # BASE DIRECTORY (Streamlit Cloud-safe)
 # -------------------------------
-# BASE_DIR is the folder where this script lives
-BASE_DIR = Path(__file__).parent
+# Use current working directory
+BASE_DIR = Path(os.getcwd()) / "Propagation_Mapping_Toolbox"
 
-# Path to the framework image
+# Path to framework image
 framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
 
 if os.path.exists(framework_img_path):
