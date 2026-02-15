@@ -91,7 +91,7 @@ def clean_name(name):
 
 if uploaded_files:
     for up in uploaded_files:
-        tmp_path = st.session_state.tmp_dir / up.name
+        tmp_path = Path(st.session_state.tmp_dir) / up.name
         with open(tmp_path, "wb") as f:
             f.write(up.getbuffer())
         nii_files.append(tmp_path)
