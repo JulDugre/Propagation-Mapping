@@ -47,7 +47,7 @@ framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
 
 if os.path.exists(framework_img_path):
     st.image(
-        framework_img_path,
+        str(framework_img_path),
         caption=("Propagation Mapping is a new precision framework aiming at reconstructing "
                  "the neural circuitry that explains the spatial organization of human brain maps. "
                  "This method assumes that regional measures can be best understood as a dot product "
