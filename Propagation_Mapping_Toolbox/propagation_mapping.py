@@ -38,10 +38,11 @@ st.markdown(
 )
 
 # -------------------------------
-# BASE DIRECTORY (Streamlit Cloud-safe)
+# BASE DIRECTORY (ROBUST FIX)
 # -------------------------------
-# Use current working directory
-BASE_DIR = Path(os.getcwd()) / "Propagation_Mapping_Toolbox"
+# This sets BASE_DIR to the folder containing THIS script file.
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # Path to framework image
 framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
@@ -59,7 +60,9 @@ if os.path.exists(framework_img_path):
         width=800
     )
 else:
+    # This helps debug if the image is missing
     st.warning(f"Framework image not found at: {framework_img_path}")
+
 
 # -------------------------------
 # SESSION STATE
