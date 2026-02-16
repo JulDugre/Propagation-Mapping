@@ -1,0 +1,428 @@
+﻿,ID,Hemi,Label,Network,regions,x,y,z,colors
+0,1,L,LH_Vis_1,Visual,cortex,-32,-42,-20,#A76CD4
+1,2,L,LH_Vis_2,Visual,cortex,-30,-32,-18,#A76CD4
+2,3,L,LH_Vis_3,Visual,cortex,-36,-62,-16,#A76CD4
+3,4,L,LH_Vis_4,Visual,cortex,-24,-54,-8,#A76CD4
+4,5,L,LH_Vis_5,Visual,cortex,-24,-72,-10,#A76CD4
+5,6,L,LH_Vis_6,Visual,cortex,-36,-82,-16,#A76CD4
+6,7,L,LH_Vis_7,Visual,cortex,-18,-38,-12,#A76CD4
+7,8,L,LH_Vis_8,Visual,cortex,-46,-70,-8,#A76CD4
+8,9,L,LH_Vis_9,Visual,cortex,-16,-86,-16,#A76CD4
+9,10,L,LH_Vis_10,Visual,cortex,-12,-62,-4,#A76CD4
+10,11,L,LH_Vis_11,Visual,cortex,-6,-76,-6,#A76CD4
+11,12,L,LH_Vis_12,Visual,cortex,-24,-96,-12,#A76CD4
+12,13,L,LH_Vis_13,Visual,cortex,-14,-44,-6,#A76CD4
+13,14,L,LH_Vis_14,Visual,cortex,-42,-86,-4,#A76CD4
+14,15,L,LH_Vis_15,Visual,cortex,-8,-98,-8,#A76CD4
+15,16,L,LH_Vis_16,Visual,cortex,-14,-56,2,#A76CD4
+16,17,L,LH_Vis_17,Visual,cortex,-46,-74,6,#A76CD4
+17,18,L,LH_Vis_18,Visual,cortex,-4,-88,2,#A76CD4
+18,19,L,LH_Vis_19,Visual,cortex,-24,-96,6,#A76CD4
+19,20,L,LH_Vis_20,Visual,cortex,-14,-48,4,#A76CD4
+20,21,L,LH_Vis_21,Visual,cortex,-8,-74,10,#A76CD4
+21,22,L,LH_Vis_22,Visual,cortex,-18,-64,6,#A76CD4
+22,23,L,LH_Vis_23,Visual,cortex,-40,-84,14,#A76CD4
+23,24,L,LH_Vis_24,Visual,cortex,-10,-96,18,#A76CD4
+24,25,L,LH_Vis_25,Visual,cortex,-2,-84,24,#A76CD4
+25,26,L,LH_Vis_26,Visual,cortex,-12,-72,20,#A76CD4
+26,27,L,LH_Vis_27,Visual,cortex,-26,-84,22,#A76CD4
+27,28,L,LH_Vis_28,Visual,cortex,-32,-84,26,#A76CD4
+28,29,L,LH_Vis_29,Visual,cortex,-16,-88,34,#A76CD4
+29,30,L,LH_Vis_30,Visual,cortex,-12,-82,36,#A76CD4
+30,31,L,LH_Vis_31,Visual,cortex,-22,-78,44,#A76CD4
+31,32,L,LH_SomMot_1,SomMot,cortex,-50,-10,0,#6C92D4
+32,33,L,LH_SomMot_2,SomMot,cortex,-56,-22,8,#6C92D4
+33,34,L,LH_SomMot_3,SomMot,cortex,-36,-24,10,#6C92D4
+34,35,L,LH_SomMot_4,SomMot,cortex,-38,-8,12,#6C92D4
+35,36,L,LH_SomMot_5,SomMot,cortex,-36,-26,18,#6C92D4
+36,37,L,LH_SomMot_6,SomMot,cortex,-58,-36,16,#6C92D4
+37,38,L,LH_SomMot_7,SomMot,cortex,-40,-36,14,#6C92D4
+38,39,L,LH_SomMot_8,SomMot,cortex,-48,-12,14,#6C92D4
+39,40,L,LH_SomMot_9,SomMot,cortex,-60,-2,10,#6C92D4
+40,41,L,LH_SomMot_10,SomMot,cortex,-48,-24,18,#6C92D4
+41,42,L,LH_SomMot_11,SomMot,cortex,-62,-18,20,#6C92D4
+42,43,L,LH_SomMot_12,SomMot,cortex,-60,-2,24,#6C92D4
+43,44,L,LH_SomMot_13,SomMot,cortex,-62,-10,32,#6C92D4
+44,45,L,LH_SomMot_14,SomMot,cortex,-54,-8,30,#6C92D4
+45,46,L,LH_SomMot_15,SomMot,cortex,-54,-20,40,#6C92D4
+46,47,L,LH_SomMot_16,SomMot,cortex,-52,-6,44,#6C92D4
+47,48,L,LH_SomMot_17,SomMot,cortex,-48,-16,40,#6C92D4
+48,49,L,LH_SomMot_18,SomMot,cortex,-8,-16,48,#6C92D4
+49,50,L,LH_SomMot_19,SomMot,cortex,-40,-14,48,#6C92D4
+50,51,L,LH_SomMot_20,SomMot,cortex,-48,-18,54,#6C92D4
+51,52,L,LH_SomMot_21,SomMot,cortex,-48,-30,58,#6C92D4
+52,53,L,LH_SomMot_22,SomMot,cortex,-38,-24,52,#6C92D4
+53,54,L,LH_SomMot_23,SomMot,cortex,-8,-38,54,#6C92D4
+54,55,L,LH_SomMot_24,SomMot,cortex,-4,-24,56,#6C92D4
+55,56,L,LH_SomMot_25,SomMot,cortex,-4,-8,60,#6C92D4
+56,57,L,LH_SomMot_26,SomMot,cortex,-36,-20,64,#6C92D4
+57,58,L,LH_SomMot_27,SomMot,cortex,-30,-46,62,#6C92D4
+58,59,L,LH_SomMot_28,SomMot,cortex,-32,-30,62,#6C92D4
+59,60,L,LH_SomMot_29,SomMot,cortex,-30,-38,66,#6C92D4
+60,61,L,LH_SomMot_30,SomMot,cortex,-24,-10,64,#6C92D4
+61,62,L,LH_SomMot_31,SomMot,cortex,-20,-24,66,#6C92D4
+62,63,L,LH_SomMot_32,SomMot,cortex,-8,-42,70,#6C92D4
+63,64,L,LH_SomMot_33,SomMot,cortex,-4,-26,68,#6C92D4
+64,65,L,LH_SomMot_34,SomMot,cortex,-14,-12,72,#6C92D4
+65,66,L,LH_SomMot_35,SomMot,cortex,-18,-32,68,#6C92D4
+66,67,L,LH_SomMot_36,SomMot,cortex,-18,-40,72,#6C92D4
+67,68,L,LH_SomMot_37,SomMot,cortex,-12,-26,74,#6C92D4
+68,69,L,LH_DorsAttn_Post_1,DorsAttn,cortex,-44,-42,-22,#3C9F4D
+69,70,L,LH_DorsAttn_Post_2,DorsAttn,cortex,-48,-56,-16,#3C9F4D
+70,71,L,LH_DorsAttn_Post_3,DorsAttn,cortex,-56,-62,0,#3C9F4D
+71,72,L,LH_DorsAttn_Post_4,DorsAttn,cortex,-48,-66,16,#3C9F4D
+72,73,L,LH_DorsAttn_Post_5,DorsAttn,cortex,-26,-70,30,#3C9F4D
+73,74,L,LH_DorsAttn_Post_6,DorsAttn,cortex,-54,-32,44,#3C9F4D
+74,75,L,LH_DorsAttn_Post_7,DorsAttn,cortex,-22,-66,46,#3C9F4D
+75,76,L,LH_DorsAttn_Post_8,DorsAttn,cortex,-46,-30,44,#3C9F4D
+76,77,L,LH_DorsAttn_Post_9,DorsAttn,cortex,-34,-46,40,#3C9F4D
+77,78,L,LH_DorsAttn_Post_10,DorsAttn,cortex,-28,-58,50,#3C9F4D
+78,79,L,LH_DorsAttn_Post_11,DorsAttn,cortex,-38,-38,50,#3C9F4D
+79,80,L,LH_DorsAttn_Post_12,DorsAttn,cortex,-36,-52,56,#3C9F4D
+80,81,L,LH_DorsAttn_Post_13,DorsAttn,cortex,-14,-70,58,#3C9F4D
+81,82,L,LH_DorsAttn_Post_14,DorsAttn,cortex,-28,-62,62,#3C9F4D
+82,83,L,LH_DorsAttn_Post_15,DorsAttn,cortex,-8,-58,64,#3C9F4D
+83,84,L,LH_DorsAttn_Post_16,DorsAttn,cortex,-20,-56,66,#3C9F4D
+84,85,L,LH_DorsAttn_Post_17,DorsAttn,cortex,-14,-50,72,#3C9F4D
+85,86,L,LH_DorsAttn_FEF_1,DorsAttn,cortex,-40,-2,52,#3C9F4D
+86,87,L,LH_DorsAttn_FEF_2,DorsAttn,cortex,-26,0,56,#3C9F4D
+87,88,L,LH_DorsAttn_FEF_3,DorsAttn,cortex,-30,-8,52,#3C9F4D
+88,89,L,LH_DorsAttn_FEF_4,DorsAttn,cortex,-22,6,64,#3C9F4D
+89,90,L,LH_DorsAttn_PrCv_1,DorsAttn,cortex,-50,6,26,#3C9F4D
+90,91,L,LH_DorsAttn_PrCv_2,DorsAttn,cortex,-50,2,38,#3C9F4D
+91,92,L,LH_SalVentAttn_ParOper_1,VentAttn,cortex,-54,-32,22,#E586E5
+92,93,L,LH_SalVentAttn_ParOper_2,VentAttn,cortex,-58,-44,28,#E586E5
+93,94,L,LH_SalVentAttn_ParOper_3,VentAttn,cortex,-62,-24,32,#E586E5
+94,95,L,LH_SalVentAttn_ParOper_4,VentAttn,cortex,-62,-36,34,#E586E5
+95,96,L,LH_SalVentAttn_TempOcc_1,VentAttn,cortex,-58,-54,10,#E586E5
+96,97,L,LH_SalVentAttn_FrOperIns_1,VentAttn,cortex,-44,6,-16,#E586E5
+97,98,L,LH_SalVentAttn_FrOperIns_2,VentAttn,cortex,-38,2,-4,#E586E5
+98,99,L,LH_SalVentAttn_FrOperIns_3,VentAttn,cortex,-32,24,0,#E586E5
+99,100,L,LH_SalVentAttn_FrOperIns_4,VentAttn,cortex,-40,-14,-2,#E586E5
+100,101,L,LH_SalVentAttn_FrOperIns_5,VentAttn,cortex,-32,18,8,#E586E5
+101,102,L,LH_SalVentAttn_FrOperIns_6,VentAttn,cortex,-36,4,10,#E586E5
+102,103,L,LH_SalVentAttn_FrOperIns_7,VentAttn,cortex,-44,12,2,#E586E5
+103,104,L,LH_SalVentAttn_FrOperIns_8,VentAttn,cortex,-50,2,4,#E586E5
+104,105,L,LH_SalVentAttn_FrOperIns_9,VentAttn,cortex,-52,8,14,#E586E5
+105,106,L,LH_SalVentAttn_PFCl_1,VentAttn,cortex,-28,44,30,#E586E5
+106,107,L,LH_SalVentAttn_Med_1,VentAttn,cortex,-6,22,32,#E586E5
+107,108,L,LH_SalVentAttn_Med_2,VentAttn,cortex,-6,0,40,#E586E5
+108,109,L,LH_SalVentAttn_Med_3,VentAttn,cortex,-12,-28,42,#E586E5
+109,110,L,LH_SalVentAttn_Med_4,VentAttn,cortex,-6,10,48,#E586E5
+110,111,L,LH_SalVentAttn_Med_5,VentAttn,cortex,-12,-42,48,#E586E5
+111,112,L,LH_SalVentAttn_Med_6,VentAttn,cortex,-6,-48,56,#E586E5
+112,113,L,LH_SalVentAttn_Med_7,VentAttn,cortex,-8,-2,70,#E586E5
+113,114,L,LH_Limbic_OFC_1,Limbic,cortex,-12,24,-20,#F6EFD1
+114,115,L,LH_Limbic_OFC_2,Limbic,cortex,-24,22,-20,#F6EFD1
+115,116,L,LH_Limbic_OFC_3,Limbic,cortex,-10,48,-22,#F6EFD1
+116,117,L,LH_Limbic_OFC_4,Limbic,cortex,-4,24,-20,#F6EFD1
+117,118,L,LH_Limbic_OFC_5,Limbic,cortex,-16,64,-8,#F6EFD1
+118,119,L,LH_Limbic_TempPole_1,Limbic,cortex,-38,-6,-42,#F6EFD1
+119,120,L,LH_Limbic_TempPole_2,Limbic,cortex,-24,6,-40,#F6EFD1
+120,121,L,LH_Limbic_TempPole_3,Limbic,cortex,-26,-10,-32,#F6EFD1
+121,122,L,LH_Limbic_TempPole_4,Limbic,cortex,-54,-22,-30,#F6EFD1
+122,123,L,LH_Limbic_TempPole_5,Limbic,cortex,-40,-22,-26,#F6EFD1
+123,124,L,LH_Limbic_TempPole_6,Limbic,cortex,-44,12,-34,#F6EFD1
+124,125,L,LH_Limbic_TempPole_7,Limbic,cortex,-32,12,-30,#F6EFD1
+125,126,L,LH_Limbic_TempPole_8,Limbic,cortex,-20,-20,-26,#F6EFD1
+126,127,L,LH_Cont_Par_1,Control,cortex,-28,-74,42,#FDB841
+127,128,L,LH_Cont_Par_2,Control,cortex,-58,-42,46,#FDB841
+128,129,L,LH_Cont_Par_3,Control,cortex,-54,-50,44,#FDB841
+129,130,L,LH_Cont_Par_4,Control,cortex,-34,-62,48,#FDB841
+130,131,L,LH_Cont_Par_5,Control,cortex,-42,-52,48,#FDB841
+131,132,L,LH_Cont_Par_6,Control,cortex,-44,-42,46,#FDB841
+132,133,L,LH_Cont_Temp_1,Control,cortex,-60,-48,-10,#FDB841
+133,134,L,LH_Cont_OFC_1,Control,cortex,-26,50,-14,#FDB841
+134,135,L,LH_Cont_PFCl_1,Control,cortex,-42,48,-6,#FDB841
+135,136,L,LH_Cont_PFCl_2,Control,cortex,-48,36,10,#FDB841
+136,137,L,LH_Cont_PFCl_3,Control,cortex,-38,50,10,#FDB841
+137,138,L,LH_Cont_PFCl_4,Control,cortex,-28,56,12,#FDB841
+138,139,L,LH_Cont_PFCl_5,Control,cortex,-42,38,22,#FDB841
+139,140,L,LH_Cont_PFCl_6,Control,cortex,-44,20,26,#FDB841
+140,141,L,LH_Cont_PFCl_7,Control,cortex,-40,8,34,#FDB841
+141,142,L,LH_Cont_PFCl_8,Control,cortex,-36,32,38,#FDB841
+142,143,L,LH_Cont_PFCv_1,Control,cortex,-34,16,-8,#FDB841
+143,144,L,LH_Cont_pCun_1,Control,cortex,-10,-78,46,#FDB841
+144,145,L,LH_Cont_pCun_2,Control,cortex,-4,-64,52,#FDB841
+145,146,L,LH_Cont_Cing_1,Control,cortex,-4,6,28,#FDB841
+146,147,L,LH_Cont_Cing_2,Control,cortex,-4,-22,30,#FDB841
+147,148,L,LH_Cont_PFCmp_1,Control,cortex,-4,28,48,#FDB841
+148,149,L,LH_Default_Temp_1,Default Mode,cortex,-54,-2,-30,#D77C7C
+149,150,L,LH_Default_Temp_2,Default Mode,cortex,-62,-18,-20,#D77C7C
+150,151,L,LH_Default_Temp_3,Default Mode,cortex,-60,-36,-18,#D77C7C
+151,152,L,LH_Default_Temp_4,Default Mode,cortex,-56,-8,-14,#D77C7C
+152,153,L,LH_Default_Temp_5,Default Mode,cortex,-52,6,-12,#D77C7C
+153,154,L,LH_Default_Temp_6,Default Mode,cortex,-60,-34,-4,#D77C7C
+154,155,L,LH_Default_Temp_7,Default Mode,cortex,-52,-22,-6,#D77C7C
+155,156,L,LH_Default_Temp_8,Default Mode,cortex,-60,-12,-2,#D77C7C
+156,157,L,LH_Default_Temp_9,Default Mode,cortex,-62,-32,6,#D77C7C
+157,158,L,LH_Default_Temp_10,Default Mode,cortex,-52,-44,4,#D77C7C
+158,159,L,LH_Default_Par_1,Default Mode,cortex,-58,-48,16,#D77C7C
+159,160,L,LH_Default_Par_2,Default Mode,cortex,-46,-58,20,#D77C7C
+160,161,L,LH_Default_Par_3,Default Mode,cortex,-40,-78,30,#D77C7C
+161,162,L,LH_Default_Par_4,Default Mode,cortex,-48,-64,32,#D77C7C
+162,163,L,LH_Default_Par_5,Default Mode,cortex,-56,-54,30,#D77C7C
+163,164,L,LH_Default_Par_6,Default Mode,cortex,-42,-72,44,#D77C7C
+164,165,L,LH_Default_Par_7,Default Mode,cortex,-48,-60,46,#D77C7C
+165,166,L,LH_Default_PFC_1,Default Mode,cortex,-36,22,-16,#D77C7C
+166,167,L,LH_Default_PFC_2,Default Mode,cortex,-36,36,-12,#D77C7C
+167,168,L,LH_Default_PFC_3,Default Mode,cortex,-4,56,-10,#D77C7C
+168,169,L,LH_Default_PFC_4,Default Mode,cortex,-6,36,-8,#D77C7C
+169,170,L,LH_Default_PFC_5,Default Mode,cortex,-46,32,-10,#D77C7C
+170,171,L,LH_Default_PFC_6,Default Mode,cortex,-28,58,0,#D77C7C
+171,172,L,LH_Default_PFC_7,Default Mode,cortex,-48,28,0,#D77C7C
+172,173,L,LH_Default_PFC_8,Default Mode,cortex,-6,60,6,#D77C7C
+173,174,L,LH_Default_PFC_9,Default Mode,cortex,-6,44,6,#D77C7C
+174,175,L,LH_Default_PFC_10,Default Mode,cortex,-54,20,12,#D77C7C
+175,176,L,LH_Default_PFC_11,Default Mode,cortex,-16,68,8,#D77C7C
+176,177,L,LH_Default_PFC_12,Default Mode,cortex,-6,34,20,#D77C7C
+177,178,L,LH_Default_PFC_13,Default Mode,cortex,-4,52,28,#D77C7C
+178,179,L,LH_Default_PFC_14,Default Mode,cortex,-14,58,30,#D77C7C
+179,180,L,LH_Default_PFC_15,Default Mode,cortex,-22,50,32,#D77C7C
+180,181,L,LH_Default_PFC_16,Default Mode,cortex,-24,28,44,#D77C7C
+181,182,L,LH_Default_PFC_17,Default Mode,cortex,-40,20,48,#D77C7C
+182,183,L,LH_Default_PFC_18,Default Mode,cortex,-8,42,52,#D77C7C
+183,184,L,LH_Default_PFC_19,Default Mode,cortex,-18,36,48,#D77C7C
+184,185,L,LH_Default_PFC_20,Default Mode,cortex,-42,8,48,#D77C7C
+185,186,L,LH_Default_PFC_21,Default Mode,cortex,-30,14,58,#D77C7C
+186,187,L,LH_Default_PFC_22,Default Mode,cortex,-22,20,52,#D77C7C
+187,188,L,LH_Default_PFC_23,Default Mode,cortex,-12,24,60,#D77C7C
+188,189,L,LH_Default_PFC_24,Default Mode,cortex,-6,10,64,#D77C7C
+189,190,L,LH_Default_pCunPCC_1,Default Mode,cortex,-8,-52,10,#D77C7C
+190,191,L,LH_Default_pCunPCC_2,Default Mode,cortex,-14,-60,18,#D77C7C
+191,192,L,LH_Default_pCunPCC_3,Default Mode,cortex,-4,-54,20,#D77C7C
+192,193,L,LH_Default_pCunPCC_4,Default Mode,cortex,-6,-40,24,#D77C7C
+193,194,L,LH_Default_pCunPCC_5,Default Mode,cortex,-10,-70,32,#D77C7C
+194,195,L,LH_Default_pCunPCC_6,Default Mode,cortex,-6,-60,30,#D77C7C
+195,196,L,LH_Default_pCunPCC_7,Default Mode,cortex,-8,-44,32,#D77C7C
+196,197,L,LH_Default_pCunPCC_8,Default Mode,cortex,-4,-34,38,#D77C7C
+197,198,L,LH_Default_pCunPCC_9,Default Mode,cortex,-2,-16,38,#D77C7C
+198,199,L,LH_Default_pCunPCC_10,Default Mode,cortex,-2,-68,42,#D77C7C
+199,200,L,LH_Default_pCunPCC_11,Default Mode,cortex,-6,-50,42,#D77C7C
+200,201,R,RH_Vis_1,Visual,cortex,34,-36,-24,#A76CD4
+201,202,R,RH_Vis_2,Visual,cortex,30,-30,-18,#A76CD4
+202,203,R,RH_Vis_3,Visual,cortex,36,-54,-18,#A76CD4
+203,204,R,RH_Vis_4,Visual,cortex,38,-74,-16,#A76CD4
+204,205,R,RH_Vis_5,Visual,cortex,26,-52,-8,#A76CD4
+205,206,R,RH_Vis_6,Visual,cortex,24,-74,-10,#A76CD4
+206,207,R,RH_Vis_7,Visual,cortex,18,-36,-12,#A76CD4
+207,208,R,RH_Vis_8,Visual,cortex,20,-88,-12,#A76CD4
+208,209,R,RH_Vis_9,Visual,cortex,50,-64,-10,#A76CD4
+209,210,R,RH_Vis_10,Visual,cortex,42,-84,-12,#A76CD4
+210,211,R,RH_Vis_11,Visual,cortex,10,-72,-6,#A76CD4
+211,212,R,RH_Vis_12,Visual,cortex,14,-58,-4,#A76CD4
+212,213,R,RH_Vis_13,Visual,cortex,26,-96,-10,#A76CD4
+213,214,R,RH_Vis_14,Visual,cortex,18,-44,-2,#A76CD4
+214,215,R,RH_Vis_15,Visual,cortex,8,-92,-2,#A76CD4
+215,216,R,RH_Vis_16,Visual,cortex,48,-66,4,#A76CD4
+216,217,R,RH_Vis_17,Visual,cortex,14,-46,4,#A76CD4
+217,218,R,RH_Vis_18,Visual,cortex,36,-88,2,#A76CD4
+218,219,R,RH_Vis_19,Visual,cortex,10,-74,8,#A76CD4
+219,220,R,RH_Vis_20,Visual,cortex,22,-60,6,#A76CD4
+220,221,R,RH_Vis_21,Visual,cortex,24,-98,8,#A76CD4
+221,222,R,RH_Vis_22,Visual,cortex,44,-78,10,#A76CD4
+222,223,R,RH_Vis_23,Visual,cortex,12,-94,18,#A76CD4
+223,224,R,RH_Vis_24,Visual,cortex,16,-66,18,#A76CD4
+224,225,R,RH_Vis_25,Visual,cortex,4,-80,24,#A76CD4
+225,226,R,RH_Vis_26,Visual,cortex,28,-88,20,#A76CD4
+226,227,R,RH_Vis_27,Visual,cortex,36,-78,24,#A76CD4
+227,228,R,RH_Vis_28,Visual,cortex,14,-78,34,#A76CD4
+228,229,R,RH_Vis_29,Visual,cortex,16,-86,36,#A76CD4
+229,230,R,RH_Vis_30,Visual,cortex,30,-78,36,#A76CD4
+230,231,R,RH_SomMot_1,SomMot,cortex,52,4,-6,#6C92D4
+231,232,R,RH_SomMot_2,SomMot,cortex,62,-18,0,#6C92D4
+232,233,R,RH_SomMot_3,SomMot,cortex,54,-14,6,#6C92D4
+233,234,R,RH_SomMot_4,SomMot,cortex,40,-20,4,#6C92D4
+234,235,R,RH_SomMot_5,SomMot,cortex,38,-8,14,#6C92D4
+235,236,R,RH_SomMot_6,SomMot,cortex,34,-22,14,#6C92D4
+236,237,R,RH_SomMot_7,SomMot,cortex,60,-24,10,#6C92D4
+237,238,R,RH_SomMot_8,SomMot,cortex,64,-34,10,#6C92D4
+238,239,R,RH_SomMot_9,SomMot,cortex,42,-14,18,#6C92D4
+239,240,R,RH_SomMot_10,SomMot,cortex,42,-30,18,#6C92D4
+240,241,R,RH_SomMot_11,SomMot,cortex,50,-10,14,#6C92D4
+241,242,R,RH_SomMot_12,SomMot,cortex,60,0,10,#6C92D4
+242,243,R,RH_SomMot_13,SomMot,cortex,48,-22,18,#6C92D4
+243,244,R,RH_SomMot_14,SomMot,cortex,62,-12,16,#6C92D4
+244,245,R,RH_SomMot_15,SomMot,cortex,60,6,30,#6C92D4
+245,246,R,RH_SomMot_16,SomMot,cortex,60,-6,26,#6C92D4
+246,247,R,RH_SomMot_17,SomMot,cortex,62,-14,30,#6C92D4
+247,248,R,RH_SomMot_18,SomMot,cortex,52,-6,38,#6C92D4
+248,249,R,RH_SomMot_19,SomMot,cortex,54,-16,40,#6C92D4
+249,250,R,RH_SomMot_20,SomMot,cortex,12,-18,42,#6C92D4
+250,251,R,RH_SomMot_21,SomMot,cortex,52,-12,50,#6C92D4
+251,252,R,RH_SomMot_22,SomMot,cortex,44,-10,48,#6C92D4
+252,253,R,RH_SomMot_23,SomMot,cortex,50,-26,56,#6C92D4
+253,254,R,RH_SomMot_24,SomMot,cortex,6,-10,52,#6C92D4
+254,255,R,RH_SomMot_25,SomMot,cortex,44,-22,54,#6C92D4
+255,256,R,RH_SomMot_26,SomMot,cortex,38,-20,64,#6C92D4
+256,257,R,RH_SomMot_27,SomMot,cortex,32,-34,64,#6C92D4
+257,258,R,RH_SomMot_28,SomMot,cortex,30,-40,64,#6C92D4
+258,259,R,RH_SomMot_29,SomMot,cortex,34,-28,62,#6C92D4
+259,260,R,RH_SomMot_30,SomMot,cortex,4,-24,58,#6C92D4
+260,261,R,RH_SomMot_31,SomMot,cortex,28,-10,64,#6C92D4
+261,262,R,RH_SomMot_32,SomMot,cortex,10,-40,68,#6C92D4
+262,263,R,RH_SomMot_33,SomMot,cortex,22,-24,66,#6C92D4
+263,264,R,RH_SomMot_34,SomMot,cortex,22,-28,68,#6C92D4
+264,265,R,RH_SomMot_35,SomMot,cortex,22,-34,70,#6C92D4
+265,266,R,RH_SomMot_36,SomMot,cortex,16,-6,70,#6C92D4
+266,267,R,RH_SomMot_37,SomMot,cortex,16,-46,74,#6C92D4
+267,268,R,RH_SomMot_38,SomMot,cortex,6,-22,72,#6C92D4
+268,269,R,RH_SomMot_39,SomMot,cortex,16,-18,74,#6C92D4
+269,270,R,RH_SomMot_40,SomMot,cortex,12,-32,76,#6C92D4
+270,271,R,RH_DorsAttn_Post_1,DorsAttn,cortex,50,-50,-18,#3C9F4D
+271,272,R,RH_DorsAttn_Post_2,DorsAttn,cortex,60,-54,-2,#3C9F4D
+272,273,R,RH_DorsAttn_Post_3,DorsAttn,cortex,54,-56,12,#3C9F4D
+273,274,R,RH_DorsAttn_Post_4,DorsAttn,cortex,46,-76,30,#3C9F4D
+274,275,R,RH_DorsAttn_Post_5,DorsAttn,cortex,32,-66,36,#3C9F4D
+275,276,R,RH_DorsAttn_Post_6,DorsAttn,cortex,58,-22,44,#3C9F4D
+276,277,R,RH_DorsAttn_Post_7,DorsAttn,cortex,18,-78,50,#3C9F4D
+277,278,R,RH_DorsAttn_Post_8,DorsAttn,cortex,44,-38,50,#3C9F4D
+278,279,R,RH_DorsAttn_Post_9,DorsAttn,cortex,46,-28,42,#3C9F4D
+279,280,R,RH_DorsAttn_Post_10,DorsAttn,cortex,30,-64,52,#3C9F4D
+280,281,R,RH_DorsAttn_Post_11,DorsAttn,cortex,36,-44,44,#3C9F4D
+281,282,R,RH_DorsAttn_Post_12,DorsAttn,cortex,20,-68,52,#3C9F4D
+282,283,R,RH_DorsAttn_Post_13,DorsAttn,cortex,36,-36,52,#3C9F4D
+283,284,R,RH_DorsAttn_Post_14,DorsAttn,cortex,34,-50,54,#3C9F4D
+284,285,R,RH_DorsAttn_Post_15,DorsAttn,cortex,8,-72,52,#3C9F4D
+285,286,R,RH_DorsAttn_Post_16,DorsAttn,cortex,26,-58,60,#3C9F4D
+286,287,R,RH_DorsAttn_Post_17,DorsAttn,cortex,8,-54,60,#3C9F4D
+287,288,R,RH_DorsAttn_Post_18,DorsAttn,cortex,14,-64,64,#3C9F4D
+288,289,R,RH_DorsAttn_Post_19,DorsAttn,cortex,24,-50,68,#3C9F4D
+289,290,R,RH_DorsAttn_FEF_1,DorsAttn,cortex,40,-4,52,#3C9F4D
+290,291,R,RH_DorsAttn_FEF_2,DorsAttn,cortex,28,-4,52,#3C9F4D
+291,292,R,RH_DorsAttn_FEF_3,DorsAttn,cortex,24,-2,64,#3C9F4D
+292,293,R,RH_DorsAttn_PrCv_1,DorsAttn,cortex,48,8,24,#3C9F4D
+293,294,R,RH_SalVentAttn_TempOccPar_1,VentAttn,cortex,60,-46,6,#E586E5
+294,295,R,RH_SalVentAttn_TempOccPar_2,VentAttn,cortex,52,-40,12,#E586E5
+295,296,R,RH_SalVentAttn_TempOccPar_3,VentAttn,cortex,62,-40,22,#E586E5
+296,297,R,RH_SalVentAttn_TempOccPar_4,VentAttn,cortex,58,-32,24,#E586E5
+297,298,R,RH_SalVentAttn_TempOccPar_5,VentAttn,cortex,60,-22,22,#E586E5
+298,299,R,RH_SalVentAttn_TempOccPar_6,VentAttn,cortex,62,-26,38,#E586E5
+299,300,R,RH_SalVentAttn_TempOccPar_7,VentAttn,cortex,62,-38,36,#E586E5
+300,301,R,RH_SalVentAttn_PrC_1,VentAttn,cortex,52,4,40,#E586E5
+301,302,R,RH_SalVentAttn_FrOperIns_1,VentAttn,cortex,40,6,-16,#E586E5
+302,303,R,RH_SalVentAttn_FrOperIns_2,VentAttn,cortex,40,8,-2,#E586E5
+303,304,R,RH_SalVentAttn_FrOperIns_3,VentAttn,cortex,40,-10,-4,#E586E5
+304,305,R,RH_SalVentAttn_FrOperIns_4,VentAttn,cortex,40,-2,6,#E586E5
+305,306,R,RH_SalVentAttn_FrOperIns_5,VentAttn,cortex,36,22,4,#E586E5
+306,307,R,RH_SalVentAttn_FrOperIns_6,VentAttn,cortex,38,8,10,#E586E5
+307,308,R,RH_SalVentAttn_FrOperIns_7,VentAttn,cortex,48,4,4,#E586E5
+308,309,R,RH_SalVentAttn_FrOperIns_8,VentAttn,cortex,54,12,12,#E586E5
+309,310,R,RH_SalVentAttn_PFCl_1,VentAttn,cortex,32,44,28,#E586E5
+310,311,R,RH_SalVentAttn_Med_1,VentAttn,cortex,8,18,36,#E586E5
+311,312,R,RH_SalVentAttn_Med_2,VentAttn,cortex,8,2,42,#E586E5
+312,313,R,RH_SalVentAttn_Med_3,VentAttn,cortex,12,-34,42,#E586E5
+313,314,R,RH_SalVentAttn_Med_4,VentAttn,cortex,6,10,58,#E586E5
+314,315,R,RH_SalVentAttn_Med_5,VentAttn,cortex,10,-44,54,#E586E5
+315,316,R,RH_SalVentAttn_Med_6,VentAttn,cortex,10,-32,50,#E586E5
+316,317,R,RH_SalVentAttn_Med_7,VentAttn,cortex,6,-2,66,#E586E5
+317,318,R,RH_SalVentAttn_Med_8,VentAttn,cortex,16,6,70,#E586E5
+318,319,R,RH_Limbic_OFC_1,Limbic,cortex,14,24,-20,#F6EFD1
+319,320,R,RH_Limbic_OFC_2,Limbic,cortex,22,22,-20,#F6EFD1
+320,321,R,RH_Limbic_OFC_3,Limbic,cortex,8,46,-24,#F6EFD1
+321,322,R,RH_Limbic_OFC_4,Limbic,cortex,20,42,-18,#F6EFD1
+322,323,R,RH_Limbic_OFC_5,Limbic,cortex,4,22,-20,#F6EFD1
+323,324,R,RH_Limbic_OFC_6,Limbic,cortex,10,62,-14,#F6EFD1
+324,325,R,RH_Limbic_TempPole_1,Limbic,cortex,28,-2,-40,#F6EFD1
+325,326,R,RH_Limbic_TempPole_2,Limbic,cortex,48,-6,-40,#F6EFD1
+326,327,R,RH_Limbic_TempPole_3,Limbic,cortex,36,18,-38,#F6EFD1
+327,328,R,RH_Limbic_TempPole_4,Limbic,cortex,40,-14,-32,#F6EFD1
+328,329,R,RH_Limbic_TempPole_5,Limbic,cortex,28,12,-30,#F6EFD1
+329,330,R,RH_Limbic_TempPole_6,Limbic,cortex,50,-28,-26,#F6EFD1
+330,331,R,RH_Limbic_TempPole_7,Limbic,cortex,22,-18,-28,#F6EFD1
+331,332,R,RH_Cont_Par_1,Control,cortex,54,-52,44,#FDB841
+332,333,R,RH_Cont_Par_2,Control,cortex,56,-40,48,#FDB841
+333,334,R,RH_Cont_Par_3,Control,cortex,36,-70,46,#FDB841
+334,335,R,RH_Cont_Par_4,Control,cortex,54,-32,52,#FDB841
+335,336,R,RH_Cont_Par_5,Control,cortex,46,-44,46,#FDB841
+336,337,R,RH_Cont_Par_6,Control,cortex,42,-56,48,#FDB841
+337,338,R,RH_Cont_Temp_1,Control,cortex,62,-28,-20,#FDB841
+338,339,R,RH_Cont_Temp_2,Control,cortex,64,-42,-10,#FDB841
+339,340,R,RH_Cont_PFCv_1,Control,cortex,34,22,-8,#FDB841
+340,341,R,RH_Cont_PFCl_1,Control,cortex,28,54,-14,#FDB841
+341,342,R,RH_Cont_PFCl_2,Control,cortex,42,50,-6,#FDB841
+342,343,R,RH_Cont_PFCl_3,Control,cortex,28,60,2,#FDB841
+343,344,R,RH_Cont_PFCl_4,Control,cortex,50,40,6,#FDB841
+344,345,R,RH_Cont_PFCl_5,Control,cortex,42,46,14,#FDB841
+345,346,R,RH_Cont_PFCl_6,Control,cortex,50,30,18,#FDB841
+346,347,R,RH_Cont_PFCl_7,Control,cortex,48,18,24,#FDB841
+347,348,R,RH_Cont_PFCl_8,Control,cortex,26,54,24,#FDB841
+348,349,R,RH_Cont_PFCl_9,Control,cortex,48,28,28,#FDB841
+349,350,R,RH_Cont_PFCl_10,Control,cortex,38,10,34,#FDB841
+350,351,R,RH_Cont_PFCl_11,Control,cortex,38,34,38,#FDB841
+351,352,R,RH_Cont_PFCl_12,Control,cortex,44,18,44,#FDB841
+352,353,R,RH_Cont_PFCl_13,Control,cortex,42,6,50,#FDB841
+353,354,R,RH_Cont_PFCl_14,Control,cortex,34,16,56,#FDB841
+354,355,R,RH_Cont_PFCl_15,Control,cortex,24,10,58,#FDB841
+355,356,R,RH_Cont_pCun_1,Control,cortex,14,-72,40,#FDB841
+356,357,R,RH_Cont_pCun_2,Control,cortex,6,-64,44,#FDB841
+357,358,R,RH_Cont_Cing_1,Control,cortex,6,-28,28,#FDB841
+358,359,R,RH_Cont_Cing_2,Control,cortex,4,2,30,#FDB841
+359,360,R,RH_Cont_PFCmp_1,Control,cortex,8,34,24,#FDB841
+360,361,R,RH_Cont_PFCmp_2,Control,cortex,4,28,48,#FDB841
+361,362,R,RH_Default_Par_1,Default Mode,cortex,54,-46,20,#D77C7C
+362,363,R,RH_Default_Par_2,Default Mode,cortex,48,-64,22,#D77C7C
+363,364,R,RH_Default_Par_3,Default Mode,cortex,54,-54,26,#D77C7C
+364,365,R,RH_Default_Par_4,Default Mode,cortex,56,-46,32,#D77C7C
+365,366,R,RH_Default_Par_5,Default Mode,cortex,48,-64,42,#D77C7C
+366,367,R,RH_Default_Temp_1,Default Mode,cortex,50,8,-32,#D77C7C
+367,368,R,RH_Default_Temp_2,Default Mode,cortex,60,-8,-24,#D77C7C
+368,369,R,RH_Default_Temp_3,Default Mode,cortex,48,16,-20,#D77C7C
+369,370,R,RH_Default_Temp_4,Default Mode,cortex,54,-4,-14,#D77C7C
+370,371,R,RH_Default_Temp_5,Default Mode,cortex,64,-24,-8,#D77C7C
+371,372,R,RH_Default_Temp_6,Default Mode,cortex,48,-20,-8,#D77C7C
+372,373,R,RH_Default_Temp_7,Default Mode,cortex,64,-38,0,#D77C7C
+373,374,R,RH_Default_Temp_8,Default Mode,cortex,50,-34,2,#D77C7C
+374,375,R,RH_Default_PFCv_1,Default Mode,cortex,34,22,-18,#D77C7C
+375,376,R,RH_Default_PFCv_2,Default Mode,cortex,36,38,-14,#D77C7C
+376,377,R,RH_Default_PFCv_3,Default Mode,cortex,48,32,-8,#D77C7C
+377,378,R,RH_Default_PFCv_4,Default Mode,cortex,54,24,6,#D77C7C
+378,379,R,RH_Default_PFCdPFCm_1,Default Mode,cortex,6,42,-10,#D77C7C
+379,380,R,RH_Default_PFCdPFCm_2,Default Mode,cortex,10,66,0,#D77C7C
+380,381,R,RH_Default_PFCdPFCm_3,Default Mode,cortex,8,42,4,#D77C7C
+381,382,R,RH_Default_PFCdPFCm_4,Default Mode,cortex,8,54,12,#D77C7C
+382,383,R,RH_Default_PFCdPFCm_5,Default Mode,cortex,18,64,16,#D77C7C
+383,384,R,RH_Default_PFCdPFCm_6,Default Mode,cortex,6,26,18,#D77C7C
+384,385,R,RH_Default_PFCdPFCm_7,Default Mode,cortex,6,58,30,#D77C7C
+385,386,R,RH_Default_PFCdPFCm_8,Default Mode,cortex,16,52,36,#D77C7C
+386,387,R,RH_Default_PFCdPFCm_9,Default Mode,cortex,4,44,40,#D77C7C
+387,388,R,RH_Default_PFCdPFCm_10,Default Mode,cortex,26,34,38,#D77C7C
+388,389,R,RH_Default_PFCdPFCm_11,Default Mode,cortex,14,38,52,#D77C7C
+389,390,R,RH_Default_PFCdPFCm_12,Default Mode,cortex,24,26,50,#D77C7C
+390,391,R,RH_Default_PFCdPFCm_13,Default Mode,cortex,12,20,62,#D77C7C
+391,392,R,RH_Default_pCunPCC_1,Default Mode,cortex,12,-56,16,#D77C7C
+392,393,R,RH_Default_pCunPCC_2,Default Mode,cortex,8,-44,20,#D77C7C
+393,394,R,RH_Default_pCunPCC_3,Default Mode,cortex,16,-64,28,#D77C7C
+394,395,R,RH_Default_pCunPCC_4,Default Mode,cortex,6,-52,24,#D77C7C
+395,396,R,RH_Default_pCunPCC_5,Default Mode,cortex,4,-64,32,#D77C7C
+396,397,R,RH_Default_pCunPCC_6,Default Mode,cortex,6,-38,34,#D77C7C
+397,398,R,RH_Default_pCunPCC_7,Default Mode,cortex,4,-20,36,#D77C7C
+398,399,R,RH_Default_pCunPCC_8,Default Mode,cortex,10,-52,36,#D77C7C
+399,400,R,RH_Default_pCunPCC_9,Default Mode,cortex,8,-50,44,#D77C7C
+400,401,NA,L_Accumbens,Subcortex,sctx,-9,12,-6,#6BD3FF
+401,402,NA,L_Amygdala,Subcortex,sctx,-23,-5,-20,#6BD3FF
+402,403,NA,L_Caudate,Subcortex,sctx,-13,6,11,#6BD3FF
+403,404,NA,L_Hippocampus,Subcortex,sctx,-25,-23,-14,#6BD3FF
+404,405,NA,L_Pallidum,Subcortex,sctx,-20,-5,-1,#6BD3FF
+405,406,NA,L_Putamen,Subcortex,sctx,-26,0,0,#6BD3FF
+406,407,NA,L_Thalamus,Subcortex,sctx,-11,-19,6,#6BD3FF
+407,408,NA,R_Accumbens,Subcortex,sctx,10,12,-7,#6BD3FF
+408,409,NA,R_Amygdala,Subcortex,sctx,24,-4,-20,#6BD3FF
+409,410,NA,R_Caudate,Subcortex,sctx,14,9,10,#6BD3FF
+410,411,NA,R_Hippocampus,Subcortex,sctx,27,-21,-14,#6BD3FF
+411,412,NA,R_Pallidum,Subcortex,sctx,21,-4,-1,#6BD3FF
+412,413,NA,R_Putamen,Subcortex,sctx,26,3,-1,#6BD3FF
+413,414,NA,R_Thalamus,Subcortex,sctx,12,-18,7,#6BD3FF
+414,415,NA,Cereb_Visual,Visual,cereb,0,0,0,#A76CD4
+415,416,NA,Cereb_Somatomotor,SomMot,cereb,0,0,0,#6C92D4
+416,417,NA,Cereb_Dorsal Attention,DorsAttn,cereb,0,0,0,#3C9F4D
+417,418,NA,Cereb_Ventral Attention,VentAttn,cereb,0,0,0,#E586E5
+418,419,NA,Cereb_Limbic,Limbic,cereb,0,0,0,#F6EFD1
+419,420,NA,Cereb_Fronto-Parietal,Control,cereb,0,0,0,#FDB841
+420,421,NA,Cereb_Default-Mode,Default Mode,cereb,0,0,0,#D77C7C
+421,422,NA,Community1,Subcortex,midbrain,0,0,0,#8a8a8a
+422,423,NA,Community2,Subcortex,midbrain,0,0,0,#8a8a8a
+423,424,NA,Community3,Subcortex,midbrain,0,0,0,#8a8a8a
+424,425,NA,Community4,Subcortex,midbrain,0,0,0,#8a8a8a
+425,426,NA,Community5,Subcortex,midbrain,0,0,0,#8a8a8a
+426,427,NA,Diencephalic,Subcortex,midbrain,0,0,0,#8a8a8a
