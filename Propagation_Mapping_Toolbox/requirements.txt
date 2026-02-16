@@ -1,0 +1,12 @@
+matplotlib
+natsort
+git+https://github.com/netneurolab/neuromaps.git
+nibabel
+nilearn
+numpy
+pandas
+scikit_learn
+scipy
+seaborn
+altair<5
+streamlit>=1.52.0
