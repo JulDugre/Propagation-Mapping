@@ -43,7 +43,7 @@ BASE_DIR = Path(__file__).resolve().parent
 framework_img_path = BASE_DIR / "miscellaneous" / "Framework.png"
 
 if os.path.exists(framework_img_path):
-    st.image(str(framework_img_path), width=800, caption="Propagation Mapping Framework")
+    st.image(str(framework_img_path), width=800, caption="Methodological Overview of Propagation Mapping")
 else:
     st.warning(f"Framework image not found at: {framework_img_path}")
 
