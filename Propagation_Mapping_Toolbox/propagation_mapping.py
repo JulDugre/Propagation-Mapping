@@ -77,7 +77,7 @@ for key in ['masked_df', 'propagation_results', 'atlas_choice_prev']:
 # SIDEBAR
 # -------------------------------
 st.sidebar.header("1. Data Input")
-uploaded_files = st.sidebar.file_uploader("Upload NIFTI file(s)", type=['nii', 'nii.gz'])
+uploaded_files = st.sidebar.file_uploader("Upload NIFTI file(s)", type=['nii.gz', 'nii'], accept_multiple_files=True)
 folder_path = st.sidebar.text_input("OR Folder Path:")
 st.sidebar.header("2. Export Settings")
 ext_choice = st.sidebar.selectbox("File Extension", [".csv", ".txt"])
