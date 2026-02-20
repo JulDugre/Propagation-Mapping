@@ -248,9 +248,9 @@ if st.session_state.get('propagation_results'):
         for r in st.session_state.propagation_results:
             name, labs = r['name'], r['label_names']
             for m_type, m_data in zip(['raw','masked','zscore'], [r['raw_mat'], r['masked_mat'], r['z_mat']]):
-                save_df = pd.DataFrame(m_data, index=labs, columns=labs) if use_header_index else pd.DataFrame(m_data, index=None, columns=None)
+                save_df = pd.DataFrame(m_data, index=labs, columns=labs)  # always include labels in DF
                 csv_buffer = io.StringIO()
-                save_df.to_csv(csv_buffer, sep=sep)
+                save_df.to_csv(csv_buffer, sep=sep, index=use_header_index, header=use_header_index)ep)
                 zipf.writestr(f"propagation_maps/{m_type}/{name}_{m_type}{ext_choice}", csv_buffer.getvalue())
 
         # Summary and Residuals
