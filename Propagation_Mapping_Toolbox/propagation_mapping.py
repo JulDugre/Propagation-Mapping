@@ -54,7 +54,7 @@ else:
 def get_masker(atlas_choice):
     atlas_path = BASE_DIR / "atlases" / f"ATLAS_{atlas_choice}.nii.gz"
     if not atlas_path.exists(): return None
-    return NiftiLabelsMasker(labels_img=str(atlas_path), strategy="mean", resampling_target="labels")
+    return NiftiLabelsMasker(labels_img=str(atlas_path), strategy="mean", resampling_target="data")
 
 @st.cache_data(show_spinner="Loading Atlas Data...")
 def load_atlas_data(atlas_choice):
