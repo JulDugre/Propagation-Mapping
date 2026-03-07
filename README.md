@@ -2,7 +2,7 @@
 ## To Run on Streamlit Cloud
 To run *Propagation Mapping Toolbox* on the Cloud, click on [this link](https://propagation-mapping.streamlit.app/)  !!
 <br>
-⚠️ Not recommended for large samples — run locally instead.
+⚠️ Not recommended for large samples. Please run locally.
 
 ## To Run Locally
 - Download the toolbox folder
