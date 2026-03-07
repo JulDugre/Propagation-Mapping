@@ -275,7 +275,7 @@ if st.session_state.get('propagation_results'):
         # Summary and Residuals
         sum_buf, res_buf = io.StringIO(), io.StringIO()
         sum_df.to_csv(sum_buf, index=False)
-        residuals_df.to_csv(res_buf, sep=sep)
+        residuals_df.to_csv(res_buf, index=False)
         zipf.writestr("propagation_maps/summary_metrics.csv", sum_buf.getvalue())
         zipf.writestr("propagation_maps/residuals.csv", res_buf.getvalue())
 
