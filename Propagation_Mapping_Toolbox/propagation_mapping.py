@@ -98,7 +98,7 @@ def clean_name(name):
 if uploaded_files:
     for up in uploaded_files:
         # Validate the file extension on the backend
-        if not up.name.endswith(('.nii', '.nii.gz')):
+        if not up.name.endswith(('.nii', '.gz')):
             st.sidebar.warning(f"Skipping {up.name}: Not a valid NIFTI file.")
             continue
             
