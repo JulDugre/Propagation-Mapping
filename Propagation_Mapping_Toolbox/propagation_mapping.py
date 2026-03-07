@@ -77,20 +77,39 @@ for key in ['masked_df', 'propagation_results', 'atlas_choice_prev']:
 # SIDEBAR
 # -------------------------------
 st.sidebar.header("1. Data Input")
-uploaded_files = st.sidebar.file_uploader("Upload NIFTI file(s)",type=["nii.gz", "nii"],accept_multiple_files=True)
+
+# Removed the 'type' argument so the browser doesn't block the file picker
+uploaded_files = st.sidebar.file_uploader(
+    "Upload NIFTI file(s)",
+    accept_multiple_files=True
+)
+
 folder_path = st.sidebar.text_input("OR Folder Path:")
+
 st.sidebar.header("2. Export Settings")
 ext_choice = st.sidebar.selectbox("File Extension", [".csv", ".txt"])
 use_header_index = st.sidebar.checkbox("Include Header & Index", value=True)
 
 nii_files = []
-def clean_name(name): return re.sub(r'\.nii(\.gz)?$', '', name)
+
+def clean_name(name): 
+    return re.sub(r'\.nii(\.gz)?$', '', name)
 
 if uploaded_files:
     for up in uploaded_files:
+        # Validate the file extension on the backend
+        if not up.name.endswith(('.nii', '.nii.gz')):
+            st.sidebar.warning(f"Skipping {up.name}: Not a valid NIFTI file.")
+            continue
+            
         tmp_path = os.path.join(st.session_state.tmp_dir, up.name)
-        with open(tmp_path, "wb") as f: f.write(up.getbuffer())
+        
+        # Use .read() instead of .getbuffer() - it's a bit safer for BytesIO objects
+        with open(tmp_path, "wb") as f: 
+            f.write(up.read()) 
+            
         nii_files.append(tmp_path)
+        
 elif folder_path and os.path.exists(folder_path):
     nii_files = natsorted(glob(os.path.join(folder_path, '*.nii*')))
 
