@@ -18,6 +18,7 @@ from natsort import natsorted
 from nilearn.maskers import NiftiLabelsMasker
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+import warnings
 
 # -------------------------------
 # SETUP
@@ -46,6 +47,11 @@ if os.path.exists(framework_img_path):
     st.image(str(framework_img_path), width=800, caption="Methodological Overview of Propagation Mapping")
 else:
     st.warning(f"Framework image not found at: {framework_img_path}")
+
+warnings.filterwarnings(
+    "ignore",
+    message="Non-finite values detected. These values will be replaced with zeros."
+)
 
 # -------------------------------
 # CACHED LOADING
