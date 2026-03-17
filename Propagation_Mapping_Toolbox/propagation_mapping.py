@@ -27,7 +27,7 @@ st.set_page_config(page_title="Propagation Mapping Toolbox", layout="wide")
 st.title("Propagation Mapping Toolbox (v0.3.1)")
 
 st.markdown("##### Please cite:")
-st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Precision Framework for Reconstructing the Neural Circuitry of Brain Maps. *bioRxiv*, DOI: Not Yet")
+st.markdown("• Dugré, JR. (2025). Propagation Mapping: A Framework for Modeling Whole-Brain Propagation Patterns of Task-Evoked Activity. *bioRxiv*, DOI: <a href="https://pubmed.ncbi.nlm.nih.gov/27723746/" target="_blank">10.1101/2025.09.27.678975</a>)
 st.markdown(
     """
     see also:<br>
